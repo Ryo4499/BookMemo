@@ -34,8 +34,3 @@ dependencies {
 test {
 	useJUnitPlatform()
 }
-
-task syncToOther(type: Sync) {
-    from 'source'
-    into 'other'
-}
