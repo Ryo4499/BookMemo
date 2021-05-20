@@ -42,4 +42,10 @@ public class UserDaoImpl implements UserDao {
 		return list;
 	}
 
+	@Override
+	public int updateUser(User user) {
+		return jdbcTemplate.update("UPDATE users SET user_name=?,email=?,password=?", user.getUserName(),
+				user.getUserEmail(), user.getUserPassword());
+	}
+
 }
