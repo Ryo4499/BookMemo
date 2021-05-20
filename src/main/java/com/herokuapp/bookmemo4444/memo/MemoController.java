@@ -1,4 +1,4 @@
-package com.herokuapp.bookmemo4444.controller;
+package com.herokuapp.bookmemo4444.memo;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
