@@ -16,24 +16,22 @@
 		<a href="signup">サインアップ</a>
 	</header>
 	<article>
-		<!-- TODO submit時のbcryptによる暗号化-->
-		<!-- こっちはDBからプルした値を比較 -->
-		
-		<label>ログイン</label>
-		<form method="POST" action="#" th:action="@{/login}" th:object="${loginForm}">
-			<div class="form-group">
-				<label>メールアドレス</label>
-				<input type="email" name="email" id="email" class="form-control" th:value="*{email}" />
-				<div th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
-			</div>
-			<div class="form-group">
-				<label>パスワード</label>
-				<input type="password" name="password" id="password" class="form-control" th:value="*{password}" />
-				<div th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
-			</div>
-			<button type="submit" class="btn btn-primary">Login</button>
-		</form>
-		<a href="signup">アカウントを持っていないならこちら</a>
+	<table>
+		<tr>
+			<th>id</th>
+			<th>name</th>
+			<th>email</th>
+			<th>password</th>
+			<th>rememberuser</th>
+		</tr>
+		<tr th:each="user :${userList}">
+			<td th:text="${user.userId}">1</td>
+			<td th:text="${user.userName}">1</td>
+			<td th:text="${user.userEmail}">1</td>
+			<td th:text="${user.userPassword}">1</td>
+			<td th:text="${user.rememberUser}">1</td>
+		</tr>
+	</table>
 	</article>
 	<footer>Created by AR44</footer>
 </body>
