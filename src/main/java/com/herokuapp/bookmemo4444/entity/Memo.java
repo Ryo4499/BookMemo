@@ -11,7 +11,7 @@ public class Memo {
 	private int userId;
 	private LocalDateTime createdDate;
 	private LocalDateTime updatedDate;
-	
+
 	public Memo() {
 	}
 
@@ -55,12 +55,12 @@ public class Memo {
 		this.bookName = bookName;
 	}
 
-	public int getUser_id() {
+	public int getUserId() {
 		return userId;
 	}
 
-	public void setUser_id(int user_id) {
-		this.userId = user_id;
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
 
 	public LocalDateTime getCreatedDate() {
@@ -143,9 +143,8 @@ public class Memo {
 	@Override
 	public String toString() {
 		return "Memo [memoId=" + memoId + ", title=" + title + ", content=" + content + ", category=" + category
-				+ ", bookName=" + bookName + ", user_id=" + userId + ", createdDate=" + createdDate + ", updatedDate="
+				+ ", bookName=" + bookName + ", userId=" + userId + ", createdDate=" + createdDate + ", updatedDate="
 				+ updatedDate + "]";
 	}
-	
-	
+
 }
