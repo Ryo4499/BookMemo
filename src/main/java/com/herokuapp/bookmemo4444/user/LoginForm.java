@@ -2,19 +2,11 @@ package com.herokuapp.bookmemo4444.user;
 
 import lombok.NonNull;
 
-public class signupForm {
-	@NonNull
-	private String userName;
+public class LoginForm {
 	@NonNull
 	private String email;
 	@NonNull
 	private String password;
-	public String getUserName() {
-		return userName;
-	}
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
 	public String getEmail() {
 		return email;
 	}
@@ -33,7 +25,6 @@ public class signupForm {
 		int result = 1;
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
-		result = prime * result + ((userName == null) ? 0 : userName.hashCode());
 		return result;
 	}
 	@Override
@@ -44,7 +35,7 @@ public class signupForm {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		signupForm other = (signupForm) obj;
+		LoginForm other = (LoginForm) obj;
 		if (email == null) {
 			if (other.email != null)
 				return false;
@@ -55,16 +46,11 @@ public class signupForm {
 				return false;
 		} else if (!password.equals(other.password))
 			return false;
-		if (userName == null) {
-			if (other.userName != null)
-				return false;
-		} else if (!userName.equals(other.userName))
-			return false;
 		return true;
 	}
 	@Override
 	public String toString() {
-		return "signupForm [userName=" + userName + ", email=" + email + ", password=" + password + "]";
+		return "loginForm [email=" + email + ", password=" + password + "]";
 	}
 	
 }
