@@ -1,0 +1,6 @@
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    password: p4w0rd
+    url: jdbc:postgresql://127.0.0.1:5432/bookmemo
+    username: postgres  h2:    console:      enabled: true

@@ -1,0 +1,12 @@
+INSERT INTO users(user_name,user_email,user_password,remember_user) VALUES ('sample','sample@example.com','aaaa','aaa');
+INSERT INTO users(user_name,user_email,user_password,remember_user) VALUES ('sample2','sample2@example.com','bbbb','aaa');
+INSERT INTO users(user_name,user_email,user_password,remember_user) VALUES ('sample3','sample3@example.com','ssss','aaa');
+INSERT INTO users(user_name,user_email,user_password,remember_user) VALUES ('sample4','sample4@example.com','dddd','aaa');
+INSERT INTO users(user_name,user_email,user_password,remember_user) VALUES ('sample5','sample5@example.com','dddd','aaa');
+INSERT INTO users(user_name,user_email,user_password,remember_user) VALUES ('sample6','sample6@example.com','tttt','aaa');
+INSERT INTO memos(title,content,category,book_name,user_id) VALUES ('title1','内容1','カテゴリ','本',1);
+INSERT INTO memos(title,content,category,book_name,user_id) VALUES ('title2','内容2','aaa','本',2);
+INSERT INTO memos(title,content,category,book_name,user_id) VALUES ('title3','内容3','bb','本',3);
+INSERT INTO memos(title,content,category,book_name,user_id) VALUES ('title4','内容4','aaa','本',4);
+INSERT INTO memos(title,content,category,book_name,user_id) VALUES ('title5','内容5','dd','本',5);
+INSERT INTO memos(title,content,category,book_name,user_id) VALUES ('title6','内容6','ee','本',6);
