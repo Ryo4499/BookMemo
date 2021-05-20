@@ -34,12 +34,12 @@ public class UserController {
 	}
 	
 	@GetMapping("/login")
-	public String getLoginPage(LoginForm loginForm, Model model) {
+	public String getLoginPage(Model model) {
 		return "user/login";
 	}
 
 	@GetMapping("/signup")
-	public String getSignupPage(SignupForm signupForm, Model model) {
+	public String getSignupPage(Model model) {
 		return "user/signup";
 	}
 
