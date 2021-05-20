@@ -12,5 +12,5 @@ public interface UserDao {
 	int updateUser(User user);
 	int deleteUser(User user);
 	List<User> getAll();
-	User getUser(int id);
+	User findById(int id);
 }

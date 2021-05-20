@@ -23,15 +23,13 @@ public class MemoDaoImpl implements MemoDao {
 
 	@Override
 	public void insertMemo(Memo memo) {
-		String sql = "INSERT INTO memos(title,content,category,book_name,user_id) VALUES(?,?,?,?,?)";
-		jdbcTemplate.update(sql, memo.getTitle(), memo.getContent(), memo.getCategory(), memo.getBookName(),
+		jdbcTemplate.update("INSERT INTO memos(title,content,category,book_name,user_id) VALUES(?,?,?,?,?)", memo.getTitle(), memo.getContent(), memo.getCategory(), memo.getBookName(),
 				memo.getUserId());
 	}
 
 	@Override
 	public List<Memo> getAll() {
-		String sql = "SELECT * FROM memos";
-		List<Map<String, Object>> tmpList = jdbcTemplate.queryForList(sql);
+		List<Map<String, Object>> tmpList = jdbcTemplate.queryForList("SELECT * FROM memos");
 		List<Memo> memoList = new ArrayList<>();
 		tmpList.forEach(map->{
 			Memo memo = new Memo();
@@ -60,7 +58,7 @@ public class MemoDaoImpl implements MemoDao {
 	}
 
 	@Override
-	public Memo getMemo(int id) {
+	public Memo findById(int id) {
 		Map<String, Object> map = jdbcTemplate.queryForMap("SELECT * FROM memos WHERE memo_id = ?",id);
 		Memo memo = new Memo();
 		memo.setMemoId((long)map.get("memo_id"));
