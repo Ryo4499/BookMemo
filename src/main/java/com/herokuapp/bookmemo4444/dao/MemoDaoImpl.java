@@ -49,15 +49,29 @@ public class MemoDaoImpl implements MemoDao {
 	}
 
 	@Override
-	public void updateMemo(Memo memo) {
-		// TODO 自動生成されたメソッド・スタブ
-
+	public int updateMemo(Memo memo) {
+		Timestamp updateDate = new Timestamp(System.currentTimeMillis());
+		return jdbcTemplate.update("UPDATE memos SET title=?,content=?,category=?,book_name=?,update_date=?",memo.getTitle(),memo.getContent(),memo.getCategory(),memo.getBookName(),updateDate);
 	}
 
 	@Override
-	public void deleteMemo(Memo memo) {
-		// TODO 自動生成されたメソッド・スタブ
+	public int deleteMemo(Memo memo) {
+		return jdbcTemplate.update("DELETE FROM memos WHERE memo_id = ?",memo.getMemoId());
+	}
 
+	@Override
+	public Memo getMemo(int id) {
+		Map<String, Object> map = jdbcTemplate.queryForMap("SELECT * FROM memos WHERE memo_id = ?",id);
+		Memo memo = new Memo();
+		memo.setMemoId((long)map.get("memo_id"));
+		memo.setTitle((String)map.get("title"));
+		memo.setContent((String)map.get("content"));
+		memo.setCategory((String)map.get("category"));
+		memo.setBookName((String)map.get("book_name"));
+		memo.setUserId((int)map.get("user_id"));
+		memo.setCreatedDate(((Timestamp)map.get("created_date")).toLocalDateTime());
+		memo.setUpdatedDate(((Timestamp)map.get("updated_date")).toLocalDateTime());
+		return null;
 	}
 
 }
