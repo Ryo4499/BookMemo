@@ -39,7 +39,8 @@ public class MemoServiceImpl implements MemoService {
 	}
 
 	@Override
-	public Memo getMemo() {
+	public Memo findById(long id) {
+		// TODO 自動生成されたメソッド・スタブ
 		return null;
 	}
 

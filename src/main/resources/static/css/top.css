@@ -10437,7 +10437,7 @@ a.text-dark:focus {
 	}
 }
 body {
-	background: url("../img/old-books-436498_1920.jpg") no-repeat center center
-		fixed;
+	background: url("https://cdn.pixabay.com/photo/2014/09/05/18/32/old-books-436498_960_720.jpg")
+		no-repeat center center fixed;
 	background-size: cover;
 }

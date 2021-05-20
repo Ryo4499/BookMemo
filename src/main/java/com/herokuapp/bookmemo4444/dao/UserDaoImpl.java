@@ -54,7 +54,7 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public User getUser(int userId) {
+	public User findById(int userId) {
 		Map<String, Object> map =jdbcTemplate.queryForMap("SELECT * FROM users WHERE user_id = ?",userId);
 		User user = new User();
 		user.setUserId((int) map.get("user_id"));

@@ -9,5 +9,5 @@ public interface MemoService {
 	void update(Memo memo);
 	void delete(Memo memo);
 	List<Memo> getAll();
-	Memo getMemo();
+	Memo findById(long id);
 }

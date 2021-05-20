@@ -12,5 +12,5 @@ public interface MemoDao {
 	int updateMemo(Memo memo);
 	int deleteMemo(Memo memo);
 	List<Memo> getAll();
-	Memo getMemo(int id);
+	Memo findById(long id);
 }
