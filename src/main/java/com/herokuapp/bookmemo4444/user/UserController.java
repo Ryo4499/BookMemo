@@ -9,7 +9,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.herokuapp.bookmemo4444.entity.User;
@@ -25,36 +24,28 @@ public class UserController {
 	}
 
 	@GetMapping("/login")
-	public String getLoginPage(loginForm loginForm, Model model) {
+	public String getLoginPage(LoginForm loginForm, Model model) {
 		return "user/login";
 	}
 
-	@GetMapping("/index")
-	public String index(Model model) {
-		List<User> userList = userService.getAll();
-		model.addAttribute("userList",userList);
-		model.addAttribute("title","user index");
-		return "user/index";
-	}
-	
 	@GetMapping("/signup")
-	public String getSignupPage(signupForm signupForm, Model model) {
+	public String getSignupPage(SignupForm signupForm, Model model) {
 		return "user/signup";
 	}
 
 	@PostMapping("/login")
-	public String doLogin(@Validated loginForm loginForm, BindingResult result, Model model,
+	public String doLogin(@Validated LoginForm loginForm, BindingResult result, Model model,
 			RedirectAttributes redirectAttributes) {
 		if (result.hasErrors()) {
 			model.addAttribute("title", "Login");
 			return "user/login";
 		}
 		redirectAttributes.addFlashAttribute("complete", "Login!!!");
-		return "redirect:memo-list";
+		return "redirect:/memo/memo-list";
 	}
 
 	@PostMapping("/signup")
-	public String doSignup(@Validated signupForm signupForm, BindingResult result, Model model,
+	public String doSignup(@Validated SignupForm signupForm, BindingResult result, Model model,
 			RedirectAttributes redirectAttributes,HttpSession session) {
 		if (result.hasErrors()) {
 			model.addAttribute("title", "Signup");
@@ -69,6 +60,6 @@ public class UserController {
 		
 		userService.save(user);
 		redirectAttributes.addFlashAttribute("complete", "Regester!");
-		return "redirect:memo-list";
+		return "redirect:/memo/memo-list";
 	}
 }

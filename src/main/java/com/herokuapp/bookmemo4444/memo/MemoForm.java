@@ -2,7 +2,7 @@ package com.herokuapp.bookmemo4444.memo;
 
 import lombok.NonNull;
 
-public class createForm {
+public class MemoForm {
 	@NonNull
 	private String title;
 	@NonNull
@@ -53,7 +53,7 @@ public class createForm {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		createForm other = (createForm) obj;
+		MemoForm other = (MemoForm) obj;
 		if (bookName == null) {
 			if (other.bookName != null)
 				return false;

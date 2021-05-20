@@ -13,4 +13,7 @@ public interface MemoDao {
 	int deleteMemo(Memo memo);
 	List<Memo> getAll();
 	Memo findById(long id);
+	List<Memo> findByTitle(String title);
+	List<Memo> findByCategory(String category);
+	List<String> getAllCategory();
 }
