@@ -1,10 +1,5 @@
 package com.herokuapp.bookmemo4444.user;
 
-import org.checkerframework.common.value.qual.MinLen;
-import org.springframework.boot.convert.DataSizeUnit;
-
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
 import lombok.NonNull;
 
 public class loginForm {
