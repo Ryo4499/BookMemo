@@ -9,6 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.herokuapp.bookmemo4444.entity.User;
@@ -46,7 +47,7 @@ public class UserController {
 			RedirectAttributes redirectAttributes) {
 		if (result.hasErrors()) {
 			model.addAttribute("title", "Login");
-			return "/login";
+			return "user/login";
 		}
 		redirectAttributes.addFlashAttribute("complete", "Login!!!");
 		return "redirect:memo-list";
@@ -57,7 +58,7 @@ public class UserController {
 			RedirectAttributes redirectAttributes,HttpSession session) {
 		if (result.hasErrors()) {
 			model.addAttribute("title", "Signup");
-			return "/signup";
+			return "user/signup";
 		}
 		
 		User user = new User();

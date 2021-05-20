@@ -22,7 +22,7 @@
 	<body>
 		<div class="wrapper fadeInDown">
 			<div id="formContent">
-				<form method="POST" th:action="@{/signup} th:object="${signupForm}"">
+				<form method="POST" th:action="@{signup}" th:object="${signupForm}">
 					<input type="text" name="userName" id="userName" placeholder="user name" th:value="*{userName}"/>
 					<input
 						type="email"
