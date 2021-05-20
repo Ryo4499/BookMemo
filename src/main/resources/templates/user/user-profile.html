@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<link rel="stylesheet" href="css/style.css" />
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+			integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
+			crossorigin="anonymous"
+		/>
+		<title>BookMemo</title>
+	</head>
+	<body>
+		<header>
+			<h1>ユーザプロフィール</h1>
+			<a href="logout">Logout</a>
+		</header>
+		<article>
+			<h1>user_profile</h1>
+			<!--TODO DBから取得した値を初期値に設定-->
+			<form action="" method="PUT">
+				<div class="form-group row">
+					<label for="" class="col">ユーザ名</label>
+					<input type="text" name="userName" id="" value="" class="col" />
+				</div>
+				<div class="form-group row">
+					<label for="" class="col">Email</label>
+					<input type="email" name="email" id="" value="" class="col" />
+				</div>
+				<div class="form-group row">
+					<label for="" class="col">Password</label>
+					<input type="password" name="password" id="" class="col" />
+				</div>
+				<button type="submit" class="btn bg-success">変更</button>
+			</form>
+		</article>
+		<footer>Created by AR44</footer>
+	</body>
+</html>

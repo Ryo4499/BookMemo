@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous" />
+	<title>BookMemo</title>
+</head>
+
+<body>
+	<header>
+		<h1>ログイン</h1>
+		<a href="signup">サインアップ</a>
+	</header>
+	<article>
+		<!-- TODO submit時のbcryptによる暗号化-->
+		<!-- こっちはDBからプルした値を比較 -->
+		
+		<label>ログイン</label>
+		<form method="POST" action="#" th:action="@{/login}" th:object="${loginForm}">
+			<div class="form-group">
+				<label>メールアドレス</label>
+				<input type="email" name="email" id="email" class="form-control" th:value="*{email}" />
+				<div th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+			</div>
+			<div class="form-group">
+				<label>パスワード</label>
+				<input type="password" name="password" id="password" class="form-control" th:value="*{password}" />
+				<div th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+			</div>
+			<button type="submit" class="btn btn-primary">Login</button>
+		</form>
+		<a href="signup">アカウントを持っていないならこちら</a>
+	</article>
+	<footer>Created by AR44</footer>
+</body>
+
+</html>
