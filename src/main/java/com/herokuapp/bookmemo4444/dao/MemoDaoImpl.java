@@ -58,7 +58,7 @@ public class MemoDaoImpl implements MemoDao {
 	}
 
 	@Override
-	public Memo findById(int id) {
+	public Memo findById(long id) {
 		Map<String, Object> map = jdbcTemplate.queryForMap("SELECT * FROM memos WHERE memo_id = ?",id);
 		Memo memo = new Memo();
 		memo.setMemoId((long)map.get("memo_id"));
