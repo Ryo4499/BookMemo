@@ -48,4 +48,21 @@ public class UserDaoImpl implements UserDao {
 				user.getUserEmail(), user.getUserPassword());
 	}
 
+	@Override
+	public int deleteUser(User user) {
+		return jdbcTemplate.update("DELETE users FROM user_id=?",user.getUserId());
+	}
+
+	@Override
+	public User getUser(int userId) {
+		Map<String, Object> map =jdbcTemplate.queryForMap("SELECT * FROM users WHERE user_id = ?",userId);
+		User user = new User();
+		user.setUserId((int) map.get("user_id"));
+		user.setUserName((String) map.get("user_name"));
+		user.setUserEmail((String) map.get("user_email"));
+		user.setUserPassword((String) map.get("user_password"));
+		user.setRememberUser((String) map.get("remember_user"));
+		return user;
+	}
+
 }

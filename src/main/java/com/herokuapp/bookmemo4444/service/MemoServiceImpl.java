@@ -28,4 +28,19 @@ public class MemoServiceImpl implements MemoService {
 		return memoDao.getAll();
 	}
 
+	@Override
+	public void update(Memo memo) {
+		memoDao.updateMemo(memo);
+	}
+	
+	@Override
+	public void delete(Memo memo) {
+		
+	}
+
+	@Override
+	public Memo getMemo() {
+		return null;
+	}
+
 }

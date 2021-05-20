@@ -9,7 +9,8 @@ import com.herokuapp.bookmemo4444.entity.Memo;
 @Repository
 public interface MemoDao {
 	void insertMemo(Memo memo);
-	void updateMemo(Memo memo);
-	void deleteMemo(Memo memo);
+	int updateMemo(Memo memo);
+	int deleteMemo(Memo memo);
 	List<Memo> getAll();
+	Memo getMemo(int id);
 }

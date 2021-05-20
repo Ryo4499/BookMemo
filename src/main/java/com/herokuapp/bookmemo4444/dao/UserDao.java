@@ -10,5 +10,7 @@ import com.herokuapp.bookmemo4444.entity.User;
 public interface UserDao {
 	void insertUser(User user);
 	int updateUser(User user);
+	int deleteUser(User user);
 	List<User> getAll();
+	User getUser(int id);
 }
