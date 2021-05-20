@@ -1,46 +1,57 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link
+			href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+			rel="stylesheet"
+			id="bootstrap-css"
+		/>
+		<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<title>BookMemo</title>
+	</head>
 
-<head>
-	<meta charset="UTF-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<link rel="stylesheet" href="css/reset.css">
-	<link rel="stylesheet" href="css/style.css">
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
-		integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous" />
-	<title>BookMemo</title>
-</head>
+	<body>
+		<div class="wrapper fadeInDown">
+			<div id="formContent">
+				<!-- Tabs Titles -->
 
-<body>
-	<header>
-		<h1>サインアップ</h1>
-		<a href="login">ログイン</a>
-	</header>
-	<article>
-		<!-- TODO submit時のbcryptによる暗号化-->
-		<label>サインアップ</label>
-		<form action="#" method="POST" th:action="@{/signup}" th:object="${signupForm}">
-			<div class="form-group">
-				<label for="">ユーザ名</label>
-				<input type="text" name="userName" id="userName" th:value="*{userName}" />
-				<div th:if="${#fields.hasErrors('userName')}"></div>
-			</div>
-			<div class="form-group">
-				<label for="">Email</label>
-				<input type="email" name="email" id="email" th:value="*{email}" />
-				<div th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
-			</div>
-			<div class="form-group">
-				<label for="">Password</label>
-				<input type="password" name="password" id="password" th:value="*{password}" />
-				<div th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
-			</div>
-			<button type="submit">登録</button>
-		</form>
-		<a href="login">アカウントを持っているならこちら</a>
-	</article>
-	<footer>Created by AR44</footer>
-</body>
+				<!-- Icon -->
+				<div class="fadeIn first">
+					<img
+						src="http://danielzawadzki.com/codepen/01/icon.svg"
+						id="icon"
+						alt="User Icon"
+					/>
+				</div>
 
+				<!-- Login Form -->
+				<form>
+					<input
+						type="text"
+						id="login"
+						class="fadeIn second"
+						name="login"
+						placeholder="login"
+					/>
+					<input
+						type="text"
+						id="password"
+						class="fadeIn third"
+						name="login"
+						placeholder="password"
+					/>
+					<input type="submit" class="fadeIn fourth" value="Log In" />
+				</form>
+
+				<!-- Remind Passowrd -->
+				<div id="formFooter">
+					<a class="underlineHover" href="#">Forgot Password?</a>
+				</div>
+			</div>
+		</div>
+	</body>
 </html>
