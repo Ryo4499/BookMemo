@@ -1,6 +1,7 @@
 package com.herokuapp.bookmemo4444.user;
 
 import java.util.List;
+
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,12 +10,14 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.herokuapp.bookmemo4444.entity.User;
 import com.herokuapp.bookmemo4444.service.UserService;
 
 @Controller
+@RequestMapping("/user")
 public class UserController {
 	private final UserService userService;
 
@@ -23,6 +26,13 @@ public class UserController {
 		this.userService = userService;
 	}
 
+	@GetMapping("/test")
+	public String test(SignupForm signupForm,Model model) {
+		List<User> userList = userService.getAll();
+		model.addAttribute("userList",userList);
+		return "user/test";
+	}
+	
 	@GetMapping("/login")
 	public String getLoginPage(LoginForm loginForm, Model model) {
 		return "user/login";
