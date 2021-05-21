@@ -75,7 +75,7 @@ public class UserController {
 			return "user/login";
 		}
 		redirectAttributes.addFlashAttribute("session_id", session.getId());
-		return "redirect:/memo/memo-list";
+		return "redirect:/memo/";
 	}
 
 	@PostMapping("/signup")
