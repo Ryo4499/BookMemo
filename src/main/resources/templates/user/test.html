@@ -26,6 +26,7 @@
 				<th>email</th>
 				<th>password</th>
 				<th>rememberuser</th>
+				<th>action</th>
 			</tr>
 			<tr th:each="user :${userList}">
 				<td th:text="${user.userId}">1</td>
@@ -33,6 +34,9 @@
 				<td th:text="${user.userEmail}">1</td>
 				<td th:text="${user.userPassword}">1</td>
 				<td th:text="${user.rememberUser}">1</td>
+				<td>	
+					<a th:href="@{/delete}" name="userId" value="${user.userId}">削除</a>
+				</td>
 			</tr>
 		</table>
 	</article>

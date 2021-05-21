@@ -21,8 +21,18 @@
 	<body>
 		<div class="wrapper fadeInDown">
 			<div id="formContent">
-				<form method="POST" th:action="@{/signup}" th:object="${SignupForm}">
-					<input type="text" name="userName" id="userName" placeholder="user name" th:value="*{userName}"/>
+				<form method="POST" th:action="@{/signup}" th:object="${signupForm}">
+					<input
+						type="text"
+						name="userName"
+						id="userName"
+						placeholder="user name"
+						th:value="*{userName}"
+					/>
+					<div
+						th:if="${#fields.hasErrors('userName')}"
+						th:errors="*{userName}"
+					></div>
 					<input
 						type="email"
 						id="email"
@@ -31,6 +41,7 @@
 						placeholder="email"
 						th:value="*{email}"
 					/>
+					<div th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
 					<input
 						type="password"
 						id="password"
@@ -39,6 +50,10 @@
 						placeholder="password"
 						th:value="*{password}"
 					/>
+					<div
+						th:if="${#fields.hasErrors('password')}"
+						th:errors="*{password}"
+					></div>
 					<input type="submit" class="fadeIn fourth" value="Sign Up" />
 				</form>
 			</div>

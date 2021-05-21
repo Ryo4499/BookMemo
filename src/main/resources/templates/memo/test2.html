@@ -16,28 +16,29 @@
 		<a href="signup">サインアップ</a>
 	</header>
 	<article>
-	<table>
-		<tr>
-			<th>id</th>
-			<th>title</th>
-			<th>content</th>
-			<th>category</th>
-			<th>book_name</th>
-			<th>user_id</th>
-			<th>createdDate</th>
-			<th>updatedDate</th>
-		</tr>
-		<tr th:each="memo :${memoList}">
-			<td th:text="${memo.memoId}">1</td>
-			<td th:text="${memo.title}">1</td>
-			<td th:text="${memo.content}">1</td>
-			<td th:text="${memo.category}">1</td>
-			<td th:text="${memo.bookName}">1</td>
-			<td th:text="${memo.userId}">1</td>
-			<td th:text="${memo.createdDate}">1</td>
-			<td th:text="${memo.updatedDate}">1</td>
-		</tr>
-	</table>
+		<table>
+			<tr>
+				<th>id</th>
+				<th>title</th>
+				<th>content</th>
+				<th>category</th>
+				<th>book_name</th>
+				<th>user_id</th>
+				<th>createdDate</th>
+				<th>updatedDate</th>
+			</tr>
+			<tr th:each="memo :${memoList}">
+				<td th:text="${memo.memoId}">1</td>
+				<td th:text="${memo.title}">1</td>
+				<td th:text="${memo.content}">1</td>
+				<td th:text="${memo.category}">1</td>
+				<td th:text="${memo.bookName}">1</td>
+				<td th:text="${memo.user.userId}">1</td>
+				<td th:text="${memo.createdDate}">1</td>
+				<td th:text="${memo.updatedDate}">1</td>
+				<td><a th:href="@{/memo/delete/{memoId} (memoId=${memo.memoId})}" type="hidden">削除</a></td>
+			</tr>
+		</table>
 	</article>
 	<footer>Created by AR44</footer>
 </body>

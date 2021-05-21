@@ -1,14 +1,14 @@
-#spring:
-#  datasource:
-#    driver-class-name: org.postgresql.Driver
-#    password: p4w0rd
-#    url: jdbc:postgresql://127.0.0.1:5432/bookmemo
-#    username: postgres
-#  h2:
-#    console:
-#      enabled: true
-spring:   datasource:
+spring:
+  datasource:
     driver-class-name: org.postgresql.Driver
-    password: 5173cbfe7df710d41c0291391b12d88633f18f1e3f28b804414e2cebe57e93cb
-    url: jdbc:postgres://ppejozquoptvea:5173cbfe7df710d41c0291391b12d88633f18f1e3f28b804414e2cebe57e93cb@ec2-54-225-228-142.compute-1.amazonaws.com:5432/dcdv5h34ddletp
-    username: ppejozquoptvea  
+    password: p4w0rd
+    url: jdbc:postgresql://127.0.0.1:5432/bookmemo
+    username: postgres
+  h2:
+    console:
+      enabled: true
+#spring: #  datasource:
+#    driver-class-name: org.postgresql.Driver
+#    password: 5173cbfe7df710d41c0291391b12d88633f18f1e3f28b804414e2cebe57e93cb
+#    url: jdbc:postgres://ppejozquoptvea:5173cbfe7df710d41c0291391b12d88633f18f1e3f28b804414e2cebe57e93cb@ec2-54-225-228-142.compute-1.amazonaws.com:5432/dcdv5h34ddletp
+#    username: ppejozquoptvea  
