@@ -17,7 +17,6 @@ import com.herokuapp.bookmemo4444.entity.User;
 import com.herokuapp.bookmemo4444.service.UserService;
 
 @Controller
-@RequestMapping("/user")
 public class UserController {
 	private final UserService userService;
 
@@ -26,6 +25,11 @@ public class UserController {
 		this.userService = userService;
 	}
 
+	@GetMapping("/")
+	public String getTopPage() {
+		return "top-page";
+	}
+	
 	@GetMapping("/test")
 	public String test(SignupForm signupForm,Model model) {
 		List<User> userList = userService.getAll();
