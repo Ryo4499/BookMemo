@@ -7,7 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -40,13 +39,6 @@ public class MemoController {
 		return "memo/test2";
 	}
 
-	@GetMapping("/delete/{memoId}")
-	public String testDelete(@PathVariable("memoId") long memoId, Model model) {
-		System.out.println(memoId);
-		memoService.delete(memoId);
-		return "memo/test2";
-	}
-
 	@GetMapping("/")
 	public String getMemoListPage(MemoForm memoForm, Model model) {
 		List<Memo> memoList = memoService.getAll();
@@ -60,10 +52,22 @@ public class MemoController {
 	}
 
 	@GetMapping("/details/{memoId}")
-	public String getMemoDetailsPage(MemoForm MemoForm, @PathVariable int id, Model model) {
-		Memo memo = memoService.findById(id);
+	public String getMemoDetailsPage(MemoForm MemoForm, @PathVariable long memoId, Model model) {
+		Memo memo = memoService.findById(memoId);
 		model.addAttribute("memo", memo);
 		return "memo/memo-details";
+	}
+
+	@PutMapping("/details/{memoId}")
+	public String putMemoUpdatePage(MemoForm memoForm, @PathVariable long memoId, Model model) {
+		memoService.update(makeMemo(memoForm, memoId));
+		return "memo/memo-details";
+	}
+
+	@GetMapping("/details/delete/{memoId}")
+	public String testDelete(@PathVariable("memoId") long memoId, Model model) {
+		memoService.delete(memoId);
+		return "memo/test2";
 	}
 
 	@GetMapping("/create")
@@ -78,16 +82,6 @@ public class MemoController {
 		return "memo/memo-create";
 	}
 
-	@PutMapping("/details")
-	public String putMemoUpdatePage() {
-		return "memo/memo-details";
-	}
-
-	@DeleteMapping("/details")
-	public String deleteMemoPage() {
-		return "memo/memo-list";
-	}
-
 	@GetMapping("/index")
 	public String index(Model model) {
 		List<Memo> memoList = memoService.getAll();
@@ -95,4 +89,15 @@ public class MemoController {
 		return "memo/index";
 	}
 
+	private Memo makeMemo(MemoForm memoForm, long memoId) {
+		Memo memo = new Memo();
+		if (memoId != 0) {
+			memo.setMemoId(memoId);
+		}
+		memo.setTitle(memoForm.getTitle());
+		memo.setContent(memo.getContent());
+		memo.setCategory(memo.getCategory());
+		memo.setBookName(memo.getBookName());
+		return memo;
+	}
 }

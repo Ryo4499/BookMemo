@@ -146,7 +146,7 @@
                                 </a>
 								<div class="card-body">
 									<h4 class="card-title">
-										<a th:href="@{/memo/details/{id} (id=${memo.memoId})}" th:text="${memo.title}" class="overflow-hidden">Item One</a>
+										<a th:href="@{/memo/details/{memoId} (memoId=${memo.memoId})}" th:text="${memo.title}" class="overflow-hidden">Item One</a>
 									</h4>
 									<h5>$24.99</h5>
 									<p class="card-text" class="overflow-hidden" th:text="${memo.content}">

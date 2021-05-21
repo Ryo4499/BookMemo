@@ -60,8 +60,8 @@ public class UserController {
 		return "user/user-profile";
 	}
 
-	@GetMapping("/delete")
-	public String deleteUser(@RequestParam("userId") String id, Model model) {
+	@GetMapping("/delete/{userId}")
+	public String deleteUser(@RequestParam("userId")int id, Model model) {
 		System.out.println(id);
 		userService.delete(id);
 		return "redirect:/";
