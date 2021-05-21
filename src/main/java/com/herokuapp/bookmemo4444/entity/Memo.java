@@ -8,11 +8,23 @@ public class Memo {
 	private String content;
 	private String category;
 	private String bookName;
-	private int userId;
+	private User user;
 	private LocalDateTime createdDate;
 	private LocalDateTime updatedDate;
 
 	public Memo() {
+	}
+
+	public Memo(long memoId, String title, String content, String category, String bookName, User user,
+			LocalDateTime createdDate, LocalDateTime updatedDate) {
+		this.memoId = memoId;
+		this.title = title;
+		this.content = content;
+		this.category = category;
+		this.bookName = bookName;
+		this.user = user;
+		this.createdDate = createdDate;
+		this.updatedDate = updatedDate;
 	}
 
 	public long getMemoId() {
@@ -55,12 +67,12 @@ public class Memo {
 		this.bookName = bookName;
 	}
 
-	public int getUserId() {
-		return userId;
+	public User getUser() {
+		return user;
 	}
 
-	public void setUserId(int userId) {
-		this.userId = userId;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	public LocalDateTime getCreatedDate() {
@@ -90,7 +102,7 @@ public class Memo {
 		result = prime * result + (int) (memoId ^ (memoId >>> 32));
 		result = prime * result + ((title == null) ? 0 : title.hashCode());
 		result = prime * result + ((updatedDate == null) ? 0 : updatedDate.hashCode());
-		result = prime * result + userId;
+		result = prime * result + ((user == null) ? 0 : user.hashCode());
 		return result;
 	}
 
@@ -135,7 +147,10 @@ public class Memo {
 				return false;
 		} else if (!updatedDate.equals(other.updatedDate))
 			return false;
-		if (userId != other.userId)
+		if (user == null) {
+			if (other.user != null)
+				return false;
+		} else if (!user.equals(other.user))
 			return false;
 		return true;
 	}
@@ -143,7 +158,7 @@ public class Memo {
 	@Override
 	public String toString() {
 		return "Memo [memoId=" + memoId + ", title=" + title + ", content=" + content + ", category=" + category
-				+ ", bookName=" + bookName + ", userId=" + userId + ", createdDate=" + createdDate + ", updatedDate="
+				+ ", bookName=" + bookName + ", user=" + user + ", createdDate=" + createdDate + ", updatedDate="
 				+ updatedDate + "]";
 	}
 

@@ -1,4 +1,4 @@
-package com.herokuapp.bookmemo4444.dao;
+package com.herokuapp.bookmemo4444.repository;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -11,6 +11,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.herokuapp.bookmemo4444.entity.Memo;
+import com.herokuapp.bookmemo4444.entity.User;
 
 @Repository
 public class MemoDaoImpl implements MemoDao {
@@ -25,12 +26,14 @@ public class MemoDaoImpl implements MemoDao {
 	@Override
 	public void insertMemo(Memo memo) {
 		jdbcTemplate.update("INSERT INTO memos(title,content,category,book_name,user_id) VALUES(?,?,?,?,?)",
-				memo.getTitle(), memo.getContent(), memo.getCategory(), memo.getBookName(), memo.getUserId());
+				memo.getTitle(), memo.getContent(), memo.getCategory(), memo.getBookName(), memo.getUser());
 	}
 
 	@Override
 	public List<Memo> getAll() {
-		List<Map<String, Object>> tmpList = jdbcTemplate.queryForList("SELECT * FROM memos");
+		String sql = "SELECT memo_id,title,content,category,book_name,users.user_id," + "created_date,updated_date "
+				+ "FROM memos INNER JOIN users " + "ON memos.user_id = users.user_id";
+		List<Map<String, Object>> tmpList = jdbcTemplate.queryForList(sql);
 		List<Memo> memoList = new ArrayList<>();
 		tmpList.forEach(map -> {
 			Memo memo = new Memo();
@@ -39,9 +42,16 @@ public class MemoDaoImpl implements MemoDao {
 			memo.setContent((String) map.get("content"));
 			memo.setCategory((String) map.get("category"));
 			memo.setBookName((String) map.get("book_name"));
-			memo.setUserId((int) map.get("user_id"));
 			memo.setCreatedDate(((Timestamp) map.get("created_date")).toLocalDateTime());
 			memo.setUpdatedDate(((Timestamp) map.get("updated_date")).toLocalDateTime());
+
+			User user = new User();
+			user.setUserId((int) map.get("user_id"));
+			user.setUserName((String) map.get("user_name"));
+			user.setUserEmail((String) map.get("user_email"));
+			user.setUserPassword((String) map.get("user_password"));
+			user.setRememberUser((String) map.get("remember_user"));
+			memo.setUser(user);
 			memoList.add(memo);
 		});
 		return memoList;
@@ -55,28 +65,32 @@ public class MemoDaoImpl implements MemoDao {
 	}
 
 	@Override
-	public int deleteMemo(Memo memo) {
-		return jdbcTemplate.update("DELETE FROM memos WHERE memo_id = ?", memo.getMemoId());
-	}
-
-	@Override
 	public Memo findById(long id) {
-		Map<String, Object> map = jdbcTemplate.queryForMap("SELECT * FROM memos WHERE memo_id = ?", id);
+		String sql = "SELECT memo_id,title,content,category,book_name,users.user_id,created_date,updated_date FROM memos INNER JOIN users ON memos.user_id = users.user_id WHERE memo_id = ? ";
+		Map<String, Object> map = jdbcTemplate.queryForMap(sql, id);
 		Memo memo = new Memo();
 		memo.setMemoId((long) map.get("memo_id"));
 		memo.setTitle((String) map.get("title"));
 		memo.setContent((String) map.get("content"));
 		memo.setCategory((String) map.get("category"));
 		memo.setBookName((String) map.get("book_name"));
-		memo.setUserId((int) map.get("user_id"));
 		memo.setCreatedDate(((Timestamp) map.get("created_date")).toLocalDateTime());
 		memo.setUpdatedDate(((Timestamp) map.get("updated_date")).toLocalDateTime());
+
+		User user = new User();
+		user.setUserId((int) map.get("user_id"));
+		user.setUserName((String) map.get("user_name"));
+		user.setUserEmail((String) map.get("user_email"));
+		user.setUserPassword((String) map.get("user_password"));
+		user.setRememberUser((String) map.get("remember_user"));
+		memo.setUser(user);
 		return memo;
 	}
 
 	@Override
 	public List<Memo> findByTitle(String title) {
-		List<Map<String, Object>> tmpList = jdbcTemplate.queryForList("SELECT * FROM memos WHERE title = ?", title);
+		String sql = "SELECT memo_id,title,content,category,book_name,users.user_id,created_date,updated_date FROM memos INNER JOIN users ON memos.user_id = users.user_id WHERE title = ? ";
+		List<Map<String, Object>> tmpList = jdbcTemplate.queryForList(sql, title);
 		List<Memo> memoList = new ArrayList<>();
 		tmpList.forEach(map -> {
 			Memo memo = new Memo();
@@ -85,9 +99,17 @@ public class MemoDaoImpl implements MemoDao {
 			memo.setContent((String) map.get("content"));
 			memo.setCategory((String) map.get("category"));
 			memo.setBookName((String) map.get("book_name"));
-			memo.setUserId((int) map.get("user_id"));
 			memo.setCreatedDate(((Timestamp) map.get("created_date")).toLocalDateTime());
 			memo.setUpdatedDate(((Timestamp) map.get("updated_date")).toLocalDateTime());
+
+			User user = new User();
+			user.setUserId((int) map.get("user_id"));
+			user.setUserName((String) map.get("user_name"));
+			user.setUserEmail((String) map.get("user_email"));
+			user.setUserPassword((String) map.get("user_password"));
+			user.setRememberUser((String) map.get("remember_user"));
+			memo.setUser(user);
+
 			memoList.add(memo);
 		});
 		return memoList;
@@ -95,19 +117,28 @@ public class MemoDaoImpl implements MemoDao {
 
 	@Override
 	public List<Memo> findByCategory(String category) {
-		List<Map<String, Object>> tmpList = jdbcTemplate.queryForList("SELECT * FROM memos WHERE category = ?",
-				category);
+		String sql = "SELECT * FROM memos INNER JOIN users ON memos.user_id = users.user_id WHERE category = ? ";
+		List<Map<String, Object>> tmpList = jdbcTemplate.queryForList(sql, category);
 		List<Memo> memoList = new ArrayList<>();
 		tmpList.forEach(map -> {
+
 			Memo memo = new Memo();
 			memo.setMemoId((long) map.get("memo_id"));
 			memo.setTitle((String) map.get("title"));
 			memo.setContent((String) map.get("content"));
 			memo.setCategory((String) map.get("category"));
 			memo.setBookName((String) map.get("book_name"));
-			memo.setUserId((int) map.get("user_id"));
 			memo.setCreatedDate(((Timestamp) map.get("created_date")).toLocalDateTime());
 			memo.setUpdatedDate(((Timestamp) map.get("updated_date")).toLocalDateTime());
+
+			User user = new User();
+			user.setUserId((int) map.get("user_id"));
+			user.setUserName((String) map.get("user_name"));
+			user.setUserEmail((String) map.get("user_email"));
+			user.setUserPassword((String) map.get("user_password"));
+			user.setRememberUser((String) map.get("remember_user"));
+			memo.setUser(user);
+
 			memoList.add(memo);
 		});
 		return memoList;
@@ -121,6 +152,11 @@ public class MemoDaoImpl implements MemoDao {
 			categoryList.add((String) map.get("category"));
 		});
 		return categoryList.stream().sorted((s1, s2) -> s1.compareTo(s2)).collect(Collectors.toList());
+	}
+
+	@Override
+	public int deleteMemo(long id) {
+		return jdbcTemplate.update("DELETE FROM memos WHERE memo_id = ?", id);
 	}
 
 }
