@@ -36,11 +36,11 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void delete(String id) {
-		if (userDao.deleteUser(Integer.parseInt(id)) == 0) {
+	public void delete(int id) {
+		if (userDao.deleteUser(id)==0) {
 			throw new UserNotFoundException("削除するユーザが存在しません");
 		}
-		userDao.deleteUser(Integer.parseInt(id));
+		userDao.deleteUser(id);
 	}
 
 	@Override
