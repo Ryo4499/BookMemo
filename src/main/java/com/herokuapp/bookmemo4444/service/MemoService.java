@@ -17,13 +17,11 @@ public interface MemoService {
 
 	List<Memo> getNextSix(int page);
 
-	List<Memo> searchByTitle(String title);
-
-	List<Memo> searchByCategory(String category);
-
 	Memo findById(long id);
 
 	List<Memo> getAllCategory();
 	
-	List<Memo> getCategory(String category);
+	List<Memo> searchByCategory(String category);
+	
+	List<Memo> searchByTitle(String title);
 }

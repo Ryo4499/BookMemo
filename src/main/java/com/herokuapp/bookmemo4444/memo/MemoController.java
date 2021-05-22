@@ -40,14 +40,24 @@ public class MemoController {
 		memoList.forEach(System.out::println);
 		System.out.println("\n\ncategoryList");
 		categoryList.forEach(System.out::println);
+		model.addAttribute("page",0);
 		model.addAttribute("memoList", memoList);
 		model.addAttribute("categoryList", categoryList);
 		return "memo/memo-list";
 	}
 
+	@GetMapping("/title/{title}")
+	public String getTitleMemoListPage(@PathVariable("title") String title, Model model) {
+		List<Memo> memoList = memoService.searchByTitle(title);
+		List<Memo> categoryList = memoService.getAllCategory();
+		model.addAttribute("categoryList", categoryList);
+		model.addAttribute("memoList", memoList);
+		return "memo/memo-list";
+	}
+
 	@GetMapping("/category/{categoryName}")
 	public String getCategoryMemoListPage(@PathVariable("categoryName") String category, Model model) {
-		List<Memo> memoList = memoService.getCategory(category);
+		List<Memo> memoList = memoService.searchByCategory(category);
 		List<Memo> categoryList = memoService.getAllCategory();
 		model.addAttribute("categoryList", categoryList);
 		model.addAttribute("memoList", memoList);
@@ -69,6 +79,7 @@ public class MemoController {
 	@GetMapping("/details/{memoId}")
 	public String getMemoDetailsPage(MemoForm MemoForm, @PathVariable long memoId, Model model) {
 		Memo memo = memoService.findById(memoId);
+		model.addAttribute("memoId",memoId);
 		model.addAttribute("memo", memo);
 		return "memo/memo-details";
 	}

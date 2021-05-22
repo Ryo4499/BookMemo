@@ -30,11 +30,11 @@
 			</tr>
 			<tr th:each="user :${userList}">
 				<td th:text="${user.userId}">1</td>
-				<td th:text="${user.userName}">1</td>
+				<td th:text="${user.use.rName}">1</td>
 				<td th:text="${user.userEmail}">1</td>
 				<td th:text="${user.userPassword}">1</td>
 				<td th:text="${user.rememberUser}">1</td>
-				<td>	
+				<td>
 					<a th:href="@{/delete}" name="userId" value="${user.userId}">削除</a>
 				</td>
 			</tr>
