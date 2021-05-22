@@ -20,13 +20,11 @@ public interface MemoDao {
 
 	List<Memo> getAll();
 
-	List<Memo> findByTitle(String title);
-
-	List<Memo> findByCategory(String category);
-
 	Memo findById(long id);
 
 	List<Memo> getAllCategory();
 
-	List<Memo> getCategory(String category);
+	List<Memo> searchByCategory(String category);
+	
+	List<Memo> searchByTitle(String title);
 }

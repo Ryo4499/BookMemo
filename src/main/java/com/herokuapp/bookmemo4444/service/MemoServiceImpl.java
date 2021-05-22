@@ -44,16 +44,6 @@ public class MemoServiceImpl implements MemoService {
 	}
 
 	@Override
-	public List<Memo> searchByTitle(String title) {
-		return memoDao.findByTitle(title);
-	}
-
-	@Override
-	public List<Memo> searchByCategory(String category) {
-		return memoDao.findByCategory(category);
-	}
-
-	@Override
 	public List<Memo> getAllCategory() {
 		return memoDao.getAllCategory();
 	}
@@ -69,9 +59,12 @@ public class MemoServiceImpl implements MemoService {
 	}
 
 	@Override
-	public List<Memo> getCategory(String category) {
-		return memoDao.getCategory(category);
+	public List<Memo> searchByCategory(String category) {
+		return memoDao.searchByCategory(category);
 	}
 
-
+	@Override
+	public List<Memo> searchByTitle(String title) {
+		return memoDao.searchByTitle(title);
+	}
 }
