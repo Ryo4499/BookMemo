@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
@@ -27,8 +28,13 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void insert(User user) {
-		userDao.insertUser(user);
+	public boolean insert(User user) {
+		try {
+			userDao.insertUser(user);
+			return true;
+		} catch (DuplicateKeyException e) {
+			return false;
+		}
 	}
 
 	@Override

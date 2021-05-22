@@ -42,9 +42,19 @@
 				</button>
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 					<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-						<li class="nav-item"><a class="nav-link" th:href="@{/}">Home</a></li>
-						<li class="nav-item"><a class="nav-link" th:href="@{/profile/{userId} (userId=${userId})}">Profile</a></li>
-						<li class="nav-item"><a class="nav-link" href="@{/logout}">Logout</a></li>
+						<li class="nav-item">
+							<a class="nav-link" th:href="@{/}">Home</a>
+						</li>
+						<li class="nav-item">
+							<a
+								class="nav-link"
+								th:href="@{/profile/{userId} (userId=${userId})}"
+								>Profile</a
+							>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="@{/logout}">Logout</a>
+						</li>
 					</ul>
 				</div>
 			</div>
@@ -54,9 +64,9 @@
 			<div class="row">
 				<!--TODO ここから-->
 
-				<div class="col-lg-8" th:object="${memo}">
+				<div class="col-lg-8">
 					<form
-						th:action="@{/details/{memoId} (memoId=${memoId})}"
+						th:action="@{/details/{memoId} (memoId=${memo.memoId})}"
 						method="PUT"
 						th:object="${memoForm}"
 					>
@@ -70,11 +80,11 @@
 									id="title"
 									name="title"
 									class="form-control memo-input"
-									th:text="*{title}"
+									th:value="*{title}"
 								/>
 								<div
 									th:if="${#fields.hasErrors('title')}"
-									th:errors="*{email}"
+									th:errors="*{title}"
 								></div>
 								<!-- Post meta content-->
 								<input
@@ -82,17 +92,30 @@
 									id="bookName"
 									name="bookName"
 									class="form-control memo-input"
-									th:text="*{bookName}"
+									th:value="*{bookName}"
 								/>
-								<div th:if="${#fields.hasErrors('bookName')}"></div>
+								<div
+									th:if="${#fields.hasErrors('bookName')}"
+									th:errors="*{bookName}"
+								></div>
 								<label>Updated Date:</label
-								><label class="text-muted" th:text="*{updatedDate}"></label
+								><label class="text-muted" th:text="${memo.updatedDate}"></label
 								><br />
 								<label>Created Date:</label
-								><label class="text-muted" th:text="*{createdDate}"></label
+								><label class="text-muted" th:text="${memo.createdDate}"></label
 								><br />
 								<!-- Post categories-->
-								<input type="text" class="form-control" th:text="*{category}" />
+								<input
+									type="text"
+									class="form-control"
+									id="category"
+									name="category"
+									th:value="*{category}"
+								/>
+								<div
+									th:if="${#fields.hasErrors('category')}"
+									th:errors="*{category}"
+								></div>
 							</header>
 							<!-- Post content-->
 							<!--TODO textfieldに変更 -->
@@ -105,19 +128,20 @@
 								th:field="*{content}"
 								maxlenghth="3000"
 							>
-							</textarea>
+							</textarea
+							>
 							<div
 								th:if="${#fields.hasErrors('content')}"
 								th:errors="*{content}"
 							></div>
-							<button class="btn btn-success memo-button text-right ml-auto">更新</button>
+							<button class="btn btn-success">更新</button>
 						</article>
 					</form>
 					<form
-						th:action="@{/details/{memoId} (memoId=${memoId})}"
+						th:action="@{/details/{memoId} (memoId=${memo.memoId})}"
 						method="DELETE"
 					>
-						<button class="btn btn-danger memo-button text-right ml-auto">削除</button>
+						<button class="btn btn-danger">削除</button>
 					</form>
 				</div>
 				<!-- Side widgets-->
@@ -126,10 +150,12 @@
 					<div class="card mb-4">
 						<div class="card-header">Search</div>
 						<div class="card-body">
+							<form th:action="@{/title/{title} (title=${title})}" method="GET">
 							<div class="input-group">
 								<input
 									class="form-control"
 									type="text"
+									th:value="title"
 									placeholder="Enter search term..."
 									aria-label="Enter search title..."
 									aria-describedby="button-search"
@@ -142,6 +168,7 @@
 									Go!
 								</button>
 							</div>
+							</form>
 						</div>
 					</div>
 					<!-- Categories widget-->

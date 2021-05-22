@@ -40,7 +40,7 @@ public class MemoController {
 		memoList.forEach(System.out::println);
 		System.out.println("\n\ncategoryList");
 		categoryList.forEach(System.out::println);
-		model.addAttribute("page",0);
+		model.addAttribute("page", 0);
 		model.addAttribute("memoList", memoList);
 		model.addAttribute("categoryList", categoryList);
 		return "memo/memo-list";
@@ -77,9 +77,15 @@ public class MemoController {
 	}
 
 	@GetMapping("/details/{memoId}")
-	public String getMemoDetailsPage(MemoForm MemoForm, @PathVariable long memoId, Model model) {
+	public String getMemoDetailsPage(MemoForm memoForm, @PathVariable long memoId, Model model) {
 		Memo memo = memoService.findById(memoId);
-		model.addAttribute("memoId",memoId);
+		memoForm.setTitle(memo.getTitle());
+		memoForm.setContent(memo.getContent());
+		memoForm.setCategory(memo.getCategory());
+		memoForm.setBookName(memo.getBookName());
+		model.addAttribute("createdDate", memo.getCreatedDate());
+		model.addAttribute("updatedDate", memo.getUpdatedDate());
+		model.addAttribute("memoForm", memoForm);
 		model.addAttribute("memo", memo);
 		return "memo/memo-details";
 	}
@@ -89,7 +95,7 @@ public class MemoController {
 			RedirectAttributes redirectAttributes) {
 		memoService.update(makeMemo(memoForm, memoId));
 		redirectAttributes.addAttribute("sessionId", session.getId());
-		return "redirect:/memo/memo-details";
+		return "redirect:/memo/";
 	}
 
 	@DeleteMapping("/details/{memoId}")
