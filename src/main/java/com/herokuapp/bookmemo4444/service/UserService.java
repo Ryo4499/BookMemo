@@ -5,7 +5,7 @@ import java.util.List;
 import com.herokuapp.bookmemo4444.entity.User;
 
 public interface UserService {
-	void insert(User user);
+	boolean insert(User user);
 
 	void update(User user);
 
@@ -14,8 +14,8 @@ public interface UserService {
 	List<User> getAll();
 
 	User findById(int id);
-	
+
 	User findBySessionId(String id);
 
-	User findByEmailAndPass(String email,String password);
+	User findByEmailAndPass(String email, String password);
 }

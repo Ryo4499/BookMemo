@@ -65,11 +65,15 @@ public class UserController {
 			model.addAttribute("signupForm", signupForm);
 			return "user/signup";
 		} else {
-			userService.insert(user);
-			redirectAttributes.addFlashAttribute("userId", user.getUserId());
-			user.setRememberUser(session.getId());
-			userService.update(user);
-			return "redirect:/memo/";
+			if (userService.insert(user)) {
+				redirectAttributes.addFlashAttribute("userId", user.getUserId());
+				user.setRememberUser(session.getId());
+				userService.update(user);
+				return "redirect:/memo/";
+			} else {
+				model.addAttribute("signupForm", signupForm);
+				return "user/signup";
+			}
 		}
 	}
 
