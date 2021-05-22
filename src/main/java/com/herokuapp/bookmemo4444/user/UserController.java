@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.server.Session.Cookie;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -32,17 +33,23 @@ public class UserController {
 		return "top-page";
 	}
 
-	@GetMapping("/test")
-	public String test(SignupForm signupForm, Model model) {
-		List<User> userList = userService.getAll();
-		model.addAttribute("userList", userList);
-		return "user/test";
-	}
-
 	@GetMapping("/login")
 	public String getLoginPage(LoginForm loginForm, Model model) {
 
 		return "user/login";
+	}
+
+	@PostMapping("/login")
+	public String postLogin(@Validated LoginForm loginForm, BindingResult result, Model model,
+			RedirectAttributes redirectAttributes, HttpSession session) {
+		User user = userService.findByEmailAndPass(loginForm.getEmail(), loginForm.getPassword());
+		if (result.hasErrors() || user == null) {
+			return "user/login";
+		}
+		redirectAttributes.addFlashAttribute("userId", user.getUserId());
+		user.setRememberUser(session.getId());
+
+		return "redirect:/memo/";
 	}
 
 	@GetMapping("/signup")
@@ -50,64 +57,56 @@ public class UserController {
 		return "user/signup";
 	}
 
-	@GetMapping("/{id}")
-	public String showUserUpdate(@PathVariable("userId") int userId, SignupForm signupForm, @PathVariable int id,
+	@PostMapping("/signup")
+	public String postSignup(@Validated SignupForm signupForm, BindingResult result, Model model,
+			RedirectAttributes redirectAttributes, HttpSession session) {
+		User user = makeUser(signupForm, 0, session);
+		if (result.hasErrors()) {
+			model.addAttribute("signupForm", signupForm);
+			return "user/signup";
+		} else {
+			userService.insert(user);
+			redirectAttributes.addFlashAttribute("userId", user.getUserId());
+			user.setRememberUser(session.getId());
+			userService.update(user);
+			return "redirect:/memo/";
+		}
+	}
+
+	@GetMapping("/profile/{id}")
+	public String getProfile(@PathVariable("userId") int userId, SignupForm signupForm, @PathVariable int id,
 			Model model) {
 		User user = userService.findById(id);
 		model.addAttribute("user", user);
 		model.addAttribute("userId", id);
-		model.addAttribute("title", "更新用フォーム");
 		return "user/user-profile";
 	}
 
+	@PostMapping("/profile/update")
+	public String putProfile(@Validated @ModelAttribute SignupForm signupForm, BindingResult result,
+			HttpSession session, @RequestParam("userId") int userId, Model model,
+			RedirectAttributes redirectAttributes) {
+		User user = makeUser(signupForm, userId, session);
+		if (result.hasErrors() || user == null) {
+			model.addAttribute("signupForm", signupForm);
+			return "user/user-profile";
+		} else {
+			userService.update(user);
+			return "redirect:/memo/memo-list";
+		}
+	}
+
 	@GetMapping("/delete/{userId}")
-	public String deleteUser(@RequestParam("userId")int id, Model model) {
-		System.out.println(id);
+	public String deleteUser(@RequestParam("userId") int id, Model model) {
 		userService.delete(id);
 		return "redirect:/";
 	}
 
-	@PostMapping("/login")
-	public String doLogin(@Validated LoginForm loginForm, BindingResult result, Model model,
-			RedirectAttributes redirectAttributes, HttpSession session) {
-		if (result.hasErrors()) {
-			model.addAttribute("title", "Login");
-			return "user/login";
-		}
-		redirectAttributes.addFlashAttribute("session_id", session.getId());
-		return "redirect:/memo/";
-	}
-
-	@PostMapping("/signup")
-	public String doSignup(@Validated SignupForm signupForm, BindingResult result, Model model,
-			RedirectAttributes redirectAttributes, HttpSession session) {
-
-		User user = makeUser(signupForm, 0, session);
-
-		if (!result.hasErrors()) {
-			userService.insert(user);
-			redirectAttributes.addFlashAttribute("userId", user.getUserId());
-			return "redirect:/memo/memo-list";
-		} else {
-			model.addAttribute("signupForm", signupForm);
-			List<User> userList = userService.getAll();
-			model.addAttribute("userList", userList);
-			return "signup";
-		}
-
-	}
-
-	@PostMapping("/update")
-	public String update(@Validated @ModelAttribute SignupForm signupForm, BindingResult result, HttpSession session,
-			@RequestParam("userId") int userId, Model model, RedirectAttributes redirectAttributes) {
-		User user = makeUser(signupForm, userId, session);
-		if (!result.hasErrors()) {
-			userService.update(user);
-			return "redirect:/memo/memo-list";
-		} else {
-			model.addAttribute("signupForm", signupForm);
-			return "user/user-profile";
-		}
+	@GetMapping("/test")
+	public String test(SignupForm signupForm, Model model) {
+		List<User> userList = userService.getAll();
+		model.addAttribute("userList", userList);
+		return "user/test";
 	}
 
 	private User makeUser(SignupForm signupForm, int userId, HttpSession session) {

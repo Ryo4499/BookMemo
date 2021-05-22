@@ -145,18 +145,123 @@ public class MemoDaoImpl implements MemoDao {
 	}
 
 	@Override
-	public List<String> getAllCategory() {
+	public List<Memo> getAllCategory() {
 		List<Map<String, Object>> tmpList = jdbcTemplate.queryForList("SELECT DISTINCT ON (category) * FROM memos");
-		List<String> categoryList = new ArrayList<>();
+		List<Memo> memoList = new ArrayList<>();
 		tmpList.forEach(map -> {
-			categoryList.add((String) map.get("category"));
+			Memo memo = new Memo();
+			memo.setMemoId((long) map.get("memo_id"));
+			memo.setTitle((String) map.get("title"));
+			memo.setContent((String) map.get("content"));
+			memo.setCategory((String) map.get("category"));
+			memo.setBookName((String) map.get("book_name"));
+			memo.setCreatedDate(((Timestamp) map.get("created_date")).toLocalDateTime());
+			memo.setUpdatedDate(((Timestamp) map.get("updated_date")).toLocalDateTime());
+
+			User user = new User();
+			user.setUserId((int) map.get("user_id"));
+			user.setUserName((String) map.get("user_name"));
+			user.setUserEmail((String) map.get("user_email"));
+			user.setUserPassword((String) map.get("user_password"));
+			user.setRememberUser((String) map.get("remember_user"));
+			memo.setUser(user);
+
+			memoList.add(memo);
 		});
-		return categoryList.stream().sorted((s1, s2) -> s1.compareTo(s2)).collect(Collectors.toList());
+		return memoList;
 	}
 
 	@Override
 	public int deleteMemo(long id) {
 		return jdbcTemplate.update("DELETE FROM memos WHERE memo_id = ?", id);
+	}
+
+	@Override
+	public List<Memo> getFirstSix() {
+		//TODO ああ
+		String sql = "SELECT * FROM memos ORDER BY created_date DESC,memo_id DESC OFFSET 0 FETCH FIRST 6 ROWS ONLY";
+		List<Map<String, Object>> tmpList = jdbcTemplate.queryForList(sql);
+		List<Memo> memoList = new ArrayList<>();
+		tmpList.forEach(map -> {
+
+			Memo memo = new Memo();
+			memo.setMemoId((long) map.get("memo_id"));
+			memo.setTitle((String) map.get("title"));
+			memo.setContent((String) map.get("content"));
+			memo.setCategory((String) map.get("category"));
+			memo.setBookName((String) map.get("book_name"));
+			memo.setCreatedDate(((Timestamp) map.get("created_date")).toLocalDateTime());
+			memo.setUpdatedDate(((Timestamp) map.get("updated_date")).toLocalDateTime());
+
+			User user = new User();
+			user.setUserId((int) map.get("user_id"));
+			user.setUserName((String) map.get("user_name"));
+			user.setUserEmail((String) map.get("user_email"));
+			user.setUserPassword((String) map.get("user_password"));
+			user.setRememberUser((String) map.get("remember_user"));
+			memo.setUser(user);
+
+			memoList.add(memo);
+		});
+		return memoList;
+	}
+
+	@Override
+	public List<Memo> getNextSix(int page) {
+		String sql = "SELECT * FROM memos ORDER BY created_date DESC,memo_id DESC OFFSET ? FETCH FIRST 6 ROWS ONLY";
+		List<Map<String, Object>> tmpList = jdbcTemplate.queryForList(sql,page*6);
+		List<Memo> memoList = new ArrayList<>();
+		tmpList.forEach(map -> {
+			Memo memo = new Memo();
+			memo.setMemoId((long) map.get("memo_id"));
+			memo.setTitle((String) map.get("title"));
+			memo.setContent((String) map.get("content"));
+			memo.setCategory((String) map.get("category"));
+			memo.setBookName((String) map.get("book_name"));
+			memo.setCreatedDate(((Timestamp) map.get("created_date")).toLocalDateTime());
+			memo.setUpdatedDate(((Timestamp) map.get("updated_date")).toLocalDateTime());
+
+			User user = new User();
+			user.setUserId((int) map.get("user_id"));
+			user.setUserName((String) map.get("user_name"));
+			user.setUserEmail((String) map.get("user_email"));
+			user.setUserPassword((String) map.get("user_password"));
+			user.setRememberUser((String) map.get("remember_user"));
+			memo.setUser(user);
+
+			memoList.add(memo);
+		});
+
+		return memoList;
+	}
+
+	@Override
+	public List<Memo> getCategory(String category) {
+		String sql = "SELECT * FROM memos WHERE category = ?";
+		List<Map<String, Object>> tmpList = jdbcTemplate.queryForList(sql,category);
+		List<Memo> memoList = new ArrayList<>();
+		tmpList.forEach(map -> {
+			Memo memo = new Memo();
+			memo.setMemoId((long) map.get("memo_id"));
+			memo.setTitle((String) map.get("title"));
+			memo.setContent((String) map.get("content"));
+			memo.setCategory((String) map.get("category"));
+			memo.setBookName((String) map.get("book_name"));
+			memo.setCreatedDate(((Timestamp) map.get("created_date")).toLocalDateTime());
+			memo.setUpdatedDate(((Timestamp) map.get("updated_date")).toLocalDateTime());
+
+			User user = new User();
+			user.setUserId((int) map.get("user_id"));
+			user.setUserName((String) map.get("user_name"));
+			user.setUserEmail((String) map.get("user_email"));
+			user.setUserPassword((String) map.get("user_password"));
+			user.setRememberUser((String) map.get("remember_user"));
+			memo.setUser(user);
+
+			memoList.add(memo);
+		});
+		
+		return memoList;
 	}
 
 }

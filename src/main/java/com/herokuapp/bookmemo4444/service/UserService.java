@@ -17,4 +17,5 @@ public interface UserService {
 	
 	User findBySessionId(String id);
 
+	User findByEmailAndPass(String email,String password);
 }

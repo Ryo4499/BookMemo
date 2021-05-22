@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -44,7 +46,7 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public int updateUser(User user) {
-		return jdbcTemplate.update("UPDATE users SET user_name=?,email=?,password=?", user.getUserName(),
+		return jdbcTemplate.update("UPDATE users SET user_name=?,user_email=?,user_password=?", user.getUserName(),
 				user.getUserEmail(), user.getUserPassword());
 	}
 
@@ -74,6 +76,21 @@ public class UserDaoImpl implements UserDao {
 		user.setUserEmail((String) map.get("user_email"));
 		user.setUserPassword((String) map.get("user_password"));
 		user.setRememberUser((String) map.get("remember_user"));
+		return user;
+	}
+
+	@Override
+	public User findByEmailAndPass(String email, String password) throws DataIntegrityViolationException,EmptyResultDataAccessException{
+		String sql = "SELECT * FROM users WHERE user_email = ? AND user_password = ?";
+		//TODO 例外出るけど後回し!
+		Map<String, Object> map = jdbcTemplate.queryForMap(sql, email,password);
+		User user = new User();
+		user.setUserId((int) map.get("user_id"));
+		user.setUserName((String) map.get("user_name"));
+		user.setUserEmail((String) map.get("user_email"));
+		user.setUserPassword((String) map.get("user_password"));
+		user.setRememberUser((String) map.get("remember_user"));
+		
 		return user;
 	}
 

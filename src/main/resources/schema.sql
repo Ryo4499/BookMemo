@@ -4,7 +4,8 @@ CREATE TABLE "users" (
 	"user_email" VARCHAR(256) NOT NULL,
 	"user_password" VARCHAR(256) NOT NULL,
 	"remember_user" VARCHAR(256) NOT NULL, 
-	PRIMARY KEY ("user_id")
+	PRIMARY KEY ("user_id"),
+	UNIQUE ("user_email")
 );
 
 CREATE TABLE "memos" (

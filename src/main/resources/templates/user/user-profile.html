@@ -24,7 +24,7 @@
 	<article>
 		<h1>ユーザプロフィール</h1>
 		<!--TODO DBから取得した値を初期値に設定-->
-		<form action="" method="PUT" th:object="${SignupForm}">
+		<form th:action="@{/}" method="PUT" th:object="${signupForm}">
 			<div class="container">
 				<div class="form-group row">
 					<label for="" class="col-form-label">ユーザ名</label>
