@@ -46,11 +46,11 @@
 								<span class="sr-only">(current)</span>
 							</a>
 						</li>
-						<li class="nav-item"><a class="nav-link" href="#!">About</a></li>
-						<li class="nav-item"><a class="nav-link" href="#!">Services</a></li>
+						<li class="nav-item"><a class="nav-link" href="#!"></a></li>
 						<li class="nav-item">
-							<a class="nav-link" th:href="@{/{id} (id=${userId})}">Contact</a>
+							<a class="nav-link" th:href="@{/{id} (id=${userId})}">Profile</a>
 						</li>
+						<li class="nav-item"><a class="nav-link" href="#!">Log Out</a></li>
 					</ul>
 				</div>
 			</div>
@@ -60,11 +60,12 @@
 			<div class="row">
 				<div class="col-lg-3">
 					<h1 class="my-4">Shop Name</h1>
-					<div class="list-group" th:each="category :${category}">
+					<!--TODO ここにカテゴリ-->
+					<div class="list-group" th:each="category:${categoryList}">
 						<a
 							class="list-group-item"
-							th:href="${/memo/category/{categoryName} (categoryName=${category.category})}"
 							th:text="${category.category}"
+							th:href="@{/memo/category/{categoryName} (categoryName=${category.category})}"
 						>
 							Category 1
 						</a>
