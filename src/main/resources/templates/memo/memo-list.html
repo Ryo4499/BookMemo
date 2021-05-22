@@ -67,7 +67,7 @@
 					<div class="justify-content-center">
 						<a
 							class="btn btn-primary rounded-circle p-0 new-memo-button"
-							th:href="@{/create}"
+							th:href="@{/memo/create/{userId} (userId=${userId})}"
 						>
 							+
 						</a>
@@ -164,20 +164,29 @@
 											th:href="@{/memo/details/{memoId} (memoId=${memo.memoId})}"
 											th:text="${memo.title}"
 											class="overflow-hidden"
+											maxlength="10"
 											>Item One</a
 										>
 									</h4>
+									<label>updated: </label>
+									<p class="text-muted" th:text="${memo.updatedDate}"></p>
+									<label>created: </label>
 									<p class="text-muted" th:text="${memo.createdDate}"></p>
 									<p
 										class="card-text,overflow-hidden"
 										th:text="${memo.content}"
+										maxlength="20"
 									>
 										Lorem ipsum dolor sit amet, consectetur adipisicing elit.
 										Amet numquam aspernatur!
 									</p>
 								</div>
 								<div class="card-footer">
-									<small class="text-muted" th:text="${memo.category}"></small>
+									<small
+										class="text-muted"
+										th:text="${memo.category}"
+										maxlength="10"
+									></small>
 								</div>
 							</div>
 						</div>

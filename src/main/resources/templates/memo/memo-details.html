@@ -81,6 +81,7 @@
 									name="title"
 									class="form-control memo-input"
 									th:value="*{title}"
+									placeholder="タイトル"
 								/>
 								<div
 									th:if="${#fields.hasErrors('title')}"
@@ -93,6 +94,7 @@
 									name="bookName"
 									class="form-control memo-input"
 									th:value="*{bookName}"
+									placeholder="書籍名"
 								/>
 								<div
 									th:if="${#fields.hasErrors('bookName')}"
@@ -111,6 +113,7 @@
 									id="category"
 									name="category"
 									th:value="*{category}"
+									placeholder="カテゴリ名"
 								/>
 								<div
 									th:if="${#fields.hasErrors('category')}"
@@ -127,6 +130,7 @@
 								cols="100"
 								th:field="*{content}"
 								maxlenghth="3000"
+								placeholder="内容をここに入力"
 							>
 							</textarea
 							>

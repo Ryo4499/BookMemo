@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.servlet.server.Session.Cookie;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -48,7 +47,6 @@ public class UserController {
 		}
 		redirectAttributes.addFlashAttribute("userId", user.getUserId());
 		user.setRememberUser(session.getId());
-
 		return "redirect:/memo/";
 	}
 
@@ -61,19 +59,18 @@ public class UserController {
 	public String postSignup(@Validated SignupForm signupForm, BindingResult result, Model model,
 			RedirectAttributes redirectAttributes, HttpSession session) {
 		User user = makeUser(signupForm, 0, session);
-		if (result.hasErrors()) {
+		if (result.hasErrors() || user == null) {
 			model.addAttribute("signupForm", signupForm);
 			return "user/signup";
 		} else {
-			if (userService.insert(user)) {
-				redirectAttributes.addFlashAttribute("userId", user.getUserId());
-				user.setRememberUser(session.getId());
-				userService.update(user);
-				return "redirect:/memo/";
-			} else {
-				model.addAttribute("signupForm", signupForm);
+			if (!userService.insert(user)) {
+				model.addAttribute("error","メールアドレスは既に登録されています");
 				return "user/signup";
 			}
+			redirectAttributes.addFlashAttribute("userId", user.getUserId());
+			user.setRememberUser(session.getId());
+			userService.update(user);
+			return "redirect:/memo/";
 		}
 	}
 

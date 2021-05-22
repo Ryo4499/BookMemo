@@ -32,7 +32,7 @@
 						placeholder="email"
 						th:value="*{email}"
 					/>
-					<div th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+					<div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="error-message"></div>
 					<input
 						type="password"
 						id="password"
@@ -43,7 +43,7 @@
 					/>
 					<div
 						th:if="${#fields.hasErrors('password')}"
-						th:errors="*{password}"
+						th:errors="*{password}" class="error-message"
 					></div>
 					<input type="submit" class="fadeIn fourth mt-5 mx-auto" value="Login" />
 				</form>
