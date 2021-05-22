@@ -11,30 +11,62 @@ public class MemoForm {
 	private String category;
 	@NonNull
 	private String bookName;
+	@NonNull
+	private String userId;
+
+	public MemoForm() {
+	}
+
+	public MemoForm(@NonNull String title, @NonNull String content, @NonNull String category, @NonNull String bookName,
+			@NonNull String userId) {
+		super();
+		this.title = title;
+		this.content = content;
+		this.category = category;
+		this.bookName = bookName;
+		this.userId = userId;
+	}
+
 	public String getTitle() {
 		return title;
 	}
+
 	public void setTitle(String title) {
 		this.title = title;
 	}
+
 	public String getContent() {
 		return content;
 	}
+
 	public void setContent(String content) {
 		this.content = content;
 	}
+
 	public String getCategory() {
 		return category;
 	}
+
 	public void setCategory(String category) {
 		this.category = category;
 	}
+
 	public String getBookName() {
 		return bookName;
 	}
+
 	public void setBookName(String bookName) {
 		this.bookName = bookName;
 	}
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -43,8 +75,10 @@ public class MemoForm {
 		result = prime * result + ((category == null) ? 0 : category.hashCode());
 		result = prime * result + ((content == null) ? 0 : content.hashCode());
 		result = prime * result + ((title == null) ? 0 : title.hashCode());
+		result = prime * result + ((userId == null) ? 0 : userId.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -74,13 +108,18 @@ public class MemoForm {
 				return false;
 		} else if (!title.equals(other.title))
 			return false;
+		if (userId == null) {
+			if (other.userId != null)
+				return false;
+		} else if (!userId.equals(other.userId))
+			return false;
 		return true;
 	}
+
 	@Override
 	public String toString() {
-		return "createForm [title=" + title + ", content=" + content + ", category=" + category + ", bookName="
-				+ bookName + "]";
+		return "MemoForm [title=" + title + ", content=" + content + ", category=" + category + ", bookName=" + bookName
+				+ ", userId=" + userId + "]";
 	}
-	
-	
+
 }

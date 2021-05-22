@@ -1,14 +1,19 @@
 package com.herokuapp.bookmemo4444.user;
 
+import javax.validation.constraints.Pattern;
+
 import lombok.NonNull;
 
 public class SignupForm {
 	private int userId;
 	@NonNull
+	@Pattern(regexp = "^[a-zA-Z0-9]([a-zA-Z0-9]?|[\\-]?([a-zA-Z0-9])){0,38}$")
 	private String userName;
 	@NonNull
+	@Pattern(regexp = "^[a-zA-Z0-9_.+-]+@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\\.)+[a-zA-Z]{2,}$ ")
 	private String email;
 	@NonNull
+	@Pattern(regexp = "/^(?=.*?[a-z])(?=.*?\\d)[a-z\\d]{8,50}$/i")
 	private String password;
 
 	public SignupForm() {

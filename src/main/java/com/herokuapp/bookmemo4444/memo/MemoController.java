@@ -18,21 +18,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.herokuapp.bookmemo4444.entity.Memo;
+import com.herokuapp.bookmemo4444.entity.User;
 import com.herokuapp.bookmemo4444.service.MemoService;
+import com.herokuapp.bookmemo4444.service.UserService;
 
 @Controller
 @RequestMapping("/memo")
 public class MemoController {
 
 	private final MemoService memoService;
+	private final UserService userService;
 
 	@Autowired
-	public MemoController(MemoService memoService) {
+	public MemoController(MemoService memoService, UserService userService) {
 		this.memoService = memoService;
+		this.userService = userService;
 	}
 
 	@GetMapping("/")
-	public String getMemoListPage(MemoForm memoForm, Model model, RedirectAttributes redirectAttributes) {
+	public String getMemoListPage(Model model, RedirectAttributes redirectAttributes) {
 		redirectAttributes.getAttribute("userId");
 		List<Memo> memoList = memoService.getFirstSix();
 		List<Memo> categoryList = memoService.getAllCategory();
@@ -41,6 +45,16 @@ public class MemoController {
 		System.out.println("\n\ncategoryList");
 		categoryList.forEach(System.out::println);
 		model.addAttribute("page", 0);
+		model.addAttribute("memoList", memoList);
+		model.addAttribute("categoryList", categoryList);
+		return "memo/memo-list";
+	}
+
+	@GetMapping("/{page}")
+	public String getMemoListPageNation(@PathVariable("page") int page, Model model) {
+		List<Memo> memoList = memoService.getNextSix(page);
+		List<Memo> categoryList = memoService.getAllCategory();
+		model.addAttribute("page", page);
 		model.addAttribute("memoList", memoList);
 		model.addAttribute("categoryList", categoryList);
 		return "memo/memo-list";
@@ -64,18 +78,37 @@ public class MemoController {
 		return "memo/memo-list";
 	}
 
-	@GetMapping("/create")
-	public String getMemoCreatePage() {
+	@GetMapping("/create/{userId}")
+	public String getMemoCreatePage(@PathVariable("userId") int userId, MemoForm memoForm, Model model) {
+		model.addAttribute(userId);
 		return "memo/memo-create";
 	}
 
-	@PostMapping("/create")
-	public String postMemoCreatePage(@Validated MemoForm createMomoForm, BindingResult result, Model model,
-			RedirectAttributes redirectAttributes) {
-
-		return "memo/memo-create";
+	/**
+	 * 
+	 * @param memoForm           HTMLのinputタグとバンドされた値が入っている(title,content,category,bookName)
+	 * @param result
+	 * @param model
+	 * @param redirectAttributes
+	 * @return
+	 */
+	@PostMapping("/create/{userId}")
+	public String postMemoCreatePage(@Validated MemoForm memoForm, @PathVariable int userId, BindingResult result,
+			Model model, RedirectAttributes redirectAttributes) {
+		User user = userService.findById(userId);
+		Memo memo = makeMemo(memoForm, 0, user);
+		memoService.insert(memo);
+		redirectAttributes.addFlashAttribute("user_id", userId);
+		return "redirect:/memo/";
 	}
 
+	/**
+	 * 
+	 * @param memoForm HTMLのinputタグとバンドされた値が入っている(title,content,category,bookName)
+	 * @param memoId
+	 * @param model
+	 * @return
+	 */
 	@GetMapping("/details/{memoId}")
 	public String getMemoDetailsPage(MemoForm memoForm, @PathVariable long memoId, Model model) {
 		Memo memo = memoService.findById(memoId);
@@ -90,14 +123,37 @@ public class MemoController {
 		return "memo/memo-details";
 	}
 
+	/**
+	 * 
+	 * @param memoId
+	 * @param memoForm           HTMLのinputタグとバンドされた値が入っている(title,content,category,bookName)
+	 * @param result
+	 * @param model
+	 * @param session
+	 * @param redirectAttributes
+	 * @return
+	 */
 	@PutMapping("/details/{memoId}")
-	public String putMemoUpdatePage(MemoForm memoForm, @PathVariable long memoId, Model model, HttpSession session,
-			RedirectAttributes redirectAttributes) {
-		memoService.update(makeMemo(memoForm, memoId));
-		redirectAttributes.addAttribute("sessionId", session.getId());
+	public String putMemoUpdatePage(@PathVariable long memoId, @PathVariable int userId, @Validated MemoForm memoForm,
+			BindingResult result, Model model, HttpSession session, RedirectAttributes redirectAttributes) {
+		User user = userService.findById(userId);
+		Memo memo = makeMemo(memoForm, memoId, user);
+		if (result.hasErrors()) {
+			return "memo/details/" + memoId;
+		}
+		memoService.update(memo);
+		redirectAttributes.addAttribute("userId", userId);
 		return "redirect:/memo/";
 	}
 
+	/**
+	 * 
+	 * @param memoId
+	 * @param userId
+	 * @param redirectAttributes
+	 * @param session
+	 * @return
+	 */
 	@DeleteMapping("/details/{memoId}")
 	public String deleteMemo(@PathVariable("memoId") long memoId, @PathVariable("userId") int userId,
 			RedirectAttributes redirectAttributes, HttpSession session) {
@@ -118,15 +174,16 @@ public class MemoController {
 		return "memo/test2";
 	}
 
-	private Memo makeMemo(MemoForm memoForm, long memoId) {
+	private Memo makeMemo(MemoForm memoForm, long memoId, User user) {
 		Memo memo = new Memo();
 		if (memoId != 0) {
 			memo.setMemoId(memoId);
 		}
 		memo.setTitle(memoForm.getTitle());
-		memo.setContent(memo.getContent());
-		memo.setCategory(memo.getCategory());
-		memo.setBookName(memo.getBookName());
+		memo.setContent(memoForm.getContent());
+		memo.setCategory(memoForm.getCategory());
+		memo.setBookName(memoForm.getBookName());
+		memo.setUser(user);
 		return memo;
 	}
 }
