@@ -10,3 +10,16 @@ INSERT INTO memos(title,content,category,book_name,user_id) VALUES ('title3','�
 INSERT INTO memos(title,content,category,book_name,user_id) VALUES ('title4','内容4','aaa','本',4);
 INSERT INTO memos(title,content,category,book_name,user_id) VALUES ('title5','内容5','dd','本',5);
 INSERT INTO memos(title,content,category,book_name,user_id) VALUES ('title6','内容6','ee','本',6);
+INSERT INTO memos(title,content,category,book_name,user_id) VALUES ('title1','内容7','カテゴリ','本',1);
+INSERT INTO memos(title,content,category,book_name,user_id) VALUES ('title2','内容8','aaa','本',2);
+INSERT INTO memos(title,content,category,book_name,user_id) VALUES ('title3','内容9','bb','本',3);
+INSERT INTO memos(title,content,category,book_name,user_id) VALUES ('title4','内容10','aaa','本',4);
+INSERT INTO memos(title,content,category,book_name,user_id) VALUES ('title5','内容11','dd','本',5);
+INSERT INTO memos(title,content,category,book_name,user_id) VALUES ('title6','内容12','ee','本',6);
+INSERT INTO memos(title,content,category,book_name,user_id) VALUES ('title6','内容13','ee','本',6);
+INSERT INTO memos(title,content,category,book_name,user_id) VALUES ('title1','内容14','カテゴリ','本',1);
+INSERT INTO memos(title,content,category,book_name,user_id) VALUES ('title2','内容15','aaa','本',2);
+INSERT INTO memos(title,content,category,book_name,user_id) VALUES ('title3','内容16','bb','本',3);
+INSERT INTO memos(title,content,category,book_name,user_id) VALUES ('title4','内容17','aaa','本',4);
+INSERT INTO memos(title,content,category,book_name,user_id) VALUES ('title5','内容18','dd','本',5);
+INSERT INTO memos(title,content,category,book_name,user_id) VALUES ('title6','内容19','ee','本',6);

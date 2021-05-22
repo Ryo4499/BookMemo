@@ -5,7 +5,7 @@ import java.util.List;
 import com.herokuapp.bookmemo4444.entity.Memo;
 
 public interface MemoService {
-	void save(Memo memo);
+	void insert(Memo memo);
 
 	void update(Memo memo);
 
@@ -13,11 +13,17 @@ public interface MemoService {
 
 	List<Memo> getAll();
 
+	List<Memo> getFirstSix();
+
+	List<Memo> getNextSix(int page);
+
 	List<Memo> searchByTitle(String title);
 
 	List<Memo> searchByCategory(String category);
 
 	Memo findById(long id);
 
-	List<String> getAllCategory();
+	List<Memo> getAllCategory();
+	
+	List<Memo> getCategory(String category);
 }

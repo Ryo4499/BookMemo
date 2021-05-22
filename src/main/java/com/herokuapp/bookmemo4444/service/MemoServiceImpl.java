@@ -19,7 +19,7 @@ public class MemoServiceImpl implements MemoService {
 	}
 
 	@Override
-	public void save(Memo memo) {
+	public void insert(Memo memo) {
 		memoDao.insertMemo(memo);
 	}
 
@@ -54,8 +54,24 @@ public class MemoServiceImpl implements MemoService {
 	}
 
 	@Override
-	public List<String> getAllCategory() {
+	public List<Memo> getAllCategory() {
 		return memoDao.getAllCategory();
 	}
+
+	@Override
+	public List<Memo> getFirstSix() {
+		return memoDao.getFirstSix();
+	}
+
+	@Override
+	public List<Memo> getNextSix(int page) {
+		return memoDao.getNextSix(page);
+	}
+
+	@Override
+	public List<Memo> getCategory(String category) {
+		return memoDao.getCategory(category);
+	}
+
 
 }

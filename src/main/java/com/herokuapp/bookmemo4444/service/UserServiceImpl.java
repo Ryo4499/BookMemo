@@ -3,6 +3,7 @@ package com.herokuapp.bookmemo4444.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
@@ -37,7 +38,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void delete(int id) {
-		if (userDao.deleteUser(id)==0) {
+		if (userDao.deleteUser(id) == 0) {
 			throw new UserNotFoundException("削除するユーザが存在しません");
 		}
 		userDao.deleteUser(id);
@@ -55,6 +56,20 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User findBySessionId(String id) {
 		return userDao.findBySessionId(id);
+	}
+
+	@Override
+	public User findByEmailAndPass(String email, String password) {
+		User user;
+		try {
+			user = userDao.findByEmailAndPass(email, password);
+		} catch (DataIntegrityViolationException e) {
+			user = null;
+		} catch (EmptyResultDataAccessException e) {
+			user = null;
+		}
+
+		return user;
 	}
 
 }
