@@ -1,6 +1,7 @@
 package com.herokuapp.bookmemo4444.repository;
 
 import java.sql.Timestamp;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -35,6 +36,7 @@ public class MemoDaoImpl implements MemoDao {
 				+ "FROM memos INNER JOIN users " + "ON memos.user_id = users.user_id";
 		List<Map<String, Object>> tmpList = jdbcTemplate.queryForList(sql);
 		List<Memo> memoList = new ArrayList<>();
+		DateTimeFormatter f = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
 		tmpList.forEach(map -> {
 			Memo memo = new Memo();
 			memo.setMemoId((long) map.get("memo_id"));
@@ -91,6 +93,7 @@ public class MemoDaoImpl implements MemoDao {
 	public List<Memo> getAllCategory() {
 		List<Map<String, Object>> tmpList = jdbcTemplate.queryForList("SELECT DISTINCT ON (category) * FROM memos");
 		List<Memo> memoList = new ArrayList<>();
+		DateTimeFormatter f = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
 		tmpList.forEach(map -> {
 			Memo memo = new Memo();
 			memo.setMemoId((long) map.get("memo_id"));
@@ -126,6 +129,7 @@ public class MemoDaoImpl implements MemoDao {
 		int page = Integer.valueOf(search.get("page")) - 1;
 		List<Map<String, Object>> tmpList = jdbcTemplate.queryForList(sql, category, limit * page, limit);
 		List<Memo> memoList = new ArrayList<>();
+		DateTimeFormatter f = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
 		tmpList.forEach(map -> {
 			Memo memo = new Memo();
 			memo.setMemoId((long) map.get("memo_id"));
