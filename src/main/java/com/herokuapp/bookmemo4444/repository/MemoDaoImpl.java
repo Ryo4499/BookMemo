@@ -192,10 +192,6 @@ public class MemoDaoImpl implements MemoDao {
 	public int getCategoryCount(String category) {
 		String sql = "SELECT COUNT(category) FROM memos WHERE category = ?";
 		Map<String, Object> tmpMap = jdbcTemplate.queryForMap(sql, category);
-		tmpMap.forEach((k, v) -> {
-			System.out.println(k);
-			System.out.println(v);
-		});
 		int count = new Integer(tmpMap.get("count").toString());
 		return count;
 	}
@@ -204,10 +200,6 @@ public class MemoDaoImpl implements MemoDao {
 	public int getTitleCount(String title) {
 		String sql = "SELECT COUNT(title) FROM memos WHERE title = ?";
 		Map<String, Object> tmpMap = jdbcTemplate.queryForMap(sql, title);
-		tmpMap.forEach((k, v) -> {
-			System.out.println(k);
-			System.out.println(v);
-		});
 		int count = new Integer(tmpMap.get("count").toString());
 		return count;
 	}

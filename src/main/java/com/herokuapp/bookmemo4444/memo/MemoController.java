@@ -29,7 +29,7 @@ public class MemoController {
 
 	private final MemoService memoService;
 	private final UserService userService;
-
+	private final HttpSession session;
 	/** １ページの表示数 */
 	private final String limit = "6";
 
@@ -37,16 +37,17 @@ public class MemoController {
 	private int showPageSize = 3;
 
 	@Autowired
-	public MemoController(MemoService memoService, UserService userService) {
+	public MemoController(MemoService memoService, UserService userService, HttpSession session) {
 		this.memoService = memoService;
 		this.userService = userService;
+		this.session = session;
 	}
 
 	@GetMapping("/")
 	public String getMemoListPage(Model model, Pageable pageable, @RequestParam HashMap<String, String> params,
 			RedirectAttributes redirectAttributes) {
 		List<Memo> categoryList = memoService.getAllCategory();
-		redirectAttributes.getAttribute("userId");
+		String userId = session.getAttribute("userId").toString();
 		// パラメータを設定し、現在のページを取得する
 		String currentPage = params.get("page");
 		// 初期表示ではパラメータを取得できないので、1ページに設定
@@ -79,6 +80,7 @@ public class MemoController {
 		int startPage = page - (page - 1) % showPageSize;
 		// 表示する最後のページ番号を算出
 		int endPage = (startPage + showPageSize - 1 > totalPage) ? totalPage : startPage + showPageSize - 1;
+		model.addAttribute("userId", userId);
 		model.addAttribute("categoryList", categoryList);
 		model.addAttribute("memoList", memoList);
 		model.addAttribute("total", total);
@@ -94,6 +96,7 @@ public class MemoController {
 		List<Memo> categoryList = memoService.getAllCategory();
 		String selectTitle = params.get("selectTitle");
 		String currentPage = params.get("page");
+		String userId = session.getAttribute("userId").toString();
 
 		if (currentPage == null) {
 			currentPage = "1";
@@ -117,6 +120,7 @@ public class MemoController {
 		int page = Integer.valueOf(currentPage);
 		int startPage = page - (page - 1) % showPageSize;
 		int endPage = (startPage + showPageSize - 1 > totalPage) ? totalPage : startPage + showPageSize - 1;
+		model.addAttribute("userId", userId);
 		model.addAttribute("selectTitle", selectTitle);
 		model.addAttribute("categoryList", categoryList);
 		model.addAttribute("memoList", memoList);
@@ -133,6 +137,7 @@ public class MemoController {
 		List<Memo> categoryList = memoService.getAllCategory();
 		HashMap<String, String> search = new HashMap<String, String>();
 		String currentPage = "1";
+		String userId = session.getAttribute("userId").toString();
 		search.put("limit", limit);
 		search.put("page", currentPage);
 
@@ -151,6 +156,7 @@ public class MemoController {
 		int page = Integer.valueOf(currentPage);
 		int startPage = page - (page - 1) % showPageSize;
 		int endPage = (startPage + showPageSize - 1 > totalPage) ? totalPage : startPage + showPageSize - 1;
+		model.addAttribute("userId", userId);
 		model.addAttribute("selectTitle", selectTitle);
 		model.addAttribute("categoryList", categoryList);
 		model.addAttribute("memoList", memoList);
@@ -168,6 +174,7 @@ public class MemoController {
 		List<Memo> categoryList = memoService.getAllCategory();
 		String currentPage = params.get("page");
 		String selectCategory = params.get("selectCategory");
+		String userId = session.getAttribute("userId").toString();
 		params.forEach((k, v) -> {
 			System.out.println(k);
 			System.out.println(v);
@@ -195,6 +202,7 @@ public class MemoController {
 		int page = Integer.valueOf(currentPage);
 		int startPage = page - (page - 1) % showPageSize;
 		int endPage = (startPage + showPageSize - 1 > totalPage) ? totalPage : startPage + showPageSize - 1;
+		model.addAttribute("userId", userId);
 		model.addAttribute("selectCategory", selectCategory);
 		model.addAttribute("categoryList", categoryList);
 		model.addAttribute("memoList", memoList);
@@ -206,41 +214,25 @@ public class MemoController {
 		return "memo/memo-category";
 	}
 
-	@GetMapping("/create/{userId}")
-	public String getMemoCreatePage(@PathVariable("userId") String userId, MemoForm memoForm, Model model) {
-		model.addAttribute("userId", userId);
+	@GetMapping("/create/")
+	public String getMemoCreatePage(MemoForm memoForm, Model model) {
 		return "memo/memo-create";
 	}
 
-	/**
-	 * 
-	 * @param memoForm           HTMLのinputタグとバンドされた値が入っている(title,content,category,bookName)
-	 * @param result
-	 * @param model
-	 * @param redirectAttributes
-	 * @return
-	 */
-	@PostMapping("/create/{userId}")
-	public String postMemoCreatePage(@Validated MemoForm memoForm, @PathVariable int userId, BindingResult result,
-			Model model, RedirectAttributes redirectAttributes) {
-		User user = userService.findById(userId);
+	@PostMapping("/create/")
+	public String postMemoCreatePage(@Validated MemoForm memoForm, BindingResult result, Model model,
+			RedirectAttributes redirectAttributes) {
+		String userId = session.getAttribute("userId").toString();
+		User user = userService.findById(Integer.parseInt(userId));
 		if (result.hasErrors()) {
 			model.addAttribute("userId", userId);
 			return "memo/memo-create";
 		}
 		Memo memo = makeMemo(memoForm, 0, user);
 		memoService.insert(memo);
-		redirectAttributes.addFlashAttribute("userId", userId);
 		return "redirect:/memo/";
 	}
 
-	/**
-	 * 
-	 * @param memoForm HTMLのinputタグとバンドされた値が入っている(title,content,category,bookName)
-	 * @param memoId
-	 * @param model
-	 * @return
-	 */
 	@GetMapping("/details/{memoId}")
 	public String getMemoDetailsPage(MemoForm memoForm, @PathVariable long memoId, Model model) {
 		Memo memo = memoService.findById(memoId);
@@ -255,16 +247,6 @@ public class MemoController {
 		return "memo/memo-details";
 	}
 
-	/**
-	 * 
-	 * @param memoId
-	 * @param memoForm           HTMLのinputタグとバンドされた値が入っている(title,content,category,bookName)
-	 * @param result
-	 * @param model
-	 * @param session
-	 * @param redirectAttributes
-	 * @return
-	 */
 	@PostMapping("/details/")
 	public String putMemoUpdatePage(@Validated MemoForm memoForm, BindingResult result, Model model,
 			HttpSession session, RedirectAttributes redirectAttributes) {
@@ -276,23 +258,13 @@ public class MemoController {
 			return "memo/details/" + memo.getMemoId();
 		}
 		memoService.update(memo);
-		redirectAttributes.addFlashAttribute("userId", userId);
 		return "redirect:/memo/";
 	}
 
-	/**
-	 * 
-	 * @param memoId
-	 * @param userId
-	 * @param redirectAttributes
-	 * @param session
-	 * @return
-	 */
 	@GetMapping("/details/delete/{memoId}")
 	public String deleteMemo(@PathVariable("memoId") long memoId, @RequestParam HashMap<String, String> params,
 			RedirectAttributes redirectAttributes, HttpSession session) {
 		memoService.delete(memoId);
-		redirectAttributes.addFlashAttribute("userId", params.get("userId"));
 		return "redirect:/memo/";
 	}
 

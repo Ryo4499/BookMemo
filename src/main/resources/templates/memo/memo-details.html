@@ -48,12 +48,12 @@
 						<li class="nav-item">
 							<a
 								class="nav-link"
-								th:href="@{/profile/{userId} (userId=${userId})}"
+								th:href="@{/profile/}"
 								>Profile</a
 							>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" th:href="@{/logout}">Logout</a>
+							<a class="nav-link" th:href="@{/logout}">Log out</a>
 						</li>
 					</ul>
 				</div>
@@ -165,7 +165,7 @@
 						</article>
 					</form>
 					<form
-						th:action="@{/memo/details/delete/{memoId} (memoId=${memo.memoId})}"
+						th:action="@{/memo/details/delete/}"
 						method="GET"
 					>
 						<input
@@ -189,7 +189,10 @@
 					<div class="card mb-4">
 						<div class="card-header">Search</div>
 						<div class="card-body">
-							<form th:action="@{'/memo/title/'}" method="POST">
+							<form
+								th:action="@{'/memo/title/'}"
+								method="POST"
+							>
 								<div class="input-group">
 									<input
 										class="form-control"

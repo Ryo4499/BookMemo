@@ -5,7 +5,6 @@ import javax.validation.constraints.Pattern;
 import lombok.NonNull;
 
 public class SignupForm {
-	private String userId;
 	@NonNull
 	@Pattern(regexp = "^[a-zA-Z0-9]([a-zA-Z0-9]?|[\\-]?([a-zA-Z0-9])){1,29}$")
 	private String userName;
@@ -19,20 +18,11 @@ public class SignupForm {
 	public SignupForm() {
 	}
 
-	public SignupForm(String userId, @NonNull String userName, @NonNull String email, @NonNull String password) {
+	public SignupForm(@NonNull String userName, @NonNull String email, @NonNull String password) {
 		super();
-		this.userId = userId;
 		this.userName = userName;
 		this.email = email;
 		this.password = password;
-	}
-
-	public String getUserId() {
-		return userId;
-	}
-
-	public void setUserId(String userId) {
-		this.userId = userId;
 	}
 
 	public String getUserName() {
@@ -65,7 +55,6 @@ public class SignupForm {
 		int result = 1;
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
-		result = prime * result + ((userId == null) ? 0 : userId.hashCode());
 		result = prime * result + ((userName == null) ? 0 : userName.hashCode());
 		return result;
 	}
@@ -89,11 +78,6 @@ public class SignupForm {
 				return false;
 		} else if (!password.equals(other.password))
 			return false;
-		if (userId == null) {
-			if (other.userId != null)
-				return false;
-		} else if (!userId.equals(other.userId))
-			return false;
 		if (userName == null) {
 			if (other.userName != null)
 				return false;
@@ -104,8 +88,7 @@ public class SignupForm {
 
 	@Override
 	public String toString() {
-		return "SignupForm [userId=" + userId + ", userName=" + userName + ", email=" + email + ", password=" + password
-				+ "]";
+		return "SignupForm [userName=" + userName + ", email=" + email + ", password=" + password + "]";
 	}
 
 }
