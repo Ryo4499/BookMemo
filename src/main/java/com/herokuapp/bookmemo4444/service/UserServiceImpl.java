@@ -43,25 +43,25 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void delete(int id) {
-		if (userDao.deleteUser(id) == 0) {
+	public void delete(int userId) {
+		if (userDao.deleteUser(userId) == 0) {
 			throw new UserNotFoundException("削除するユーザが存在しません");
 		}
-		userDao.deleteUser(id);
+		userDao.deleteUser(userId);
 	}
 
 	@Override
-	public User findById(int id) {
+	public User findById(int userId) {
 		try {
-			return userDao.findById(id);
+			return userDao.findById(userId);
 		} catch (EmptyResultDataAccessException e) {
 			throw new UserNotFoundException("ユーザが見つかりません");
 		}
 	}
 
 	@Override
-	public User findBySessionId(String id) {
-		return userDao.findBySessionId(id);
+	public User findBySessionId(String sessionId) {
+		return userDao.findBySessionId(sessionId);
 	}
 
 	@Override

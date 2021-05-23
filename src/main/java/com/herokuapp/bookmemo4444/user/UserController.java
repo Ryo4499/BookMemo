@@ -9,10 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.herokuapp.bookmemo4444.entity.User;
@@ -58,46 +56,58 @@ public class UserController {
 	@PostMapping("/signup")
 	public String postSignup(@Validated SignupForm signupForm, BindingResult result, Model model,
 			RedirectAttributes redirectAttributes, HttpSession session) {
-		User user = makeUser(signupForm, 0, session);
-		if (result.hasErrors() || user == null) {
+		User tmpUser = makeUser(signupForm, 0, session);
+		if (result.hasErrors() || tmpUser == null) {
 			model.addAttribute("signupForm", signupForm);
 			return "user/signup";
-		} else {
-			if (!userService.insert(user)) {
-				model.addAttribute("error", "メールアドレスは既に登録されています");
-				return "user/signup";
-			}
-			redirectAttributes.addFlashAttribute("userId", user.getUserId());
-			user.setRememberUser(session.getId());
-			userService.update(user);
-			return "redirect:/memo/";
 		}
+		tmpUser.setRememberUser(session.getId());
+		if (!userService.insert(tmpUser)) {
+			model.addAttribute("error", "メールアドレスは既に登録されています");
+			return "user/signup";
+		}
+		User user = userService.findByEmailAndPass(tmpUser.getUserEmail(), tmpUser.getUserPassword());
+		redirectAttributes.addFlashAttribute("userId", user.getUserId());
+		return "redirect:/memo/";
+
 	}
 
-	@GetMapping("/profile/{id}")
+	@GetMapping("/logout")
+	public String getLogout(HttpSession session) {
+		session.invalidate();
+		return "redirect:/";
+	}
+
+	@GetMapping("/profile/{userId}")
 	public String getProfile(@PathVariable("userId") int userId, SignupForm signupForm, Model model) {
 		User user = userService.findById(userId);
-		model.addAttribute("user", user);
+		signupForm.setUserId(String.valueOf(userId));
+		signupForm.setUserName(user.getUserName());
+		signupForm.setEmail(user.getUserEmail());
+		signupForm.setPassword(user.getUserPassword());
+		model.addAttribute("signupForm", signupForm);
 		return "user/user-profile";
 	}
 
 	@PostMapping("/profile/update")
-	public String putProfile(@Validated @ModelAttribute SignupForm signupForm, BindingResult result,
-			HttpSession session, @RequestParam("userId") int userId, Model model,
+	public String postProfile(@Validated SignupForm signupForm, BindingResult result, HttpSession session, Model model,
 			RedirectAttributes redirectAttributes) {
+		int userId = Integer.parseInt(signupForm.getUserId());
 		User user = makeUser(signupForm, userId, session);
 		if (result.hasErrors() || user == null) {
 			model.addAttribute("signupForm", signupForm);
 			return "user/user-profile";
 		} else {
 			userService.update(user);
-			return "redirect:/memo/memo-list";
+			redirectAttributes.addFlashAttribute("userId", userId);
+			return "redirect:/memo/";
 		}
 	}
 
 	@GetMapping("/delete/{userId}")
-	public String deleteUser(@RequestParam("userId") int id, Model model) {
-		userService.delete(id);
+	public String deleteUser(@PathVariable String userId, @Validated SignupForm signupForm, BindingResult result,
+			Model model) {
+		userService.delete(Integer.parseInt(userId));
 		return "redirect:/";
 	}
 

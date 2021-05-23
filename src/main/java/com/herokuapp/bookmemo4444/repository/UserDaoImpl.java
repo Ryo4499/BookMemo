@@ -46,13 +46,15 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public int updateUser(User user) {
-		return jdbcTemplate.update("UPDATE users SET user_name=?,user_email=?,user_password=?", user.getUserName(),
-				user.getUserEmail(), user.getUserPassword());
+
+		String sql = "UPDATE users SET user_name = ?,user_email = ?,user_password = ? WHERE user_id = ?";
+		return jdbcTemplate.update(sql, user.getUserName(), user.getUserEmail(), user.getUserPassword(),
+				user.getUserId());
 	}
 
 	@Override
-	public int deleteUser(int id) {
-		return jdbcTemplate.update("DELETE users FROM user_id=?", id);
+	public int deleteUser(int userId) {
+		return jdbcTemplate.update("DELETE FROM users WHERE user_id=?", userId);
 	}
 
 	@Override
@@ -68,8 +70,8 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public User findBySessionId(String id) {
-		Map<String, Object> map = jdbcTemplate.queryForMap("SELECT * FROM users WHERE remember_user = ?", id);
+	public User findBySessionId(String sessionId) {
+		Map<String, Object> map = jdbcTemplate.queryForMap("SELECT * FROM users WHERE remember_user = ?", sessionId);
 		User user = new User();
 		user.setUserId((int) map.get("user_id"));
 		user.setUserName((String) map.get("user_name"));
@@ -80,17 +82,18 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public User findByEmailAndPass(String email, String password) throws DataIntegrityViolationException,EmptyResultDataAccessException{
+	public User findByEmailAndPass(String email, String password)
+			throws DataIntegrityViolationException, EmptyResultDataAccessException {
 		String sql = "SELECT * FROM users WHERE user_email = ? AND user_password = ?";
-		//TODO 例外出るけど後回し!
-		Map<String, Object> map = jdbcTemplate.queryForMap(sql, email,password);
+		// TODO 例外出るけど後回し!
+		Map<String, Object> map = jdbcTemplate.queryForMap(sql, email, password);
 		User user = new User();
 		user.setUserId((int) map.get("user_id"));
 		user.setUserName((String) map.get("user_name"));
 		user.setUserEmail((String) map.get("user_email"));
 		user.setUserPassword((String) map.get("user_password"));
 		user.setRememberUser((String) map.get("remember_user"));
-		
+
 		return user;
 	}
 

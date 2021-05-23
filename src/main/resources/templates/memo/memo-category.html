@@ -53,7 +53,7 @@
 							>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="@{/logout}">Logout</a>
+							<a class="nav-link" th:href="@{/logout}">Logout</a>
 						</li>
 					</ul>
 				</div>
@@ -78,7 +78,7 @@
 						<a
 							class="list-group-item"
 							th:text="${category.category}"
-							th:href="@{'/memo/category/?page=1'+'&selectCategory='+${category.category}}"
+							th:href="@{'/memo/category/?page=1&selectCategory='+${category.category}}"
 						>
 							Category 1
 						</a>
@@ -196,7 +196,7 @@
 							<li th:if="${startPage} > 1" class="page-item">
 								<a
 									class="page-link"
-									th:href="@{'/memo/category/?selectCategory='+${selectCategory}+'&page=1'}"
+									th:href="@{'/memo/category/?page=1&selectCategory='+${selectCategory}}"
 									　tabindex="-2"
 									>最初</a
 								>
@@ -204,7 +204,7 @@
 							<li th:if="${page} > 1" class="page-item">
 								<a
 									class="page-link"
-									th:href="@{'/memo/category/?selectCategory='+${selectCategory}+'&page=' + ${page-1}}"
+									th:href="@{'/memo/category/?page=' + ${page-1} +'&selectCategory='+${selectCategory}}"
 									　tabindex="-1"
 									>前へ</a
 								>
@@ -217,7 +217,7 @@
 								>
 									<a
 										class="page-link"
-										th:href="@{'/memo/category/?selectCategory='+${selectCategory}+'&page=' + ${i}}"
+										th:href="@{'/memo/category/?page='+ ${i} +'&selectCategory='+${selectCategory} }"
 										th:text="${i}"
 									></a>
 								</li>
@@ -231,7 +231,7 @@
 								>
 									<a
 										class="page-link"
-										th:href="@{'/memo/category/?selectCategory='+${selectCategory}+'&page=' + ${i}}"
+										th:href="@{'/memo/category/?page=' + ${i}+'&selectCategory='+${selectCategory}}"
 										th:text="${i}"
 									></a>
 								</li>
@@ -239,14 +239,14 @@
 							<li th:if="${page} < ${totalPage}" class="page-item">
 								<a
 									class="page-link"
-									th:href="@{'/memo/category/?selectCategory='+${selectCategory}+'&page=' + ${page+1}}"
+									th:href="@{'/memo/category/?page=' + ${page+1}+'&selectCategory='+${selectCategory}}"
 									>次へ</a
 								>
 							</li>
 							<li th:if="${endPage} < ${totalPage}" class="page-item">
 								<a
 									class="page-link"
-									th:href="@{'/memo/category/?selectCategory='+${selectCategory}+'&page=' + ${totalPage}}"
+									th:href="@{'/memo/category/?page=' + ${totalPage}+'&selectCategory='+${selectCategory}}"
 									>最後</a
 								>
 							</li>

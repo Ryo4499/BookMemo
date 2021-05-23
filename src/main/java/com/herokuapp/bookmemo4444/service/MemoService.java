@@ -20,9 +20,9 @@ public interface MemoService {
 
 	int getMemoCount();
 	
-	int getCategoryCount();
+	int getCategoryCount(String category);
 	
-	int getTitleCount();
+	int getTitleCount(String title);
 
 	List<Memo> searchByCategory(HashMap<String, String> search, String category);
 

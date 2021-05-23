@@ -12,13 +12,13 @@ public interface UserDao {
 
 	int updateUser(User user);
 
-	int deleteUser(int id);
+	int deleteUser(int userId);
 
 	List<User> getAll();
 
-	User findById(int id);
+	User findById(int userId);
 	
-	User findBySessionId(String id);
+	User findBySessionId(String sessionId);
 	
 	User findByEmailAndPass(String email,String password);
 }

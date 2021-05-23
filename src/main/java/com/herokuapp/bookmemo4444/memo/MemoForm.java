@@ -5,7 +5,7 @@ import javax.validation.constraints.Pattern;
 import lombok.NonNull;
 
 public class MemoForm {
-	private int memoId;
+	private String memoId;
 	@NonNull
 	@Pattern(regexp = "^[a-zA-Z0-9]([a-zA-Z0-9]?|[\\\\-]?([a-zA-Z0-9])){1,29}$")
 	private String title;
@@ -18,13 +18,13 @@ public class MemoForm {
 	@Pattern(regexp = "^[a-zA-Z0-9]([a-zA-Z0-9]?|[\\\\-]?([a-zA-Z0-9])){1,29}$")
 	private String bookName;
 
-	private int userId;
+	private String userId;
 
 	public MemoForm() {
 	}
 
-	public MemoForm(int memoId, @NonNull String title, @NonNull String content, @NonNull String category,
-			@NonNull String bookName, int userId) {
+	public MemoForm(String memoId, @NonNull String title, @NonNull String content, @NonNull String category,
+			@NonNull String bookName, String userId) {
 		super();
 		this.memoId = memoId;
 		this.title = title;
@@ -34,11 +34,11 @@ public class MemoForm {
 		this.userId = userId;
 	}
 
-	public int getMemoId() {
+	public String getMemoId() {
 		return memoId;
 	}
 
-	public void setMemoId(int memoId) {
+	public void setMemoId(String memoId) {
 		this.memoId = memoId;
 	}
 
@@ -74,11 +74,11 @@ public class MemoForm {
 		this.bookName = bookName;
 	}
 
-	public int getUserId() {
+	public String getUserId() {
 		return userId;
 	}
 
-	public void setUserId(int userId) {
+	public void setUserId(String userId) {
 		this.userId = userId;
 	}
 
@@ -89,9 +89,9 @@ public class MemoForm {
 		result = prime * result + ((bookName == null) ? 0 : bookName.hashCode());
 		result = prime * result + ((category == null) ? 0 : category.hashCode());
 		result = prime * result + ((content == null) ? 0 : content.hashCode());
-		result = prime * result + memoId;
+		result = prime * result + ((memoId == null) ? 0 : memoId.hashCode());
 		result = prime * result + ((title == null) ? 0 : title.hashCode());
-		result = prime * result + userId;
+		result = prime * result + ((userId == null) ? 0 : userId.hashCode());
 		return result;
 	}
 
@@ -119,14 +119,20 @@ public class MemoForm {
 				return false;
 		} else if (!content.equals(other.content))
 			return false;
-		if (memoId != other.memoId)
+		if (memoId == null) {
+			if (other.memoId != null)
+				return false;
+		} else if (!memoId.equals(other.memoId))
 			return false;
 		if (title == null) {
 			if (other.title != null)
 				return false;
 		} else if (!title.equals(other.title))
 			return false;
-		if (userId != other.userId)
+		if (userId == null) {
+			if (other.userId != null)
+				return false;
+		} else if (!userId.equals(other.userId))
 			return false;
 		return true;
 	}

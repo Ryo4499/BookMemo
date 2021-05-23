@@ -56,13 +56,13 @@ public class MemoServiceImpl implements MemoService {
 	}
 
 	@Override
-	public int getCategoryCount() {
-		return memoDao.getCategoryCount();
+	public int getCategoryCount(String category) {
+		return memoDao.getCategoryCount(category);
 	}
 
 	@Override
-	public int getTitleCount() {
-		return memoDao.getTitleCount();
+	public int getTitleCount(String title) {
+		return memoDao.getTitleCount(title);
 	}
 
 	@Override
