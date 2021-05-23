@@ -6,7 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 	<meta name="description" content="" />
 	<meta name="author" content="" />
-	<title>BookMemo メモ一覧</title>
+	<title>BookMemo カテゴリ検索</title>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
 		integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous" />
 	<link rel="stylesheet" th:href="@{/css/list.css}" />
@@ -118,14 +118,19 @@
 				<nav>
 					<ul class="pagination pg-blue justify-content-center">
 						<li th:if="${startPage} > 1" class="page-item">
-							<a class="page-link" th:href="@{'/memo/?page=1'}" 　tabindex="-2">最初</a>
+							<a class="page-link" th:href="@{'/memo/category/?page=1&selectCategory='+${selectCategory}}"
+								　tabindex="-2">最初</a>
 						</li>
 						<li th:if="${page} > 1" class="page-item">
-							<a class="page-link" th:href="@{'/memo/?page=' + ${page-1}}" 　tabindex="-1">前へ</a>
+							<a class="page-link"
+								th:href="@{'/memo/category/?page=' + ${page-1} +'&selectCategory='+${selectCategory}}"
+								　tabindex="-1">前へ</a>
 						</li>
 						<th:block th:if="${endPage}<=0">
 							<li class="page-item" th:classappend="${i == page} ? active" th:each="i : ${startPage}">
-								<a class="page-link" th:href="@{'/memo/?page=' + ${i}}" th:text="${i}"></a>
+								<a class="page-link"
+									th:href="@{'/memo/category/?page='+ ${i} +'&selectCategory='+${selectCategory} }"
+									th:text="${i}"></a>
 							</li>
 						</th:block>
 						<!-- StartPageからEndPageまでのページ数を表示する -->
@@ -134,18 +139,22 @@
 								>
 									<a
 										class="page-link"
-										th:href="@{'/memo/?page=' + ${i}}"
+										th:href="@{'/memo/category/?page=' + ${i}+'&selectCategory='+${selectCategory}}"
 										th:text="${i}"
 									></a>
 								</li>
 							</th:block>
 							<li th:if="${page} < ${totalPage}" class="page-item">
-								<a class="page-link" th:href="@{'/memo/?page=' + ${page+1}}"
+								<a
+									class="page-link"
+									th:href="@{'/memo/category/?page=' + ${page+1}+'&selectCategory='+${selectCategory}}"
 									>次へ</a
 								>
 							</li>
 							<li th:if="${endPage} < ${totalPage}" class="page-item">
-								<a class="page-link" th:href="@{'/memo/?page=' + ${totalPage}}"
+								<a
+									class="page-link"
+									th:href="@{'/memo/category/?page=' + ${totalPage}+'&selectCategory='+${selectCategory}}"
 									>最後</a
 								>
 							</li>
