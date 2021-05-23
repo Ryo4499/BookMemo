@@ -26,9 +26,9 @@ public interface MemoDao {
 	List<Memo> searchByTitle(HashMap<String, String> search, String title);
 
 	int getMemoCount();
-	
+
 	int getCategoryCount(String category);
-	
+
 	int getTitleCount(String title);
 
 	List<Memo> getMemoList(HashMap<String, String> search);

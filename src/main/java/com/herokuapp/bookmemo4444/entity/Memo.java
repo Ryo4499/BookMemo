@@ -1,7 +1,5 @@
 package com.herokuapp.bookmemo4444.entity;
 
-import java.time.LocalDateTime;
-
 public class Memo {
 	private long memoId;
 	private String title;
@@ -96,63 +94,81 @@ public class Memo {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((bookName == null) ? 0 : bookName.hashCode());
-		result = prime * result + ((category == null) ? 0 : category.hashCode());
-		result = prime * result + ((content == null) ? 0 : content.hashCode());
-		result = prime * result + ((createdDate == null) ? 0 : createdDate.hashCode());
-		result = prime * result + (int) (memoId ^ (memoId >>> 32));
-		result = prime * result + ((title == null) ? 0 : title.hashCode());
-		result = prime * result + ((updatedDate == null) ? 0 : updatedDate.hashCode());
-		result = prime * result + ((user == null) ? 0 : user.hashCode());
+		result = prime * result + (bookName == null ? 0 : bookName.hashCode());
+		result = prime * result + (category == null ? 0 : category.hashCode());
+		result = prime * result + (content == null ? 0 : content.hashCode());
+		result = prime * result + (createdDate == null ? 0 : createdDate.hashCode());
+		result = prime * result + (int) (memoId ^ memoId >>> 32);
+		result = prime * result + (title == null ? 0 : title.hashCode());
+		result = prime * result + (updatedDate == null ? 0 : updatedDate.hashCode());
+		result = prime * result + (user == null ? 0 : user.hashCode());
 		return result;
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (getClass() != obj.getClass()) {
 			return false;
+		}
 		Memo other = (Memo) obj;
 		if (bookName == null) {
-			if (other.bookName != null)
+			if (other.bookName != null) {
 				return false;
-		} else if (!bookName.equals(other.bookName))
+			}
+		} else if (!bookName.equals(other.bookName)) {
 			return false;
+		}
 		if (category == null) {
-			if (other.category != null)
+			if (other.category != null) {
 				return false;
-		} else if (!category.equals(other.category))
+			}
+		} else if (!category.equals(other.category)) {
 			return false;
+		}
 		if (content == null) {
-			if (other.content != null)
+			if (other.content != null) {
 				return false;
-		} else if (!content.equals(other.content))
+			}
+		} else if (!content.equals(other.content)) {
 			return false;
+		}
 		if (createdDate == null) {
-			if (other.createdDate != null)
+			if (other.createdDate != null) {
 				return false;
-		} else if (!createdDate.equals(other.createdDate))
+			}
+		} else if (!createdDate.equals(other.createdDate)) {
 			return false;
-		if (memoId != other.memoId)
+		}
+		if (memoId != other.memoId) {
 			return false;
+		}
 		if (title == null) {
-			if (other.title != null)
+			if (other.title != null) {
 				return false;
-		} else if (!title.equals(other.title))
+			}
+		} else if (!title.equals(other.title)) {
 			return false;
+		}
 		if (updatedDate == null) {
-			if (other.updatedDate != null)
+			if (other.updatedDate != null) {
 				return false;
-		} else if (!updatedDate.equals(other.updatedDate))
+			}
+		} else if (!updatedDate.equals(other.updatedDate)) {
 			return false;
+		}
 		if (user == null) {
-			if (other.user != null)
+			if (other.user != null) {
 				return false;
-		} else if (!user.equals(other.user))
+			}
+		} else if (!user.equals(other.user)) {
 			return false;
+		}
 		return true;
 	}
 
@@ -163,5 +179,4 @@ public class Memo {
 				+ updatedDate + "]";
 	}
 
-	
 }

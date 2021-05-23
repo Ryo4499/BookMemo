@@ -16,16 +16,16 @@ public class WebMvcControllerAdvice {
 	public void initBinder(WebDataBinder dataBinder) {
 		dataBinder.registerCustomEditor(String.class, new StringTrimmerEditor(true));
 	}
-	
+
 	@ExceptionHandler(UserNotFoundException.class)
-	public String handleUserException(UserNotFoundException e,Model model) {
-		model.addAttribute("message",e);
+	public String handleUserException(UserNotFoundException e, Model model) {
+		model.addAttribute("message", e);
 		return "error/CustomPage";
 	}
-	
+
 	@ExceptionHandler(MemoNotFoundException.class)
-	public String handleMemoException(MemoNotFoundException e,Model model) {
-		model.addAttribute("message",e);
+	public String handleMemoException(MemoNotFoundException e, Model model) {
+		model.addAttribute("message", e);
 		return "error/CustomPage";
 	}
 }

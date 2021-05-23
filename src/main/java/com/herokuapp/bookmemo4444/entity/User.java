@@ -66,45 +66,57 @@ public class User {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((rememberUser == null) ? 0 : rememberUser.hashCode());
-		result = prime * result + ((userEmail == null) ? 0 : userEmail.hashCode());
+		result = prime * result + (rememberUser == null ? 0 : rememberUser.hashCode());
+		result = prime * result + (userEmail == null ? 0 : userEmail.hashCode());
 		result = prime * result + userId;
-		result = prime * result + ((userName == null) ? 0 : userName.hashCode());
-		result = prime * result + ((userPassword == null) ? 0 : userPassword.hashCode());
+		result = prime * result + (userName == null ? 0 : userName.hashCode());
+		result = prime * result + (userPassword == null ? 0 : userPassword.hashCode());
 		return result;
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (getClass() != obj.getClass()) {
 			return false;
+		}
 		User other = (User) obj;
 		if (rememberUser == null) {
-			if (other.rememberUser != null)
+			if (other.rememberUser != null) {
 				return false;
-		} else if (!rememberUser.equals(other.rememberUser))
+			}
+		} else if (!rememberUser.equals(other.rememberUser)) {
 			return false;
+		}
 		if (userEmail == null) {
-			if (other.userEmail != null)
+			if (other.userEmail != null) {
 				return false;
-		} else if (!userEmail.equals(other.userEmail))
+			}
+		} else if (!userEmail.equals(other.userEmail)) {
 			return false;
-		if (userId != other.userId)
+		}
+		if (userId != other.userId) {
 			return false;
+		}
 		if (userName == null) {
-			if (other.userName != null)
+			if (other.userName != null) {
 				return false;
-		} else if (!userName.equals(other.userName))
+			}
+		} else if (!userName.equals(other.userName)) {
 			return false;
+		}
 		if (userPassword == null) {
-			if (other.userPassword != null)
+			if (other.userPassword != null) {
 				return false;
-		} else if (!userPassword.equals(other.userPassword))
+			}
+		} else if (!userPassword.equals(other.userPassword)) {
 			return false;
+		}
 		return true;
 	}
 

@@ -17,8 +17,8 @@ public interface UserDao {
 	List<User> getAll();
 
 	User findById(int userId);
-	
+
 	User findBySessionId(String sessionId);
-	
-	User findByEmailAndPass(String email,String password);
+
+	User findByEmailAndPass(String email, String password);
 }
