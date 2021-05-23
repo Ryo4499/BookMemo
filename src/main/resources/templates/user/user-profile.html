@@ -51,15 +51,15 @@
 				</div>
 			</div>
 		</nav>
-		<article>
-			<h1 class="pl-3">ユーザプロフィール</h1>
-			<!--TODO DBから取得した値を初期値に設定-->
-			<form
-				th:action="@{/profile/update}"
-				method="POST"
-				th:object="${signupForm}"
-			>
-				<div class="container">
+		<article class="row">
+			<div class="col-5"></div>
+			<div class="container col-5">
+				<h1 class="">ユーザプロフィール</h1>
+				<form
+					th:action="@{/profile/update}"
+					method="POST"
+					th:object="${signupForm}"
+				>
 					<div class="form-group row">
 						<label for="" class="col-form-label">ユーザ名</label>
 						<input
@@ -93,10 +93,18 @@
 							th:value="*{password}"
 						/>
 					</div>
+					<br />
+					<div class="form-group row">
+						<div class="col-5"></div>
+						<button type="submit" class="btn btn-success col-2">変更</button>
+					</div>
+				</form>
+				<div class="row mt-4">
+					<div class="col-5"></div>
+					<a th:href="/delete/" class="btn btn-danger col-2">削除</a>
 				</div>
-				<br />
-				<button type="submit" class="btn">変更</button>
-			</form>
+			</div>
+			<div class="col-2"></div>
 		</article>
 		<footer></footer>
 	</body>
