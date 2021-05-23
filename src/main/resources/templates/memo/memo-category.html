@@ -52,7 +52,7 @@
 					</a>
 				</div>
 				<h1 class="my-4">Category</h1>
-				<!--TODO ここにカテゴリ-->
+				<!-- ここにカテゴリ-->
 				<div class="list-group" th:each="category:${categoryList}">
 					<a class="list-group-item" th:text="${category.category}"
 						th:href="@{'/memo/category/?page=1&selectCategory='+${category.category}}">
@@ -90,7 +90,7 @@
 						<span class="sr-only">Next</span>
 					</a>
 				</div>
-				<!--TODO メモ一覧はここに-->
+				<!-- メモ一覧はここに-->
 				<div class="row container" th:each="memo:${memoList}">
 					<div class="mb-4">
 						<div class="card h-100">
