@@ -48,12 +48,12 @@
 						<li class="nav-item">
 							<a
 								class="nav-link"
-								th:href="@{/profile/{userId} (userId=${userId})}"
+								th:href="@{/profile/}"
 								>Profile</a
 							>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" th:href="@{/logout}">Logout</a>
+							<a class="nav-link" th:href="@{/logout}">Log out</a>
 						</li>
 					</ul>
 				</div>
@@ -66,7 +66,7 @@
 
 				<div class="col-lg-8">
 					<form
-						th:action="@{/memo/create/{userId} (userId=${userId})}"
+						th:action="@{/memo/create/}"
 						method="POST"
 						th:object="${memoForm}"
 					>
@@ -81,8 +81,8 @@
 									name="title"
 									class="form-control memo-input"
 									th:value="*{title}"
-                                    maxlength="30"
-                                    placeholder="タイトル"
+									maxlength="30"
+									placeholder="タイトル"
 								/>
 								<div
 									th:if="${#fields.hasErrors('title')}"
@@ -95,8 +95,8 @@
 									name="bookName"
 									class="form-control memo-input"
 									th:value="*{bookName}"
-                                    maxlength="50"
-                                    placeholder="書籍名"
+									maxlength="50"
+									placeholder="書籍名"
 								/>
 								<div
 									th:if="${#fields.hasErrors('bookName')}"
@@ -109,8 +109,8 @@
 									id="category"
 									name="category"
 									th:value="*{category}"
-                                    maxlength="30"
-                                    placeholder="カテゴリ名"
+									maxlength="30"
+									placeholder="カテゴリ名"
 								/>
 								<div
 									th:if="${#fields.hasErrors('category')}"
@@ -129,8 +129,7 @@
 								maxlength="3000"
 								placeholder="内容をここに入力"
 							>
-							</textarea
-							>
+							</textarea>
 							<div
 								th:if="${#fields.hasErrors('content')}"
 								th:errors="*{content}"
@@ -146,23 +145,23 @@
 						<div class="card-header">Search</div>
 						<div class="card-body">
 							<form th:action="@{/title/{title} (title=${title})}" method="GET">
-							<div class="input-group">
-								<input
-									class="form-control"
-									type="text"
-									th:value="title"
-									placeholder="Enter search term..."
-									aria-label="Enter search title..."
-									aria-describedby="button-search"
-								/>
-								<button
-									class="btn btn-primary"
-									id="button-search"
-									type="button"
-								>
-									Go!
-								</button>
-							</div>
+								<div class="input-group">
+									<input
+										class="form-control"
+										type="text"
+										th:value="title"
+										placeholder="Enter search term..."
+										aria-label="Enter search title..."
+										aria-describedby="button-search"
+									/>
+									<button
+										class="btn btn-primary"
+										id="button-search"
+										type="button"
+									>
+										Go!
+									</button>
+								</div>
 							</form>
 						</div>
 					</div>
