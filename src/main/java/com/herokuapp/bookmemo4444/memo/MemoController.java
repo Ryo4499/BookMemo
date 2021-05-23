@@ -93,6 +93,7 @@ public class MemoController {
 
 	@GetMapping("/title/")
 	public String getTitleMemoListPage(@RequestParam HashMap<String, String> params, Model model) {
+		//TODO タイトルが見つからなかったときの例外
 		List<Memo> categoryList = memoService.getAllCategory();
 		String selectTitle = params.get("selectTitle");
 		String currentPage = params.get("page");
