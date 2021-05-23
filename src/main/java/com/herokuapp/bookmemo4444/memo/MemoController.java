@@ -130,6 +130,40 @@ public class MemoController {
 		return "memo/memo-title";
 	}
 
+	@PostMapping("/memo/title/")
+	public String postTitleListPage(@RequestParam("title") String currentTitle, Model model) {
+		List<Memo> categoryList = memoService.getAllCategory();
+		HashMap<String, String> search = new HashMap<String, String>();
+		String currentPage = "1";
+		search.put("limit", limit);
+		search.put("page", currentPage);
+
+		int total = 0;
+		List<Memo> memoList = null;
+		try {
+			total = memoService.getTitleCount();
+			memoList = memoService.searchByTitle(search, currentTitle);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "error/faital";
+		}
+
+		int totalPage = (total + Integer.valueOf(limit) - 1) / Integer.valueOf(limit);
+		int page = Integer.valueOf(currentPage);
+		int startPage = page - (page - 1) % showPageSize;
+		int endPage = (startPage + showPageSize - 1 > totalPage) ? totalPage : startPage + showPageSize - 1;
+		model.addAttribute("selectTitle", currentTitle);
+		model.addAttribute("categoryList", categoryList);
+		model.addAttribute("memoList", memoList);
+		model.addAttribute("total", total);
+		model.addAttribute("page", page);
+		model.addAttribute("totalPage", totalPage);
+		model.addAttribute("startPage", startPage);
+		model.addAttribute("endPage", endPage);
+
+		return "memo/memo-title";
+	}
+
 	@GetMapping("/category/")
 	public String getCategoryMemoListPage(@RequestParam HashMap<String, String> params, Model model) {
 		List<Memo> categoryList = memoService.getAllCategory();
@@ -228,13 +262,14 @@ public class MemoController {
 	 * @param redirectAttributes
 	 * @return
 	 */
-	@PutMapping("/details/{memoId}")
-	public String putMemoUpdatePage(@PathVariable long memoId, @PathVariable int userId, @Validated MemoForm memoForm,
-			BindingResult result, Model model, HttpSession session, RedirectAttributes redirectAttributes) {
+	@PostMapping("/details/")
+	public String putMemoUpdatePage(@Validated MemoForm memoForm, BindingResult result, Model model,
+			HttpSession session, RedirectAttributes redirectAttributes) {
+		int userId = memoForm.getUserId();
 		User user = userService.findById(userId);
-		Memo memo = makeMemo(memoForm, memoId, user);
+		Memo memo = makeMemo(memoForm, memoForm.getMemoId(), user);
 		if (result.hasErrors()) {
-			return "memo/details/" + memoId;
+			return "memo/details/" + memo.getMemoId();
 		}
 		memoService.update(memo);
 		redirectAttributes.addAttribute("userId", userId);

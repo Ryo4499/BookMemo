@@ -196,7 +196,7 @@
 							<li th:if="${startPage} > 1" class="page-item">
 								<a
 									class="page-link"
-									th:href="@{'/memo/title/{selectTitle}?page=1 (selectTitle=${selectTitle})'}"
+									th:href="@{'/memo/category/?selectTitle='+${selectTitle}+'&page=1'}"
 									　tabindex="-2"
 									>最初</a
 								>
@@ -204,7 +204,7 @@
 							<li th:if="${page} > 1" class="page-item">
 								<a
 									class="page-link"
-									th:href="@{'/memo/title/{selectTitle}?page=' + ${page-1} (selectTitle=${selectTitle})}"
+									th:href="@{'/memo/category/?selectTitle='+${selectTitle}+'&page=' + ${page-1}}"
 									　tabindex="-1"
 									>前へ</a
 								>
@@ -217,7 +217,7 @@
 								>
 									<a
 										class="page-link"
-										th:href="@{'/memo/title/{selectTitle}?page=' + ${i} (selectTitle=${selectTitle})}"
+										th:href="@{'/memo/category/?selectTitle='+${selectTitle}+'&page=' + ${i}}"
 										th:text="${i}"
 									></a>
 								</li>
@@ -231,7 +231,7 @@
 								>
 									<a
 										class="page-link"
-										th:href="@{'/memo/title/{selectTitle}?page=' + ${i} (selectTitle=${selectTitle})}"
+										th:href="@{'/memo/category/?selectTitle='+${selectTitle}+'&page=' + ${i}}"
 										th:text="${i}"
 									></a>
 								</li>
@@ -239,14 +239,14 @@
 							<li th:if="${page} < ${totalPage}" class="page-item">
 								<a
 									class="page-link"
-									th:href="@{'/memo/title/{selectTitle}?page=' + ${page+1} (selectTitle=${selectTitle})}"
+									th:href="@{'/memo/category/?selectTitle='+${selectTitle}+'&page=' + ${page+1}}"
 									>次へ</a
 								>
 							</li>
 							<li th:if="${endPage} < ${totalPage}" class="page-item">
 								<a
 									class="page-link"
-									th:href="@{'/memo/title/{selectTitle}?page=' + ${totalPage} (selectTitle=${selectTitle})}"
+									th:href="@{'/memo/category/?selectTitle='+${selectTitle}+'&page=' + ${totalPage}}"
 									>最後</a
 								>
 							</li>

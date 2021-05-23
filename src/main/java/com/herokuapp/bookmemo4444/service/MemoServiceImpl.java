@@ -64,7 +64,7 @@ public class MemoServiceImpl implements MemoService {
 	public int getTitleCount() {
 		return memoDao.getTitleCount();
 	}
-	
+
 	@Override
 	public List<Memo> searchByCategory(HashMap<String, String> search, String category) {
 		return memoDao.searchByCategory(search, category);

@@ -66,8 +66,8 @@
 
 				<div class="col-lg-8">
 					<form
-						th:action="@{/details/{memoId} (memoId=${memo.memoId})}"
-						method="PUT"
+						th:action="@{/memo/details/}"
+						method="POST"
 						th:object="${memoForm}"
 					>
 						<!-- Post content-->
@@ -106,6 +106,31 @@
 								<label>Created Date:</label
 								><label class="text-muted" th:text="${memo.createdDate}"></label
 								><br />
+
+								<input
+									type="hidden"
+									id="userId"
+									name="userId"
+									class="form-control memo-input"
+									th:value="${memo.user.userId}"
+									placeholder="タイトル"
+								/>
+								<div
+									th:if="${#fields.hasErrors('userId')}"
+									th:errors="${memo.user.userId}"
+								></div>
+								<input
+									type="hidden"
+									id="memoId"
+									name="memoId"
+									class="form-control memo-input"
+									th:value="${memo.memoId}"
+									placeholder="タイトル"
+								/>
+								<div
+									th:if="${#fields.hasErrors('memoId')}"
+									th:errors="${memo.memoId}"
+								></div>
 								<!-- Post categories-->
 								<input
 									type="text"
@@ -128,7 +153,7 @@
 								rows="100"
 								cols="100"
 								th:field="*{content}"
-								maxlenghth="3000"
+								maxlength="3000"
 								placeholder="内容をここに入力"
 							>
 							</textarea>
@@ -140,7 +165,7 @@
 						</article>
 					</form>
 					<form
-						th:action="@{/details/{memoId} (memoId=${memo.memoId})}"
+						th:action="@{/memo/details/{memoId} (memoId=${memo.memoId})}"
 						method="DELETE"
 					>
 						<button class="btn btn-danger">削除</button>
@@ -152,12 +177,13 @@
 					<div class="card mb-4">
 						<div class="card-header">Search</div>
 						<div class="card-body">
-							<form th:action="@{/title/{title} (title=${title})}" method="GET">
+							<form th:action="@{'/memo/title/'}" method="POST">
 								<div class="input-group">
 									<input
 										class="form-control"
 										type="text"
-										th:value="title"
+										name="title"
+										th:value="${title_value}"
 										placeholder="Enter search term..."
 										aria-label="Enter search title..."
 										aria-describedby="button-search"
@@ -165,7 +191,7 @@
 									<button
 										class="btn btn-primary"
 										id="button-search"
-										type="button"
+										type="submit"
 									>
 										Go!
 									</button>
