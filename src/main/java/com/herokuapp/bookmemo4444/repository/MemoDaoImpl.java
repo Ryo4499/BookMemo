@@ -89,7 +89,7 @@ public class MemoDaoImpl implements MemoDao {
 	@Override
 	public List<Memo> searchByCategory(HashMap<String, String> search, String category) {
 		String sql = "SELECT * FROM memos WHERE category = ? ORDER BY created_date DESC,memo_id DESC OFFSET ? FETCH FIRST ? ROWS ONLY";
-		int limit = Integer.valueOf(search.get("limit"));
+		int limit = Integer.parseInt(search.get("limit"));
 		int page = Integer.valueOf(search.get("page")) - 1;
 		List<Map<String, Object>> tmpList = jdbcTemplate.queryForList(sql, category, limit * page, limit);
 
@@ -99,7 +99,7 @@ public class MemoDaoImpl implements MemoDao {
 	@Override
 	public List<Memo> searchByTitle(HashMap<String, String> search, String title) {
 		String sql = "SELECT * FROM memos WHERE title = ? ORDER BY created_date DESC,memo_id DESC OFFSET ? FETCH FIRST ? ROWS ONLY";
-		int limit = Integer.valueOf(search.get("limit"));
+		int limit = Integer.parseInt(search.get("limit"));
 		int page = Integer.valueOf(search.get("page")) - 1;
 		List<Map<String, Object>> tmpList = jdbcTemplate.queryForList(sql, title, limit * page, limit);
 
@@ -132,7 +132,7 @@ public class MemoDaoImpl implements MemoDao {
 	@Override
 	public List<Memo> getMemoList(HashMap<String, String> search) {
 		String sql = "SELECT * FROM memos ORDER BY created_date DESC,memo_id DESC OFFSET ? FETCH FIRST ? ROWS ONLY";
-		int limit = Integer.valueOf(search.get("limit"));
+		int limit = Integer.parseInt(search.get("limit"));
 		int page = Integer.valueOf(search.get("page")) - 1;
 		List<Map<String, Object>> tmpList = jdbcTemplate.queryForList(sql, limit * page, limit);
 		return makeMemos(tmpList);
@@ -141,6 +141,7 @@ public class MemoDaoImpl implements MemoDao {
 
 	/**
 	 * Map入りListの中身の取り出し
+	 *
 	 * @param tmpList
 	 * @return
 	 */

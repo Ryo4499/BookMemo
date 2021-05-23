@@ -1,6 +1,5 @@
 package com.herokuapp.bookmemo4444.memo;
 
-import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 
@@ -75,12 +74,12 @@ public class MemoController {
 		// pagination処理
 		// "総数/1ページの表示数"から総ページ数を割り出す
 		int totalPage = (total + Integer.valueOf(limit) - 1) / Integer.valueOf(limit);
-		int page = Integer.valueOf(currentPage);
+		int page = Integer.parseInt(currentPage);
 		// 表示する最初のページ番号を算出（今回は3ページ表示する設定）
 		// (例)1,2,3ページのstartPageは1。4,5,6ページのstartPageは4
 		int startPage = page - (page - 1) % showPageSize;
 		// 表示する最後のページ番号を算出
-		int endPage = (startPage + showPageSize - 1 > totalPage) ? totalPage : startPage + showPageSize - 1;
+		int endPage = startPage + showPageSize - 1 > totalPage ? totalPage : startPage + showPageSize - 1;
 		model.addAttribute("userId", userId);
 		model.addAttribute("categoryList", categoryList);
 		model.addAttribute("memoList", memoList);
@@ -119,9 +118,9 @@ public class MemoController {
 		}
 
 		int totalPage = (total + Integer.valueOf(limit) - 1) / Integer.valueOf(limit);
-		int page = Integer.valueOf(currentPage);
+		int page = Integer.parseInt(currentPage);
 		int startPage = page - (page - 1) % showPageSize;
-		int endPage = (startPage + showPageSize - 1 > totalPage) ? totalPage : startPage + showPageSize - 1;
+		int endPage = startPage + showPageSize - 1 > totalPage ? totalPage : startPage + showPageSize - 1;
 		model.addAttribute("userId", userId);
 		model.addAttribute("selectTitle", selectTitle);
 		model.addAttribute("categoryList", categoryList);
@@ -155,9 +154,9 @@ public class MemoController {
 		}
 
 		int totalPage = (total + Integer.valueOf(limit) - 1) / Integer.valueOf(limit);
-		int page = Integer.valueOf(currentPage);
+		int page = Integer.parseInt(currentPage);
 		int startPage = page - (page - 1) % showPageSize;
-		int endPage = (startPage + showPageSize - 1 > totalPage) ? totalPage : startPage + showPageSize - 1;
+		int endPage = startPage + showPageSize - 1 > totalPage ? totalPage : startPage + showPageSize - 1;
 		model.addAttribute("userId", userId);
 		model.addAttribute("selectTitle", selectTitle);
 		model.addAttribute("categoryList", categoryList);
@@ -201,9 +200,9 @@ public class MemoController {
 		}
 
 		int totalPage = (total + Integer.valueOf(limit) - 1) / Integer.valueOf(limit);
-		int page = Integer.valueOf(currentPage);
+		int page = Integer.parseInt(currentPage);
 		int startPage = page - (page - 1) % showPageSize;
-		int endPage = (startPage + showPageSize - 1 > totalPage) ? totalPage : startPage + showPageSize - 1;
+		int endPage = startPage + showPageSize - 1 > totalPage ? totalPage : startPage + showPageSize - 1;
 		model.addAttribute("userId", userId);
 		model.addAttribute("selectCategory", selectCategory);
 		model.addAttribute("categoryList", categoryList);

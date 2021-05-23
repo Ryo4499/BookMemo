@@ -19,9 +19,9 @@ public interface MemoService {
 	List<Memo> getAllCategory();
 
 	int getMemoCount();
-	
+
 	int getCategoryCount(String category);
-	
+
 	int getTitleCount(String title);
 
 	List<Memo> searchByCategory(HashMap<String, String> search, String category);
