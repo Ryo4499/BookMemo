@@ -9,14 +9,15 @@ public class Memo {
 	private String category;
 	private String bookName;
 	private User user;
-	private LocalDateTime createdDate;
-	private LocalDateTime updatedDate;
+	private String createdDate;
+	private String updatedDate;
 
 	public Memo() {
 	}
 
 	public Memo(long memoId, String title, String content, String category, String bookName, User user,
-			LocalDateTime createdDate, LocalDateTime updatedDate) {
+			String createdDate, String updatedDate) {
+		super();
 		this.memoId = memoId;
 		this.title = title;
 		this.content = content;
@@ -75,19 +76,19 @@ public class Memo {
 		this.user = user;
 	}
 
-	public LocalDateTime getCreatedDate() {
+	public String getCreatedDate() {
 		return createdDate;
 	}
 
-	public void setCreatedDate(LocalDateTime createdDate) {
+	public void setCreatedDate(String createdDate) {
 		this.createdDate = createdDate;
 	}
 
-	public LocalDateTime getUpdatedDate() {
+	public String getUpdatedDate() {
 		return updatedDate;
 	}
 
-	public void setUpdatedDate(LocalDateTime updatedDate) {
+	public void setUpdatedDate(String updatedDate) {
 		this.updatedDate = updatedDate;
 	}
 
@@ -162,4 +163,5 @@ public class Memo {
 				+ updatedDate + "]";
 	}
 
+	
 }
