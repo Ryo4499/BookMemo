@@ -53,7 +53,7 @@
 							>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="@{/logout}">Logout</a>
+							<a class="nav-link" th:href="@{/logout}">Logout</a>
 						</li>
 					</ul>
 				</div>
@@ -165,9 +165,21 @@
 						</article>
 					</form>
 					<form
-						th:action="@{/memo/details/{memoId} (memoId=${memo.memoId})}"
-						method="DELETE"
+						th:action="@{/memo/details/delete/{memoId} (memoId=${memo.memoId})}"
+						method="GET"
 					>
+						<input
+							type="hidden"
+							id="userId"
+							name="userId"
+							class="form-control memo-input"
+							th:value="${memo.user.userId}"
+							placeholder="タイトル"
+						/>
+						<div
+							th:if="${#fields.hasErrors('memo.user.userId')}"
+							th:errors="${memo.user.userId}"
+						></div>
 						<button class="btn btn-danger">削除</button>
 					</form>
 				</div>

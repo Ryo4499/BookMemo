@@ -124,7 +124,7 @@ public class MemoDaoImpl implements MemoDao {
 		String sql = "SELECT * FROM memos WHERE category = ? ORDER BY created_date DESC,memo_id DESC OFFSET ? FETCH FIRST ? ROWS ONLY";
 		int limit = Integer.valueOf(search.get("limit"));
 		int page = Integer.valueOf(search.get("page")) - 1;
-		List<Map<String, Object>> tmpList = jdbcTemplate.queryForList(sql, category, page, limit);
+		List<Map<String, Object>> tmpList = jdbcTemplate.queryForList(sql, category, limit * page, limit);
 		List<Memo> memoList = new ArrayList<>();
 		tmpList.forEach(map -> {
 			Memo memo = new Memo();
@@ -155,7 +155,7 @@ public class MemoDaoImpl implements MemoDao {
 		String sql = "SELECT * FROM memos WHERE title = ? ORDER BY created_date DESC,memo_id DESC OFFSET ? FETCH FIRST ? ROWS ONLY";
 		int limit = Integer.valueOf(search.get("limit"));
 		int page = Integer.valueOf(search.get("page")) - 1;
-		List<Map<String, Object>> tmpList = jdbcTemplate.queryForList(sql, title, page, limit);
+		List<Map<String, Object>> tmpList = jdbcTemplate.queryForList(sql, title, limit * page, limit);
 		List<Memo> memoList = new ArrayList<>();
 		tmpList.forEach(map -> {
 			Memo memo = new Memo();
@@ -189,16 +189,26 @@ public class MemoDaoImpl implements MemoDao {
 	}
 
 	@Override
-	public int getCategoryCount() {
-		String sql = "SELECT COUNT(DISTINCT category) FROM memos";
-		int count = jdbcTemplate.queryForObject(sql, Integer.class);
+	public int getCategoryCount(String category) {
+		String sql = "SELECT COUNT(category) FROM memos WHERE category = ?";
+		Map<String, Object> tmpMap = jdbcTemplate.queryForMap(sql, category);
+		tmpMap.forEach((k, v) -> {
+			System.out.println(k);
+			System.out.println(v);
+		});
+		int count = new Integer(tmpMap.get("count").toString());
 		return count;
 	}
 
 	@Override
-	public int getTitleCount() {
-		String sql = "SELECT COUNT(DISTINCT title) FROM memos";
-		int count = jdbcTemplate.queryForObject(sql, Integer.class);
+	public int getTitleCount(String title) {
+		String sql = "SELECT COUNT(title) FROM memos WHERE title = ?";
+		Map<String, Object> tmpMap = jdbcTemplate.queryForMap(sql, title);
+		tmpMap.forEach((k, v) -> {
+			System.out.println(k);
+			System.out.println(v);
+		});
+		int count = new Integer(tmpMap.get("count").toString());
 		return count;
 	}
 
@@ -207,7 +217,7 @@ public class MemoDaoImpl implements MemoDao {
 		String sql = "SELECT * FROM memos ORDER BY created_date DESC,memo_id DESC OFFSET ? FETCH FIRST ? ROWS ONLY";
 		int limit = Integer.valueOf(search.get("limit"));
 		int page = Integer.valueOf(search.get("page")) - 1;
-		List<Map<String, Object>> tmpList = jdbcTemplate.queryForList(sql, page, limit);
+		List<Map<String, Object>> tmpList = jdbcTemplate.queryForList(sql, limit * page, limit);
 		List<Memo> memoList = new ArrayList<>();
 		tmpList.forEach(map -> {
 			Memo memo = new Memo();

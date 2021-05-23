@@ -11,11 +11,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -94,7 +92,7 @@ public class MemoController {
 	@GetMapping("/title/")
 	public String getTitleMemoListPage(@RequestParam HashMap<String, String> params, Model model) {
 		List<Memo> categoryList = memoService.getAllCategory();
-		String currentTitle = params.get("selectTitle");
+		String selectTitle = params.get("selectTitle");
 		String currentPage = params.get("page");
 
 		if (currentPage == null) {
@@ -108,8 +106,8 @@ public class MemoController {
 		int total = 0;
 		List<Memo> memoList = null;
 		try {
-			total = memoService.getTitleCount();
-			memoList = memoService.searchByTitle(search, currentTitle);
+			total = memoService.getTitleCount(selectTitle);
+			memoList = memoService.searchByTitle(search, selectTitle);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return "error/faital";
@@ -119,7 +117,7 @@ public class MemoController {
 		int page = Integer.valueOf(currentPage);
 		int startPage = page - (page - 1) % showPageSize;
 		int endPage = (startPage + showPageSize - 1 > totalPage) ? totalPage : startPage + showPageSize - 1;
-		model.addAttribute("selectTitle", currentTitle);
+		model.addAttribute("selectTitle", selectTitle);
 		model.addAttribute("categoryList", categoryList);
 		model.addAttribute("memoList", memoList);
 		model.addAttribute("total", total);
@@ -130,8 +128,8 @@ public class MemoController {
 		return "memo/memo-title";
 	}
 
-	@PostMapping("/memo/title/")
-	public String postTitleListPage(@RequestParam("title") String currentTitle, Model model) {
+	@PostMapping("/title/")
+	public String postTitleListPage(@RequestParam("title") String selectTitle, Model model) {
 		List<Memo> categoryList = memoService.getAllCategory();
 		HashMap<String, String> search = new HashMap<String, String>();
 		String currentPage = "1";
@@ -141,8 +139,9 @@ public class MemoController {
 		int total = 0;
 		List<Memo> memoList = null;
 		try {
-			total = memoService.getTitleCount();
-			memoList = memoService.searchByTitle(search, currentTitle);
+			total = memoService.getTitleCount(selectTitle);
+			memoList = memoService.searchByTitle(search, selectTitle);
+			memoList.forEach(System.out::println);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return "error/faital";
@@ -152,7 +151,7 @@ public class MemoController {
 		int page = Integer.valueOf(currentPage);
 		int startPage = page - (page - 1) % showPageSize;
 		int endPage = (startPage + showPageSize - 1 > totalPage) ? totalPage : startPage + showPageSize - 1;
-		model.addAttribute("selectTitle", currentTitle);
+		model.addAttribute("selectTitle", selectTitle);
 		model.addAttribute("categoryList", categoryList);
 		model.addAttribute("memoList", memoList);
 		model.addAttribute("total", total);
@@ -185,7 +184,7 @@ public class MemoController {
 		int total = 0;
 		List<Memo> memoList = null;
 		try {
-			total = memoService.getCategoryCount();
+			total = memoService.getCategoryCount(selectCategory);
 			memoList = memoService.searchByCategory(search, selectCategory);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -208,8 +207,8 @@ public class MemoController {
 	}
 
 	@GetMapping("/create/{userId}")
-	public String getMemoCreatePage(@PathVariable("userId") int userId, MemoForm memoForm, Model model) {
-		model.addAttribute(userId);
+	public String getMemoCreatePage(@PathVariable("userId") String userId, MemoForm memoForm, Model model) {
+		model.addAttribute("userId", userId);
 		return "memo/memo-create";
 	}
 
@@ -225,9 +224,13 @@ public class MemoController {
 	public String postMemoCreatePage(@Validated MemoForm memoForm, @PathVariable int userId, BindingResult result,
 			Model model, RedirectAttributes redirectAttributes) {
 		User user = userService.findById(userId);
+		if (result.hasErrors()) {
+			model.addAttribute("userId", userId);
+			return "memo/memo-create";
+		}
 		Memo memo = makeMemo(memoForm, 0, user);
 		memoService.insert(memo);
-		redirectAttributes.addFlashAttribute("user_id", userId);
+		redirectAttributes.addFlashAttribute("userId", userId);
 		return "redirect:/memo/";
 	}
 
@@ -265,14 +268,15 @@ public class MemoController {
 	@PostMapping("/details/")
 	public String putMemoUpdatePage(@Validated MemoForm memoForm, BindingResult result, Model model,
 			HttpSession session, RedirectAttributes redirectAttributes) {
-		int userId = memoForm.getUserId();
+		int userId = Integer.parseInt(memoForm.getUserId());
+		int memoId = Integer.parseInt(memoForm.getMemoId());
 		User user = userService.findById(userId);
-		Memo memo = makeMemo(memoForm, memoForm.getMemoId(), user);
+		Memo memo = makeMemo(memoForm, memoId, user);
 		if (result.hasErrors()) {
 			return "memo/details/" + memo.getMemoId();
 		}
 		memoService.update(memo);
-		redirectAttributes.addAttribute("userId", userId);
+		redirectAttributes.addFlashAttribute("userId", userId);
 		return "redirect:/memo/";
 	}
 
@@ -284,11 +288,11 @@ public class MemoController {
 	 * @param session
 	 * @return
 	 */
-	@DeleteMapping("/details/{memoId}")
-	public String deleteMemo(@PathVariable("memoId") long memoId, @PathVariable("userId") int userId,
+	@GetMapping("/details/delete/{memoId}")
+	public String deleteMemo(@PathVariable("memoId") long memoId, @RequestParam HashMap<String, String> params,
 			RedirectAttributes redirectAttributes, HttpSession session) {
 		memoService.delete(memoId);
-		redirectAttributes.addFlashAttribute("user_id", userId);
+		redirectAttributes.addFlashAttribute("userId", params.get("userId"));
 		return "redirect:/memo/";
 	}
 

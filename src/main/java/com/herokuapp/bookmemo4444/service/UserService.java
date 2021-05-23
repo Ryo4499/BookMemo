@@ -9,13 +9,13 @@ public interface UserService {
 
 	void update(User user);
 
-	void delete(int id);
+	void delete(int userId);
 
 	List<User> getAll();
 
-	User findById(int id);
+	User findById(int userId);
 
-	User findBySessionId(String id);
+	User findBySessionId(String sessionId);
 
 	User findByEmailAndPass(String email, String password);
 }
