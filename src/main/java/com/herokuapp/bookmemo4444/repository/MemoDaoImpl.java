@@ -120,39 +120,11 @@ public class MemoDaoImpl implements MemoDao {
 	}
 
 	@Override
-	public List<Memo> getFirstSix() {
-		// TODO ああ
-		String sql = "SELECT * FROM memos ORDER BY created_date DESC,memo_id DESC OFFSET 0 FETCH FIRST 6 ROWS ONLY";
-		List<Map<String, Object>> tmpList = jdbcTemplate.queryForList(sql);
-		List<Memo> memoList = new ArrayList<>();
-		tmpList.forEach(map -> {
-
-			Memo memo = new Memo();
-			memo.setMemoId((long) map.get("memo_id"));
-			memo.setTitle((String) map.get("title"));
-			memo.setContent((String) map.get("content"));
-			memo.setCategory((String) map.get("category"));
-			memo.setBookName((String) map.get("book_name"));
-			memo.setCreatedDate(((Timestamp) map.get("created_date")).toLocalDateTime());
-			memo.setUpdatedDate(((Timestamp) map.get("updated_date")).toLocalDateTime());
-
-			User user = new User();
-			user.setUserId((int) map.get("user_id"));
-			user.setUserName((String) map.get("user_name"));
-			user.setUserEmail((String) map.get("user_email"));
-			user.setUserPassword((String) map.get("user_password"));
-			user.setRememberUser((String) map.get("remember_user"));
-			memo.setUser(user);
-
-			memoList.add(memo);
-		});
-		return memoList;
-	}
-
-	@Override
-	public List<Memo> getNextSix(int page) {
-		String sql = "SELECT * FROM memos ORDER BY created_date DESC,memo_id DESC OFFSET ? FETCH FIRST 6 ROWS ONLY";
-		List<Map<String, Object>> tmpList = jdbcTemplate.queryForList(sql, page * 6);
+	public List<Memo> searchByCategory(HashMap<String, String> search, String category) {
+		String sql = "SELECT * FROM memos WHERE category = ? ORDER BY created_date DESC,memo_id DESC OFFSET ? FETCH FIRST ? ROWS ONLY";
+		int limit = Integer.valueOf(search.get("limit"));
+		int page = Integer.valueOf(search.get("page")) - 1;
+		List<Map<String, Object>> tmpList = jdbcTemplate.queryForList(sql, category, page, limit);
 		List<Memo> memoList = new ArrayList<>();
 		tmpList.forEach(map -> {
 			Memo memo = new Memo();
@@ -179,38 +151,11 @@ public class MemoDaoImpl implements MemoDao {
 	}
 
 	@Override
-	public List<Memo> searchByCategory(String category) {
-		String sql = "SELECT * FROM memos WHERE category = ?";
-		List<Map<String, Object>> tmpList = jdbcTemplate.queryForList(sql, category);
-		List<Memo> memoList = new ArrayList<>();
-		tmpList.forEach(map -> {
-			Memo memo = new Memo();
-			memo.setMemoId((long) map.get("memo_id"));
-			memo.setTitle((String) map.get("title"));
-			memo.setContent((String) map.get("content"));
-			memo.setCategory((String) map.get("category"));
-			memo.setBookName((String) map.get("book_name"));
-			memo.setCreatedDate(((Timestamp) map.get("created_date")).toLocalDateTime());
-			memo.setUpdatedDate(((Timestamp) map.get("updated_date")).toLocalDateTime());
-
-			User user = new User();
-			user.setUserId((int) map.get("user_id"));
-			user.setUserName((String) map.get("user_name"));
-			user.setUserEmail((String) map.get("user_email"));
-			user.setUserPassword((String) map.get("user_password"));
-			user.setRememberUser((String) map.get("remember_user"));
-			memo.setUser(user);
-
-			memoList.add(memo);
-		});
-
-		return memoList;
-	}
-
-	@Override
-	public List<Memo> searchByTitle(String title) {
-		String sql = "SELECT * FROM memos WHERE title = ?";
-		List<Map<String, Object>> tmpList = jdbcTemplate.queryForList(sql, title);
+	public List<Memo> searchByTitle(HashMap<String, String> search, String title) {
+		String sql = "SELECT * FROM memos WHERE title = ? ORDER BY created_date DESC,memo_id DESC OFFSET ? FETCH FIRST ? ROWS ONLY";
+		int limit = Integer.valueOf(search.get("limit"));
+		int page = Integer.valueOf(search.get("page")) - 1;
+		List<Map<String, Object>> tmpList = jdbcTemplate.queryForList(sql, title, page, limit);
 		List<Memo> memoList = new ArrayList<>();
 		tmpList.forEach(map -> {
 			Memo memo = new Memo();
@@ -239,6 +184,20 @@ public class MemoDaoImpl implements MemoDao {
 	@Override
 	public int getMemoCount() {
 		String sql = "SELECT COUNT(memo_id) FROM memos";
+		int count = jdbcTemplate.queryForObject(sql, Integer.class);
+		return count;
+	}
+
+	@Override
+	public int getCategoryCount() {
+		String sql = "SELECT COUNT(DISTINCT category) FROM memos";
+		int count = jdbcTemplate.queryForObject(sql, Integer.class);
+		return count;
+	}
+
+	@Override
+	public int getTitleCount() {
+		String sql = "SELECT COUNT(DISTINCT title) FROM memos";
 		int count = jdbcTemplate.queryForObject(sql, Integer.class);
 		return count;
 	}

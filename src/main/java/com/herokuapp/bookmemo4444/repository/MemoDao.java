@@ -15,21 +15,21 @@ public interface MemoDao {
 
 	int deleteMemo(long id);
 
-	List<Memo> getFirstSix();
-
-	List<Memo> getNextSix(int page);
-
 	List<Memo> getAll();
 
 	Memo findById(long id);
 
 	List<Memo> getAllCategory();
 
-	List<Memo> searchByCategory(String category);
+	List<Memo> searchByCategory(HashMap<String, String> search, String category);
 
-	List<Memo> searchByTitle(String title);
+	List<Memo> searchByTitle(HashMap<String, String> search, String title);
 
 	int getMemoCount();
+	
+	int getCategoryCount();
+	
+	int getTitleCount();
 
 	List<Memo> getMemoList(HashMap<String, String> search);
 }

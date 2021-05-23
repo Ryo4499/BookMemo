@@ -4,9 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -54,28 +51,28 @@ public class MemoServiceImpl implements MemoService {
 	}
 
 	@Override
-	public List<Memo> getFirstSix() {
-		return memoDao.getFirstSix();
-	}
-
-	@Override
-	public List<Memo> getNextSix(int page) {
-		return memoDao.getNextSix(page);
-	}
-
-	@Override
-	public List<Memo> searchByCategory(String category) {
-		return memoDao.searchByCategory(category);
-	}
-
-	@Override
-	public List<Memo> searchByTitle(String title) {
-		return memoDao.searchByTitle(title);
-	}
-
-	@Override
 	public int getMemoCount() {
 		return memoDao.getMemoCount();
+	}
+
+	@Override
+	public int getCategoryCount() {
+		return memoDao.getCategoryCount();
+	}
+
+	@Override
+	public int getTitleCount() {
+		return memoDao.getTitleCount();
+	}
+	
+	@Override
+	public List<Memo> searchByCategory(HashMap<String, String> search, String category) {
+		return memoDao.searchByCategory(search, category);
+	}
+
+	@Override
+	public List<Memo> searchByTitle(HashMap<String, String> search, String title) {
+		return memoDao.searchByTitle(search, title);
 	}
 
 	@Transactional(readOnly = true)
