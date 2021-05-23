@@ -237,7 +237,6 @@ public class MemoController {
 
 	@GetMapping("/details/{memoId}")
 	public String getMemoDetailsPage(@Validated MemoForm memoForm, @PathVariable long memoId, Model model) {
-		DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
 		List<Memo> categoryList = memoService.getAllCategory();
 		Memo memo = memoService.findById(memoId);
 		memoForm.setTitle(memo.getTitle());
@@ -245,8 +244,8 @@ public class MemoController {
 		memoForm.setCategory(memo.getCategory());
 		memoForm.setBookName(memo.getBookName());
 		model.addAttribute("categoryList", categoryList);
-		model.addAttribute("createdDate", memo.getCreatedDate().format(df));
-		model.addAttribute("updatedDate", memo.getUpdatedDate().format(df));
+		model.addAttribute("createdDate", memo.getCreatedDate());
+		model.addAttribute("updatedDate", memo.getUpdatedDate());
 		model.addAttribute("memoForm", memoForm);
 		model.addAttribute("memo", memo);
 		return "memo/memo-details";
