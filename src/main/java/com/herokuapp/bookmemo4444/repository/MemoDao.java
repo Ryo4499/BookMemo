@@ -9,7 +9,7 @@ import com.herokuapp.bookmemo4444.entity.Memo;
 
 @Repository
 public interface MemoDao {
-	void insertMemo(Memo memo);
+	int insertMemo(Memo memo);
 
 	int updateMemo(Memo memo);
 

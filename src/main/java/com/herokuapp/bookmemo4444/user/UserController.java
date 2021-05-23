@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.servlet.server.Session.Cookie;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -20,13 +19,11 @@ import com.herokuapp.bookmemo4444.service.UserService;
 public class UserController {
 	private final UserService userService;
 	private final HttpSession session;
-	private final Cookie[] cookies;
 
 	@Autowired
-	public UserController(UserService userService, HttpSession session, Cookie[] cookies) {
+	public UserController(UserService userService, HttpSession session) {
 		this.userService = userService;
 		this.session = session;
-		this.cookies = cookies;
 	}
 
 	@GetMapping("/")
