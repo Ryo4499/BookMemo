@@ -29,24 +29,38 @@
 						id="email"
 						class="form-control form-text w-75 mx-auto mt-3"
 						name="email"
-						placeholder="email"
+						placeholder="Your email"
 						th:value="*{email}"
 					/>
-					<div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="error-message"></div>
+					<div
+						th:if="${#fields.hasErrors('email')}"
+						th:errors="*{email}"
+						class="error-message"
+					></div>
 					<input
 						type="password"
 						id="password"
 						class="form-control form-text w-75 mx-auto mt-3"
 						name="password"
-						placeholder="password"
+						placeholder="Your password"
 						th:value="*{password}"
 					/>
 					<div
 						th:if="${#fields.hasErrors('password')}"
-						th:errors="*{password}" class="error-message"
+						th:errors="*{password}"
+						class="error-message"
 					></div>
-					<input type="submit" class="fadeIn fourth mt-5 mx-auto" value="Login" />
+					<input
+						type="submit"
+						class="fadeIn fourth mt-5 mx-auto"
+						value="Login"
+					/>
 				</form>
+				<div>
+					<a th:href="@{/}" class="btn btn-dark mb-3 fadeIn fourth"
+						>Top Page</a
+					>
+				</div>
 				<div id="formFooter"></div>
 			</div>
 		</div>
