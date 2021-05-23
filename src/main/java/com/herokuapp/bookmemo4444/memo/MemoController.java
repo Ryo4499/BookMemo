@@ -234,7 +234,7 @@ public class MemoController {
 	}
 
 	@GetMapping("/details/{memoId}")
-	public String getMemoDetailsPage(MemoForm memoForm, @PathVariable long memoId, Model model) {
+	public String getMemoDetailsPage(@Validated MemoForm memoForm, @PathVariable long memoId, Model model) {
 		Memo memo = memoService.findById(memoId);
 		memoForm.setTitle(memo.getTitle());
 		memoForm.setContent(memo.getContent());
@@ -251,7 +251,7 @@ public class MemoController {
 	public String putMemoUpdatePage(@Validated MemoForm memoForm, BindingResult result, Model model,
 			HttpSession session, RedirectAttributes redirectAttributes) {
 		int userId = Integer.parseInt(memoForm.getUserId());
-		int memoId = Integer.parseInt(memoForm.getMemoId());
+		long memoId = Long.parseLong(memoForm.getMemoId());
 		User user = userService.findById(userId);
 		Memo memo = makeMemo(memoForm, memoId, user);
 		if (result.hasErrors()) {
