@@ -1,7 +1,5 @@
 package com.herokuapp.bookmemo4444.user;
 
-import java.util.List;
-
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -68,8 +66,7 @@ public class UserController {
 			return "user/signup";
 		}
 		User user = userService.findByEmailAndPass(tmpUser.getUserEmail(), tmpUser.getUserPassword());
-		session.setAttribute("user", user.getUserId());
-		userService.update(user);
+		session.setAttribute("userId", user.getUserId());
 		return "redirect:/memo/";
 
 	}
@@ -94,7 +91,7 @@ public class UserController {
 	@PostMapping("/profile/update")
 	public String postProfile(@Validated SignupForm signupForm, BindingResult result, Model model,
 			RedirectAttributes redirectAttributes) {
-		int userId = Integer.parseInt(session.getId());
+		int userId = Integer.parseInt(session.getAttribute("userId").toString());
 		User user = makeUser(signupForm, userId, session.getId());
 		if (result.hasErrors() || user == null) {
 			model.addAttribute("signupForm", signupForm);
@@ -107,15 +104,9 @@ public class UserController {
 
 	@GetMapping("/delete")
 	public String deleteUser(@Validated SignupForm signupForm, BindingResult result, Model model) {
-		userService.delete(Integer.parseInt(session.getId()));
+		userService.delete(Integer.parseInt(session.getAttribute("userId").toString()));
+		session.invalidate();
 		return "redirect:/";
-	}
-
-	@GetMapping("/test")
-	public String test(SignupForm signupForm, Model model) {
-		List<User> userList = userService.getAll();
-		model.addAttribute("userList", userList);
-		return "user/test";
 	}
 
 	private User makeUser(SignupForm signupForm, int userId, String sessionId) {

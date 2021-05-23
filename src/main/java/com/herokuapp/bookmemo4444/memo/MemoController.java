@@ -272,18 +272,6 @@ public class MemoController {
 		return "redirect:/memo/";
 	}
 
-	@GetMapping("/test")
-	public String testSelect(MemoForm memoForm, Model model) {
-		List<Memo> memoList = memoService.getAll();
-//		memoList.forEach(memo -> {
-//			System.out.println(memo.getMemoId());
-//			System.out.println(memo.getTitle());
-//			System.out.println(memo.getCategory());
-//		});
-		model.addAttribute("memoList", memoList);
-		return "memo/test2";
-	}
-
 	private Memo makeMemo(MemoForm memoForm, long memoId, User user) {
 		Memo memo = new Memo();
 		if (memoId != 0) {
