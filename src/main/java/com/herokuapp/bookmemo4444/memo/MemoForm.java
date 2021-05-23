@@ -1,7 +1,6 @@
 package com.herokuapp.bookmemo4444.memo;
 
 import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -11,29 +10,21 @@ import lombok.NonNull;
 public class MemoForm {
 	private String memoId;
 	@NotNull
-	@Min(value = 1, message = "Please enter more than 1 character.")
-	@Max(value = 30, message = "Please enter no more than 30 characters.")
 	@NotEmpty(message = "empty title")
 	@Pattern(regexp = "^[a-zA-Z0-9]([a-zA-Z0-9]?|[\\\\-]?([a-zA-Z0-9])){1,30}$")
 	private String title;
 
 	@NotNull
-	@Min(value = 1, message = "Please enter more than 1 character.")
 	@Max(value = 3000, message = "Please enter no more than 3000 characters.")
 	@NotEmpty(message = "empty content")
-	@Max(3000)
 	private String content;
 
 	@NotNull
-	@Min(value = 1, message = "Please enter more than 1 character.")
-	@Max(value = 30, message = "Please enter no more than 30 characters.")
 	@NotEmpty(message = "empty category")
 	@Pattern(regexp = "^[a-zA-Z0-9]([a-zA-Z0-9]?|[\\\\-]?([a-zA-Z0-9])){1,30}$")
 	private String category;
 
 	@NotNull
-	@Min(value = 1, message = "Please enter more than 1 character.")
-	@Max(value = 30, message = "Please enter no more than 30 characters.")
 	@NotEmpty(message = "empty book name")
 	@Pattern(regexp = "^[a-zA-Z0-9]([a-zA-Z0-9]?|[\\\\-]?([a-zA-Z0-9])){1,30}$")
 	private String bookName;

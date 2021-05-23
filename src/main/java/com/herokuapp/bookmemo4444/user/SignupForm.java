@@ -1,7 +1,5 @@
 package com.herokuapp.bookmemo4444.user;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -10,21 +8,17 @@ import lombok.NonNull;
 
 public class SignupForm {
 	@NotNull
-	@Min(value = 2, message = "Please enter more than 2 characters.")
-	@Max(value = 30, message = "Please enter no more than 30 characters.")
 	@NotEmpty(message = "empty username")
 	@Pattern(regexp = "^[a-zA-Z0-9]([a-zA-Z0-9]?|[\\-]?([a-zA-Z0-9])){2,30}$")
 	private String userName;
+
 	@NotNull
-	@Min(value = 2, message = "Please enter more than 2 characters.")
-	@Max(value = 128, message = "Please enter no more than 128 characters.")
 	@NotEmpty(message = "empty email")
 	@Pattern(regexp = "^[a-zA-Z0-9_.+-]+@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\\.)+[a-zA-Z]{2,128}$ ")
 	private String email;
+
 	@NotNull
 	@NotEmpty(message = "empty password")
-	@Min(value = 8, message = "Please enter more than 8 characters.")
-	@Max(value = 50, message = "Please enter no more than 50 characters.")
 	@Pattern(regexp = "/^(?=.*?[a-z])(?=.*?\\d)[a-z\\d]{8,50}$/i")
 	private String password;
 
