@@ -2,6 +2,7 @@ package com.herokuapp.bookmemo4444.repository;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -233,6 +234,45 @@ public class MemoDaoImpl implements MemoDao {
 		});
 
 		return memoList;
+	}
+
+	@Override
+	public int getMemoCount() {
+		String sql = "SELECT COUNT(memo_id) FROM memos";
+		int count = jdbcTemplate.queryForObject(sql, Integer.class);
+		return count;
+	}
+
+	@Override
+	public List<Memo> getMemoList(HashMap<String, String> search) {
+		String sql = "SELECT * FROM memos ORDER BY created_date DESC,memo_id DESC OFFSET ? FETCH FIRST ? ROWS ONLY";
+		int limit = Integer.valueOf(search.get("limit"));
+		int page = Integer.valueOf(search.get("page")) - 1;
+		List<Map<String, Object>> tmpList = jdbcTemplate.queryForList(sql, page, limit);
+		List<Memo> memoList = new ArrayList<>();
+		tmpList.forEach(map -> {
+			Memo memo = new Memo();
+			memo.setMemoId((long) map.get("memo_id"));
+			memo.setTitle((String) map.get("title"));
+			memo.setContent((String) map.get("content"));
+			memo.setCategory((String) map.get("category"));
+			memo.setBookName((String) map.get("book_name"));
+			memo.setCreatedDate(((Timestamp) map.get("created_date")).toLocalDateTime());
+			memo.setUpdatedDate(((Timestamp) map.get("updated_date")).toLocalDateTime());
+
+			User user = new User();
+			user.setUserId((int) map.get("user_id"));
+			user.setUserName((String) map.get("user_name"));
+			user.setUserEmail((String) map.get("user_email"));
+			user.setUserPassword((String) map.get("user_password"));
+			user.setRememberUser((String) map.get("remember_user"));
+			memo.setUser(user);
+
+			memoList.add(memo);
+		});
+
+		return memoList;
+
 	}
 
 }

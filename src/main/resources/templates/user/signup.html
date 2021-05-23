@@ -28,7 +28,7 @@
 						name="userName"
 						id="userName"
 						class="form-control form-text w-75 mx-auto"
-						placeholder="user name"
+						placeholder="ユーザ名(1文字以上38文字以内)"
 						th:value="*{userName}"
 					/>
 					<div
@@ -40,7 +40,7 @@
 						id="email"
 						class="form-control form-text w-75 mx-auto"
 						name="email"
-						placeholder="email"
+						placeholder="email(127文字以内)"
 						th:value="*{email}"
 					/>
 					<div th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
@@ -49,7 +49,7 @@
 						id="password"
 						class="form-control form-text w-75 mx-auto"
 						name="password"
-						placeholder="password"
+						placeholder="password(8文字以上50文字以内)"
 						th:value="*{password}"
 					/>
 					<div

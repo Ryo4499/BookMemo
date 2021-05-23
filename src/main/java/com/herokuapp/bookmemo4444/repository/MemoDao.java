@@ -1,5 +1,6 @@
 package com.herokuapp.bookmemo4444.repository;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
@@ -25,6 +26,10 @@ public interface MemoDao {
 	List<Memo> getAllCategory();
 
 	List<Memo> searchByCategory(String category);
-	
+
 	List<Memo> searchByTitle(String title);
+
+	int getMemoCount();
+
+	List<Memo> getMemoList(HashMap<String, String> search);
 }
