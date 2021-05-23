@@ -1,15 +1,18 @@
-package com.herokuapp.bookmemo4444.service;
+package com.herokuapp.bookmemo4444.repository;
 
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
+
 import com.herokuapp.bookmemo4444.entity.User;
 
-public interface UserService {
-	boolean insert(User user);
+@Repository
+public interface UserDao {
+	void insertUser(User user);
 
-	void update(User user);
+	int updateUser(User user);
 
-	void delete(int userId);
+	int deleteUser(int userId);
 
 	List<User> getAll();
 

@@ -3,4 +3,13 @@ spring:
     driver-class-name: org.postgresql.Driver
     password: p4w0rd
     url: jdbc:postgresql://127.0.0.1:5432/bookmemo
-    username: postgres  h2:    console:      enabled: true
+    username: postgres
+  h2:
+    console:
+      enabled: true
+
+##本番
+#spring:#  datasource:#    driver-class-name: org.postgresql.Driver
+#    username: ${POSTGRES_USER}
+#    password: ${POSTGRES_PASS}
+#    url: ${DATABASE_URL}    
