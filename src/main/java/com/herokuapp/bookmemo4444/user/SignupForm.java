@@ -7,7 +7,7 @@ import lombok.NonNull;
 public class SignupForm {
 	private int userId;
 	@NonNull
-	@Pattern(regexp = "^[a-zA-Z0-9]([a-zA-Z0-9]?|[\\-]?([a-zA-Z0-9])){1,38}$")
+	@Pattern(regexp = "^[a-zA-Z0-9]([a-zA-Z0-9]?|[\\-]?([a-zA-Z0-9])){1,29}$")
 	private String userName;
 	@NonNull
 	@Pattern(regexp = "^[a-zA-Z0-9_.+-]+@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\\.)+[a-zA-Z]{2,127}$ ")
