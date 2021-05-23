@@ -121,7 +121,6 @@
 								></div>
 							</header>
 							<!-- Post content-->
-							<!--TODO textfieldに変更 -->
 							<textarea
 								class="mb-5 memo-content"
 								id="content"
@@ -132,8 +131,7 @@
 								maxlenghth="3000"
 								placeholder="内容をここに入力"
 							>
-							</textarea
-							>
+							</textarea>
 							<div
 								th:if="${#fields.hasErrors('content')}"
 								th:errors="*{content}"
@@ -155,28 +153,29 @@
 						<div class="card-header">Search</div>
 						<div class="card-body">
 							<form th:action="@{/title/{title} (title=${title})}" method="GET">
-							<div class="input-group">
-								<input
-									class="form-control"
-									type="text"
-									th:value="title"
-									placeholder="Enter search term..."
-									aria-label="Enter search title..."
-									aria-describedby="button-search"
-								/>
-								<button
-									class="btn btn-primary"
-									id="button-search"
-									type="button"
-								>
-									Go!
-								</button>
-							</div>
+								<div class="input-group">
+									<input
+										class="form-control"
+										type="text"
+										th:value="title"
+										placeholder="Enter search term..."
+										aria-label="Enter search title..."
+										aria-describedby="button-search"
+									/>
+									<button
+										class="btn btn-primary"
+										id="button-search"
+										type="button"
+									>
+										Go!
+									</button>
+								</div>
 							</form>
 						</div>
 					</div>
 					<!-- Categories widget-->
 					<div class="card mb-4">
+						<!-- TODO カテゴリ-->
 						<div class="card-header">Categories</div>
 						<div class="card-body">
 							<div class="row">

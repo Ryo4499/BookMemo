@@ -64,7 +64,7 @@ public class UserController {
 			return "user/signup";
 		} else {
 			if (!userService.insert(user)) {
-				model.addAttribute("error","メールアドレスは既に登録されています");
+				model.addAttribute("error", "メールアドレスは既に登録されています");
 				return "user/signup";
 			}
 			redirectAttributes.addFlashAttribute("userId", user.getUserId());
@@ -75,11 +75,9 @@ public class UserController {
 	}
 
 	@GetMapping("/profile/{id}")
-	public String getProfile(@PathVariable("userId") int userId, SignupForm signupForm, @PathVariable int id,
-			Model model) {
-		User user = userService.findById(id);
+	public String getProfile(@PathVariable("userId") int userId, SignupForm signupForm, Model model) {
+		User user = userService.findById(userId);
 		model.addAttribute("user", user);
-		model.addAttribute("userId", id);
 		return "user/user-profile";
 	}
 

@@ -78,7 +78,7 @@
 						<a
 							class="list-group-item"
 							th:text="${category.category}"
-							th:href="@{'/memo/category/?page=1'+'&selectCategory='+${category.category}}"
+							th:href="@{/memo/category/?selectCategory'+${category.category}+'&page=1'}"
 						>
 							Category 1
 						</a>
@@ -196,7 +196,7 @@
 							<li th:if="${startPage} > 1" class="page-item">
 								<a
 									class="page-link"
-									th:href="@{'/memo/?page=1'}"
+									th:href="@{'/memo/title/{selectTitle}?page=1 (selectTitle=${selectTitle})'}"
 									　tabindex="-2"
 									>最初</a
 								>
@@ -204,7 +204,7 @@
 							<li th:if="${page} > 1" class="page-item">
 								<a
 									class="page-link"
-									th:href="@{'/memo/?page=' + ${page-1}}"
+									th:href="@{'/memo/title/{selectTitle}?page=' + ${page-1} (selectTitle=${selectTitle})}"
 									　tabindex="-1"
 									>前へ</a
 								>
@@ -217,7 +217,7 @@
 								>
 									<a
 										class="page-link"
-										th:href="@{'/memo/?page=' + ${i}}"
+										th:href="@{'/memo/title/{selectTitle}?page=' + ${i} (selectTitle=${selectTitle})}"
 										th:text="${i}"
 									></a>
 								</li>
@@ -231,18 +231,22 @@
 								>
 									<a
 										class="page-link"
-										th:href="@{'/memo/?page=' + ${i}}"
+										th:href="@{'/memo/title/{selectTitle}?page=' + ${i} (selectTitle=${selectTitle})}"
 										th:text="${i}"
 									></a>
 								</li>
 							</th:block>
 							<li th:if="${page} < ${totalPage}" class="page-item">
-								<a class="page-link" th:href="@{'/memo/?page=' + ${page+1}}"
+								<a
+									class="page-link"
+									th:href="@{'/memo/title/{selectTitle}?page=' + ${page+1} (selectTitle=${selectTitle})}"
 									>次へ</a
 								>
 							</li>
 							<li th:if="${endPage} < ${totalPage}" class="page-item">
-								<a class="page-link" th:href="@{'/memo/?page=' + ${totalPage}}"
+								<a
+									class="page-link"
+									th:href="@{'/memo/title/{selectTitle}?page=' + ${totalPage} (selectTitle=${selectTitle})}"
 									>最後</a
 								>
 							</li>

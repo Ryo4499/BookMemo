@@ -6,9 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.scheduling.support.SimpleTriggerContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -49,6 +47,7 @@ public class MemoController {
 	@GetMapping("/")
 	public String getMemoListPage(Model model, Pageable pageable, @RequestParam HashMap<String, String> params,
 			RedirectAttributes redirectAttributes) {
+		List<Memo> categoryList = memoService.getAllCategory();
 		redirectAttributes.getAttribute("userId");
 		// パラメータを設定し、現在のページを取得する
 		String currentPage = params.get("page");
@@ -82,6 +81,7 @@ public class MemoController {
 		int startPage = page - (page - 1) % showPageSize;
 		// 表示する最後のページ番号を算出
 		int endPage = (startPage + showPageSize - 1 > totalPage) ? totalPage : startPage + showPageSize - 1;
+		model.addAttribute("categoryList", categoryList);
 		model.addAttribute("memoList", memoList);
 		model.addAttribute("total", total);
 		model.addAttribute("page", page);
@@ -91,32 +91,86 @@ public class MemoController {
 		return "memo/memo-list";
 	}
 
-//	@GetMapping("/{page}")
-//	public String getMemoListPageNation(Model model, Pageable pageable, RedirectAttributes redirectAttributes) {
-//		redirectAttributes.getAttribute("userId");
-//		Page<Memo> page = memoService.getPage(pageable);
-//		model.addAttribute("page", page);
-//		model.addAttribute("path", "/list");
-//		model.addAttribute("list", page.getContent());
-//		return "memo/memo-list";
-//	}
-
-	@GetMapping("/title/{title}")
-	public String getTitleMemoListPage(@PathVariable("title") String title, Model model) {
-		List<Memo> memoList = memoService.searchByTitle(title);
+	@GetMapping("/title/")
+	public String getTitleMemoListPage(@RequestParam HashMap<String, String> params, Model model) {
 		List<Memo> categoryList = memoService.getAllCategory();
+		String currentTitle = params.get("selectTitle");
+		String currentPage = params.get("page");
+
+		if (currentPage == null) {
+			currentPage = "1";
+		}
+
+		HashMap<String, String> search = new HashMap<String, String>();
+		search.put("limit", limit);
+		search.put("page", currentPage);
+
+		int total = 0;
+		List<Memo> memoList = null;
+		try {
+			total = memoService.getTitleCount();
+			memoList = memoService.searchByTitle(search, currentTitle);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "error/faital";
+		}
+
+		int totalPage = (total + Integer.valueOf(limit) - 1) / Integer.valueOf(limit);
+		int page = Integer.valueOf(currentPage);
+		int startPage = page - (page - 1) % showPageSize;
+		int endPage = (startPage + showPageSize - 1 > totalPage) ? totalPage : startPage + showPageSize - 1;
+		model.addAttribute("selectTitle", currentTitle);
 		model.addAttribute("categoryList", categoryList);
 		model.addAttribute("memoList", memoList);
-		return "memo/memo-list";
+		model.addAttribute("total", total);
+		model.addAttribute("page", page);
+		model.addAttribute("totalPage", totalPage);
+		model.addAttribute("startPage", startPage);
+		model.addAttribute("endPage", endPage);
+		return "memo/memo-title";
 	}
 
-	@GetMapping("/category/{categoryName}")
-	public String getCategoryMemoListPage(@PathVariable("categoryName") String category, Model model) {
-		List<Memo> memoList = memoService.searchByCategory(category);
+	@GetMapping("/category/")
+	public String getCategoryMemoListPage(@RequestParam HashMap<String, String> params, Model model) {
 		List<Memo> categoryList = memoService.getAllCategory();
+		String currentPage = params.get("page");
+		String selectCategory = params.get("selectCategory");
+		params.forEach((k, v) -> {
+			System.out.println(k);
+			System.out.println(v);
+		});
+
+		if (currentPage == null) {
+			currentPage = "1";
+		}
+
+		HashMap<String, String> search = new HashMap<String, String>();
+		search.put("limit", limit);
+		search.put("page", currentPage);
+
+		int total = 0;
+		List<Memo> memoList = null;
+		try {
+			total = memoService.getCategoryCount();
+			memoList = memoService.searchByCategory(search, selectCategory);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "error/faital";
+		}
+
+		int totalPage = (total + Integer.valueOf(limit) - 1) / Integer.valueOf(limit);
+		int page = Integer.valueOf(currentPage);
+		int startPage = page - (page - 1) % showPageSize;
+		int endPage = (startPage + showPageSize - 1 > totalPage) ? totalPage : startPage + showPageSize - 1;
+		model.addAttribute("selectCategory", selectCategory);
 		model.addAttribute("categoryList", categoryList);
 		model.addAttribute("memoList", memoList);
-		return "memo/memo-list";
+		model.addAttribute("total", total);
+		model.addAttribute("page", page);
+		model.addAttribute("totalPage", totalPage);
+		model.addAttribute("startPage", startPage);
+		model.addAttribute("endPage", endPage);
+		return "memo/memo-category";
 	}
 
 	@GetMapping("/create/{userId}")
