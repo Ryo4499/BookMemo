@@ -15,7 +15,6 @@ public class MemoForm {
 	private String title;
 
 	@NotNull
-	@Max(value = 3000, message = "Please enter no more than 3000 characters.")
 	@NotEmpty(message = "empty content")
 	private String content;
 
