@@ -84,7 +84,6 @@ public class UserDaoImpl implements UserDao {
 	public User findByEmailAndPass(String email, String password)
 			throws DataIntegrityViolationException, EmptyResultDataAccessException {
 		String sql = "SELECT * FROM users WHERE user_email = ? AND user_password = ?";
-		// TODO 例外出るけど後回し!
 		Map<String, Object> map = jdbcTemplate.queryForMap(sql, email, password);
 		User user = new User();
 		user.setUserId((int) map.get("user_id"));
