@@ -1,7 +1,6 @@
 package com.herokuapp.bookmemo4444.repository;
 
 import java.sql.Timestamp;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -25,8 +24,8 @@ public class MemoDaoImpl implements MemoDao {
 	}
 
 	@Override
-	public void insertMemo(Memo memo) {
-		jdbcTemplate.update("INSERT INTO memos(title,content,category,book_name,user_id) VALUES(?,?,?,?,?)",
+	public int insertMemo(Memo memo) {
+		return jdbcTemplate.update("INSERT INTO memos(title,content,category,book_name,user_id) VALUES(?,?,?,?,?)",
 				memo.getTitle(), memo.getContent(), memo.getCategory(), memo.getBookName(), memo.getUser().getUserId());
 	}
 
@@ -36,7 +35,6 @@ public class MemoDaoImpl implements MemoDao {
 				+ "FROM memos INNER JOIN users " + "ON memos.user_id = users.user_id";
 		List<Map<String, Object>> tmpList = jdbcTemplate.queryForList(sql);
 		List<Memo> memoList = new ArrayList<>();
-		DateTimeFormatter f = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
 		tmpList.forEach(map -> {
 			Memo memo = new Memo();
 			memo.setMemoId((long) map.get("memo_id"));
@@ -44,8 +42,8 @@ public class MemoDaoImpl implements MemoDao {
 			memo.setContent((String) map.get("content"));
 			memo.setCategory((String) map.get("category"));
 			memo.setBookName((String) map.get("book_name"));
-			memo.setCreatedDate(((Timestamp) map.get("created_date")).toLocalDateTime());
-			memo.setUpdatedDate(((Timestamp) map.get("updated_date")).toLocalDateTime());
+			memo.setCreatedDate(((Timestamp) map.get("created_date")).toLocalDateTime().plusHours(9));
+			memo.setUpdatedDate(((Timestamp) map.get("updated_date")).toLocalDateTime().plusHours(9));
 
 			User user = new User();
 			user.setUserId((int) map.get("user_id"));
@@ -62,8 +60,10 @@ public class MemoDaoImpl implements MemoDao {
 	@Override
 	public int updateMemo(Memo memo) {
 		Timestamp updateDate = new Timestamp(System.currentTimeMillis());
-		return jdbcTemplate.update("UPDATE memos SET title=?,content=?,category=?,book_name=?,updated_date=?",
-				memo.getTitle(), memo.getContent(), memo.getCategory(), memo.getBookName(), updateDate);
+		return jdbcTemplate.update(
+				"UPDATE memos SET title=?,content=?,category=?,book_name=?,updated_date=? WHERE memo_id = ?",
+				memo.getTitle(), memo.getContent(), memo.getCategory(), memo.getBookName(), updateDate,
+				memo.getMemoId());
 	}
 
 	@Override
@@ -93,7 +93,6 @@ public class MemoDaoImpl implements MemoDao {
 	public List<Memo> getAllCategory() {
 		List<Map<String, Object>> tmpList = jdbcTemplate.queryForList("SELECT DISTINCT ON (category) * FROM memos");
 		List<Memo> memoList = new ArrayList<>();
-		DateTimeFormatter f = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
 		tmpList.forEach(map -> {
 			Memo memo = new Memo();
 			memo.setMemoId((long) map.get("memo_id"));
@@ -101,8 +100,8 @@ public class MemoDaoImpl implements MemoDao {
 			memo.setContent((String) map.get("content"));
 			memo.setCategory((String) map.get("category"));
 			memo.setBookName((String) map.get("book_name"));
-			memo.setCreatedDate(((Timestamp) map.get("created_date")).toLocalDateTime());
-			memo.setUpdatedDate(((Timestamp) map.get("updated_date")).toLocalDateTime());
+			memo.setCreatedDate(((Timestamp) map.get("created_date")).toLocalDateTime().plusHours(9));
+			memo.setUpdatedDate(((Timestamp) map.get("updated_date")).toLocalDateTime().plusHours(9));
 
 			User user = new User();
 			user.setUserId((int) map.get("user_id"));
@@ -129,7 +128,6 @@ public class MemoDaoImpl implements MemoDao {
 		int page = Integer.valueOf(search.get("page")) - 1;
 		List<Map<String, Object>> tmpList = jdbcTemplate.queryForList(sql, category, limit * page, limit);
 		List<Memo> memoList = new ArrayList<>();
-		DateTimeFormatter f = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
 		tmpList.forEach(map -> {
 			Memo memo = new Memo();
 			memo.setMemoId((long) map.get("memo_id"));
@@ -137,8 +135,8 @@ public class MemoDaoImpl implements MemoDao {
 			memo.setContent((String) map.get("content"));
 			memo.setCategory((String) map.get("category"));
 			memo.setBookName((String) map.get("book_name"));
-			memo.setCreatedDate(((Timestamp) map.get("created_date")).toLocalDateTime());
-			memo.setUpdatedDate(((Timestamp) map.get("updated_date")).toLocalDateTime());
+			memo.setCreatedDate(((Timestamp) map.get("created_date")).toLocalDateTime().plusHours(9));
+			memo.setUpdatedDate(((Timestamp) map.get("updated_date")).toLocalDateTime().plusHours(9));
 
 			User user = new User();
 			user.setUserId((int) map.get("user_id"));
@@ -168,8 +166,8 @@ public class MemoDaoImpl implements MemoDao {
 			memo.setContent((String) map.get("content"));
 			memo.setCategory((String) map.get("category"));
 			memo.setBookName((String) map.get("book_name"));
-			memo.setCreatedDate(((Timestamp) map.get("created_date")).toLocalDateTime());
-			memo.setUpdatedDate(((Timestamp) map.get("updated_date")).toLocalDateTime());
+			memo.setCreatedDate(((Timestamp) map.get("created_date")).toLocalDateTime().plusHours(9));
+			memo.setUpdatedDate(((Timestamp) map.get("updated_date")).toLocalDateTime().plusHours(9));
 
 			User user = new User();
 			user.setUserId((int) map.get("user_id"));
@@ -222,8 +220,8 @@ public class MemoDaoImpl implements MemoDao {
 			memo.setContent((String) map.get("content"));
 			memo.setCategory((String) map.get("category"));
 			memo.setBookName((String) map.get("book_name"));
-			memo.setCreatedDate(((Timestamp) map.get("created_date")).toLocalDateTime());
-			memo.setUpdatedDate(((Timestamp) map.get("updated_date")).toLocalDateTime());
+			memo.setCreatedDate(((Timestamp) map.get("created_date")).toLocalDateTime().plusHours(9));
+			memo.setUpdatedDate(((Timestamp) map.get("updated_date")).toLocalDateTime().plusHours(9));
 
 			User user = new User();
 			user.setUserId((int) map.get("user_id"));

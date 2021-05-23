@@ -47,7 +47,6 @@ public class UserServiceImpl implements UserService {
 		if (userDao.deleteUser(userId) == 0) {
 			throw new UserNotFoundException("削除するユーザが存在しません");
 		}
-		userDao.deleteUser(userId);
 	}
 
 	@Override
@@ -60,8 +59,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User findBySessionId(String sessionId) {
-		return userDao.findBySessionId(sessionId);
+	public User findBySessionId(String id) {
+		return userDao.findBySessionId(id);
 	}
 
 	@Override

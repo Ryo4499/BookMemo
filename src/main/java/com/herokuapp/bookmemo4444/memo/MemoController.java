@@ -1,5 +1,6 @@
 package com.herokuapp.bookmemo4444.memo;
 
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 
@@ -93,7 +94,7 @@ public class MemoController {
 
 	@GetMapping("/title/")
 	public String getTitleMemoListPage(@RequestParam HashMap<String, String> params, Model model) {
-		//TODO タイトルが見つからなかったときの例外
+		// TODO タイトルが見つからなかったときの例外
 		List<Memo> categoryList = memoService.getAllCategory();
 		String selectTitle = params.get("selectTitle");
 		String currentPage = params.get("page");
@@ -236,13 +237,16 @@ public class MemoController {
 
 	@GetMapping("/details/{memoId}")
 	public String getMemoDetailsPage(@Validated MemoForm memoForm, @PathVariable long memoId, Model model) {
+		DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
+		List<Memo> categoryList = memoService.getAllCategory();
 		Memo memo = memoService.findById(memoId);
 		memoForm.setTitle(memo.getTitle());
 		memoForm.setContent(memo.getContent());
 		memoForm.setCategory(memo.getCategory());
 		memoForm.setBookName(memo.getBookName());
-		model.addAttribute("createdDate", memo.getCreatedDate());
-		model.addAttribute("updatedDate", memo.getUpdatedDate());
+		model.addAttribute("categoryList", categoryList);
+		model.addAttribute("createdDate", memo.getCreatedDate().format(df));
+		model.addAttribute("updatedDate", memo.getUpdatedDate().format(df));
 		model.addAttribute("memoForm", memoForm);
 		model.addAttribute("memo", memo);
 		return "memo/memo-details";
@@ -251,7 +255,7 @@ public class MemoController {
 	@PostMapping("/details/")
 	public String putMemoUpdatePage(@Validated MemoForm memoForm, BindingResult result, Model model,
 			HttpSession session, RedirectAttributes redirectAttributes) {
-		int userId = Integer.parseInt(memoForm.getUserId());
+		int userId = Integer.parseInt(session.getAttribute("userId").toString());
 		long memoId = Long.parseLong(memoForm.getMemoId());
 		User user = userService.findById(userId);
 		Memo memo = makeMemo(memoForm, memoId, user);
@@ -263,8 +267,7 @@ public class MemoController {
 	}
 
 	@GetMapping("/details/delete/{memoId}")
-	public String deleteMemo(@PathVariable("memoId") long memoId, @RequestParam HashMap<String, String> params,
-			RedirectAttributes redirectAttributes, HttpSession session) {
+	public String deleteMemo(@PathVariable("memoId") long memoId) {
 		memoService.delete(memoId);
 		return "redirect:/memo/";
 	}

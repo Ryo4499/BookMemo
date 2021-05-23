@@ -94,7 +94,7 @@
 				<div class="row container" th:each="memo:${memoList}">
 					<div class="mb-4">
 						<div class="card h-100">
-							<h3 th:text="${memo.bookName}"></h3>
+							<h3 class="pl-2" th:text="${memo.bookName}"></h3>
 							<div class="card-body">
 								<h4 class="card-title">
 									<a th:href="@{/memo/details/{memoId} (memoId=${memo.memoId})}"

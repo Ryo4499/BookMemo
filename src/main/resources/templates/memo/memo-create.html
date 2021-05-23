@@ -58,8 +58,6 @@
 		<!-- Page content-->
 		<div class="container mt-5">
 			<div class="row">
-				<!--TODO ここから-->
-
 				<div class="col-lg-8">
 					<form
 						th:action="@{/memo/create/}"
@@ -71,6 +69,7 @@
 							<!-- Post header-->
 							<header class="mb-4">
 								<!-- Post title-->
+								<label>タイトル</label>
 								<input
 									type="text"
 									id="title"
@@ -85,6 +84,7 @@
 									th:errors="*{title}"
 								></div>
 								<!-- Post meta content-->
+								<label>書籍名</label>
 								<input
 									type="text"
 									id="bookName"
@@ -99,6 +99,7 @@
 									th:errors="*{bookName}"
 								></div>
 								<!-- Post categories-->
+								<label>カテゴリ</label>
 								<input
 									type="text"
 									class="form-control"
@@ -112,11 +113,11 @@
 									th:if="${#fields.hasErrors('category')}"
 									th:errors="*{category}"
 								></div>
+							<label class="mt-3">コンテンツ</label>
 							</header>
 							<!-- Post content-->
-							<!--TODO textfieldに変更 -->
 							<textarea
-								class="mb-5 memo-content"
+								class="mb-3 memo-content"
 								id="content"
 								name="content"
 								rows="100"
@@ -130,7 +131,9 @@
 								th:if="${#fields.hasErrors('content')}"
 								th:errors="*{content}"
 							></div>
+							<div class="mb-3">
 							<button class="btn btn-success">登録</button>
+							</div>
 						</article>
 					</form>
 				</div>
@@ -168,20 +171,21 @@
 						<div class="card-body">
 							<div class="row">
 								<div class="col-sm-6">
-									<ul class="list-unstyled mb-0">
-										<li><a href="#!">Web Design</a></li>
-										<li><a href="#!">HTML</a></li>
-										<li><a href="#!">Freebies</a></li>
+									<ul
+										class="list-unstyled mb-0"
+										th:each="category:${categoryList}"
+									>
+										<li>
+											<a
+												class="list-group-item"
+												th:text="${category.category}"
+												th:href="@{'/memo/category/?page=1&selectCategory='+${category.category}}"
+											>
+												Category 1
+											</a>
+										</li>
 									</ul>
 								</div>
-								<div class="col-sm-6">
-									<ul class="list-unstyled mb-0">
-										<li><a href="#!">JavaScript</a></li>
-										<li><a href="#!">CSS</a></li>
-										<li><a href="#!">Tutorials</a></li>
-									</ul>
-								</div>
-							</div>
 						</div>
 					</div>
 
