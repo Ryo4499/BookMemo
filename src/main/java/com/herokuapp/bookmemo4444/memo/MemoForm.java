@@ -1,30 +1,45 @@
 package com.herokuapp.bookmemo4444.memo;
 
+import javax.validation.constraints.Pattern;
+
 import lombok.NonNull;
 
 public class MemoForm {
+	private int memoId;
 	@NonNull
+	@Pattern(regexp = "^[a-zA-Z0-9]([a-zA-Z0-9]?|[\\\\-]?([a-zA-Z0-9])){1,38}$")
 	private String title;
 	@NonNull
 	private String content;
 	@NonNull
+	@Pattern(regexp = "^[a-zA-Z0-9]([a-zA-Z0-9]?|[\\\\-]?([a-zA-Z0-9])){1,38}$")
 	private String category;
 	@NonNull
+	@Pattern(regexp = "^[a-zA-Z0-9]([a-zA-Z0-9]?|[\\\\-]?([a-zA-Z0-9])){1,38}$")
 	private String bookName;
-	@NonNull
-	private String userId;
+
+	private int userId;
 
 	public MemoForm() {
 	}
 
-	public MemoForm(@NonNull String title, @NonNull String content, @NonNull String category, @NonNull String bookName,
-			@NonNull String userId) {
+	public MemoForm(int memoId, @NonNull String title, @NonNull String content, @NonNull String category,
+			@NonNull String bookName, int userId) {
 		super();
+		this.memoId = memoId;
 		this.title = title;
 		this.content = content;
 		this.category = category;
 		this.bookName = bookName;
 		this.userId = userId;
+	}
+
+	public int getMemoId() {
+		return memoId;
+	}
+
+	public void setMemoId(int memoId) {
+		this.memoId = memoId;
 	}
 
 	public String getTitle() {
@@ -59,11 +74,11 @@ public class MemoForm {
 		this.bookName = bookName;
 	}
 
-	public String getUserId() {
+	public int getUserId() {
 		return userId;
 	}
 
-	public void setUserId(String userId) {
+	public void setUserId(int userId) {
 		this.userId = userId;
 	}
 
@@ -74,8 +89,9 @@ public class MemoForm {
 		result = prime * result + ((bookName == null) ? 0 : bookName.hashCode());
 		result = prime * result + ((category == null) ? 0 : category.hashCode());
 		result = prime * result + ((content == null) ? 0 : content.hashCode());
+		result = prime * result + memoId;
 		result = prime * result + ((title == null) ? 0 : title.hashCode());
-		result = prime * result + ((userId == null) ? 0 : userId.hashCode());
+		result = prime * result + userId;
 		return result;
 	}
 
@@ -103,23 +119,22 @@ public class MemoForm {
 				return false;
 		} else if (!content.equals(other.content))
 			return false;
+		if (memoId != other.memoId)
+			return false;
 		if (title == null) {
 			if (other.title != null)
 				return false;
 		} else if (!title.equals(other.title))
 			return false;
-		if (userId == null) {
-			if (other.userId != null)
-				return false;
-		} else if (!userId.equals(other.userId))
+		if (userId != other.userId)
 			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "MemoForm [title=" + title + ", content=" + content + ", category=" + category + ", bookName=" + bookName
-				+ ", userId=" + userId + "]";
+		return "MemoForm [memoId=" + memoId + ", title=" + title + ", content=" + content + ", category=" + category
+				+ ", bookName=" + bookName + ", userId=" + userId + "]";
 	}
 
 }

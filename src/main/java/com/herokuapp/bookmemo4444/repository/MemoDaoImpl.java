@@ -60,7 +60,7 @@ public class MemoDaoImpl implements MemoDao {
 	@Override
 	public int updateMemo(Memo memo) {
 		Timestamp updateDate = new Timestamp(System.currentTimeMillis());
-		return jdbcTemplate.update("UPDATE memos SET title=?,content=?,category=?,book_name=?,update_date=?",
+		return jdbcTemplate.update("UPDATE memos SET title=?,content=?,category=?,book_name=?,updated_date=?",
 				memo.getTitle(), memo.getContent(), memo.getCategory(), memo.getBookName(), updateDate);
 	}
 
