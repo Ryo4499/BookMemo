@@ -143,12 +143,17 @@
 					<div class="card mb-4">
 						<div class="card-header">Search</div>
 						<div class="card-body">
-							<form th:action="@{/title/{title} (title=${title})}" method="GET">
+						<form
+								th:action="@{'/memo/title/?page=1&selectTitle='+${selectTitle_value}}"
+								method="GET"
+							>
 								<div class="input-group">
 									<input
 										class="form-control"
 										type="text"
-										th:value="title"
+										name="selectTitle"
+										id="selectTitle"
+										th:value="${selectTitle_value}"
 										placeholder="Enter search term..."
 										aria-label="Enter search title..."
 										aria-describedby="button-search"
@@ -156,7 +161,7 @@
 									<button
 										class="btn btn-primary"
 										id="button-search"
-										type="button"
+										type="submit"
 									>
 										Go!
 									</button>
