@@ -133,43 +133,6 @@ public class MemoController {
 		return "memo/memo-title";
 	}
 
-	@PostMapping("/title/")
-	public String postTitleListPage(@RequestParam("title") String selectTitle, Model model) {
-		List<Memo> categoryList = memoService.getAllCategory();
-		HashMap<String, String> search = new HashMap<String, String>();
-		String currentPage = "1";
-		String userId = session.getAttribute("userId").toString();
-		search.put("limit", limit);
-		search.put("page", currentPage);
-
-		int total = 0;
-		List<Memo> memoList = null;
-		try {
-			total = memoService.getTitleCount(selectTitle);
-			memoList = memoService.searchByTitle(search, selectTitle);
-			memoList.forEach(System.out::println);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return "error/faital";
-		}
-
-		int totalPage = (total + Integer.valueOf(limit) - 1) / Integer.valueOf(limit);
-		int page = Integer.parseInt(currentPage);
-		int startPage = page - (page - 1) % showPageSize;
-		int endPage = startPage + showPageSize - 1 > totalPage ? totalPage : startPage + showPageSize - 1;
-		model.addAttribute("userId", userId);
-		model.addAttribute("selectTitle", selectTitle);
-		model.addAttribute("categoryList", categoryList);
-		model.addAttribute("memoList", memoList);
-		model.addAttribute("total", total);
-		model.addAttribute("page", page);
-		model.addAttribute("totalPage", totalPage);
-		model.addAttribute("startPage", startPage);
-		model.addAttribute("endPage", endPage);
-
-		return "memo/memo-title";
-	}
-
 	@GetMapping("/category/")
 	public String getCategoryMemoListPage(@RequestParam HashMap<String, String> params, Model model) {
 		List<Memo> categoryList = memoService.getAllCategory();
