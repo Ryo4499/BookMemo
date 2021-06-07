@@ -3,8 +3,11 @@ package com.herokuapp.bookmemo4444.service;
 import java.util.HashMap;
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.herokuapp.bookmemo4444.entity.Memo;
 
+@Service
 public interface MemoService {
 	void insert(Memo memo);
 

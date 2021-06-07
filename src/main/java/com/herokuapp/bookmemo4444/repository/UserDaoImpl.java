@@ -23,8 +23,8 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public void insertUser(User user) {
-		jdbcTemplate.update("INSERT INTO users(user_name,user_email,user_password,remember_user) VALUES (?,?,?,?)",
-				user.getUserName(), user.getUserEmail(), user.getUserPassword(), user.getRememberUser());
+		jdbcTemplate.update("INSERT INTO users(user_name,user_email,user_password) VALUES (?,?,?)", user.getUserName(),
+				user.getUserEmail(), user.getUserPassword());
 	}
 
 	@Override
@@ -34,11 +34,11 @@ public class UserDaoImpl implements UserDao {
 		List<User> list = new ArrayList<>();
 		resultList.forEach(map -> {
 			User user = new User();
-			user.setUserId((int) map.get("user_id"));
+			user.setUserId((long) map.get("user_id"));
 			user.setUserName((String) map.get("user_name"));
 			user.setUserEmail((String) map.get("user_email"));
 			user.setUserPassword((String) map.get("user_password"));
-			user.setRememberUser((String) map.get("remember_user"));
+
 			list.add(user);
 		});
 		return list;
@@ -60,11 +60,11 @@ public class UserDaoImpl implements UserDao {
 	public User findById(int userId) {
 		Map<String, Object> map = jdbcTemplate.queryForMap("SELECT * FROM users WHERE user_id = ?", userId);
 		User user = new User();
-		user.setUserId((int) map.get("user_id"));
+		user.setUserId((long) map.get("user_id"));
 		user.setUserName((String) map.get("user_name"));
 		user.setUserEmail((String) map.get("user_email"));
 		user.setUserPassword((String) map.get("user_password"));
-		user.setRememberUser((String) map.get("remember_user"));
+
 		return user;
 	}
 
@@ -72,11 +72,11 @@ public class UserDaoImpl implements UserDao {
 	public User findBySessionId(String sessionId) {
 		Map<String, Object> map = jdbcTemplate.queryForMap("SELECT * FROM users WHERE remember_user = ?", sessionId);
 		User user = new User();
-		user.setUserId((int) map.get("user_id"));
+		user.setUserId((long) map.get("user_id"));
 		user.setUserName((String) map.get("user_name"));
 		user.setUserEmail((String) map.get("user_email"));
 		user.setUserPassword((String) map.get("user_password"));
-		user.setRememberUser((String) map.get("remember_user"));
+
 		return user;
 	}
 
@@ -86,11 +86,10 @@ public class UserDaoImpl implements UserDao {
 		String sql = "SELECT * FROM users WHERE user_email = ? AND user_password = ?";
 		Map<String, Object> map = jdbcTemplate.queryForMap(sql, email, password);
 		User user = new User();
-		user.setUserId((int) map.get("user_id"));
+		user.setUserId((long) map.get("user_id"));
 		user.setUserName((String) map.get("user_name"));
 		user.setUserEmail((String) map.get("user_email"));
 		user.setUserPassword((String) map.get("user_password"));
-		user.setRememberUser((String) map.get("remember_user"));
 
 		return user;
 	}
