@@ -2,11 +2,29 @@ spring:
   datasource:
     driver-class-name: org.postgresql.Driver
     password: p4w0rd
-    url: jdbc:postgresql://127.0.0.1:5432/bookmemo
+    url: jdbc:postgresql://127.0.0.1:5432/bookmemo4444?createDatabaseIfNotExist=true&autoReconnect=true&characterEncoding=UTF-8&allowPublicKeyRetrieval=true&useSSL=false
     username: postgres
   h2:
     console:
       enabled: true
+  session:
+    store-type: jdbc
+    jdbc:
+      initialize-schema: always
+    timeout: 900    
+  jpa:
+    database: POSTGRESQL
+    database-platform: org.hibernate.dialect.PostgreSQL94Dialect
+    generate-ddl: true
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    
+  thymeleaf:
+    cache: false
+logging:  level:    '[org.hibernate.sql]': debug
+    '[org.hibernate.type.descriptor.sql]': trace
+
 
 ##本番
 #spring:#  datasource:#    driver-class-name: org.postgresql.Driver

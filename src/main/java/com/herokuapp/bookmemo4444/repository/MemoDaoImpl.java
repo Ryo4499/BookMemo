@@ -65,11 +65,10 @@ public class MemoDaoImpl implements MemoDao {
 				((Timestamp) map.get("updated_date")).toLocalDateTime().plusHours(9).format(dtf).toString());
 
 		User user = new User();
-		user.setUserId((int) map.get("user_id"));
+		user.setUserId((long) map.get("user_id"));
 		user.setUserName((String) map.get("user_name"));
 		user.setUserEmail((String) map.get("user_email"));
 		user.setUserPassword((String) map.get("user_password"));
-		user.setRememberUser((String) map.get("remember_user"));
 		memo.setUser(user);
 		return memo;
 	}
@@ -160,11 +159,10 @@ public class MemoDaoImpl implements MemoDao {
 					((Timestamp) map.get("updated_date")).toLocalDateTime().plusHours(9).format(dtf).toString());
 
 			User user = new User();
-			user.setUserId((int) map.get("user_id"));
+			user.setUserId((long) map.get("user_id"));
 			user.setUserName((String) map.get("user_name"));
 			user.setUserEmail((String) map.get("user_email"));
 			user.setUserPassword((String) map.get("user_password"));
-			user.setRememberUser((String) map.get("remember_user"));
 			memo.setUser(user);
 
 			memoList.add(memo);

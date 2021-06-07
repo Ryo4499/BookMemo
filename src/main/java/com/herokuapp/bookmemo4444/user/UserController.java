@@ -27,25 +27,13 @@ public class UserController {
 
 	@GetMapping("/")
 	public String getTopPage() {
+		//TODO Change toppage
 		return "top-page";
 	}
 
 	@GetMapping("/login")
 	public String getLoginPage(LoginForm loginForm, Model model) {
 		return "user/login";
-	}
-
-	@PostMapping("/login")
-	public String postLogin(@Validated LoginForm loginForm, BindingResult result, Model model,
-			RedirectAttributes redirectAttributes) {
-		User user = userService.findByEmailAndPass(loginForm.getEmail(), loginForm.getPassword());
-		if (result.hasErrors() || user == null) {
-			return "user/login";
-		}
-		session.setAttribute("userId", user.getUserId());
-		user.setRememberUser(session.getId());
-		userService.update(user);
-		return "redirect:/memo/";
 	}
 
 	@GetMapping("/signup")
@@ -56,18 +44,8 @@ public class UserController {
 	@PostMapping("/signup")
 	public String postSignup(@Validated SignupForm signupForm, BindingResult result, Model model,
 			RedirectAttributes redirectAttributes) {
-		User tmpUser = makeUser(signupForm, 0, session.getId());
-		if (result.hasErrors() || tmpUser == null) {
-			model.addAttribute("signupForm", signupForm);
-			return "user/signup";
-		}
-		tmpUser.setRememberUser(session.getId());
-		if (!userService.insert(tmpUser)) {
-			model.addAttribute("error", "メールアドレスは既に登録されています");
-			return "user/signup";
-		}
-		User user = userService.findByEmailAndPass(tmpUser.getUserEmail(), tmpUser.getUserPassword());
-		session.setAttribute("userId", user.getUserId());
+		User tmpUser = makeUser(signupForm, (long) 0, session.getId());
+		//TODO INS USER
 		return "redirect:/memo/";
 
 	}
@@ -81,36 +59,31 @@ public class UserController {
 	@GetMapping("/profile")
 	public String getProfile(SignupForm signupForm, Model model) {
 		String userId = session.getAttribute("userId").toString();
-		User user = userService.findById(Integer.parseInt(userId));
-		signupForm.setUserName(user.getUserName());
-		signupForm.setEmail(user.getUserEmail());
-		signupForm.setPassword(user.getUserPassword());
-		model.addAttribute("signupForm", signupForm);
+		//TODO GET USER DATA
 		return "user/user-profile";
 	}
 
 	@PostMapping("/profile/update")
 	public String postProfile(@Validated SignupForm signupForm, BindingResult result, Model model,
 			RedirectAttributes redirectAttributes) {
-		int userId = Integer.parseInt(session.getAttribute("userId").toString());
+		Long userId = Long.parseLong(session.getAttribute("userId").toString());
 		User user = makeUser(signupForm, userId, session.getId());
 		if (result.hasErrors() || user == null) {
 			model.addAttribute("signupForm", signupForm);
 			return "user/user-profile";
 		} else {
-			userService.update(user);
+		//TODO USER UPDATE
 			return "redirect:/memo/";
 		}
 	}
 
 	@GetMapping("/delete")
 	public String deleteUser(@Validated SignupForm signupForm, BindingResult result, Model model) {
-		userService.delete(Integer.parseInt(session.getAttribute("userId").toString()));
-		session.invalidate();
+		//TODO USER delete
 		return "redirect:/";
 	}
 
-	private User makeUser(SignupForm signupForm, int userId, String sessionId) {
+	private User makeUser(SignupForm signupForm, Long userId, String sessionId) {
 		User user = new User();
 		if (userId != 0) {
 			user.setUserId(userId);
@@ -118,7 +91,6 @@ public class UserController {
 		user.setUserName(signupForm.getUserName());
 		user.setUserEmail(signupForm.getEmail());
 		user.setUserPassword(signupForm.getPassword());
-		user.setRememberUser(sessionId);
 		return user;
 	}
 }
