@@ -32,7 +32,7 @@ public class UserController {
 	}
 
 	@GetMapping("/login")
-	public String getLoginPage(LoginForm loginForm, Model model) {
+	public String getLoginPage() {
 		return "user/login";
 	}
 
@@ -48,12 +48,6 @@ public class UserController {
 		//TODO INS USER
 		return "redirect:/memo/";
 
-	}
-
-	@GetMapping("/logout")
-	public String getLogout(HttpSession session) {
-		session.invalidate();
-		return "redirect:/";
 	}
 
 	@GetMapping("/profile")
