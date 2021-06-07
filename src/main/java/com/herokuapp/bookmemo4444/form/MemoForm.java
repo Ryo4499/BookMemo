@@ -1,4 +1,4 @@
-package com.herokuapp.bookmemo4444.memo;
+package com.herokuapp.bookmemo4444.form;
 
 import javax.validation.constraints.Pattern;
 

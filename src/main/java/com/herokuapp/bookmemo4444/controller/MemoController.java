@@ -1,27 +1,7 @@
-package com.herokuapp.bookmemo4444.memo;
+package com.herokuapp.bookmemo4444.controller;
 
-import java.util.HashMap;
-import java.util.List;
-
-import javax.servlet.http.HttpSession;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import com.herokuapp.bookmemo4444.entity.Memo;
-import com.herokuapp.bookmemo4444.entity.User;
-import com.herokuapp.bookmemo4444.service.MemoService;
-import com.herokuapp.bookmemo4444.service.UserService;
 
 @Controller
 @RequestMapping("/memo")
@@ -33,7 +13,7 @@ public class MemoController {
 //	/** ページネーションで表示するページ数 */
 //	private int showPageSize = 3;
 //
-//	
+//
 //	@GetMapping("/")
 //	public String getMemoListPage(Model model, Pageable pageable, @RequestParam HashMap<String, String> params,
 //			RedirectAttributes redirectAttributes) {
@@ -178,13 +158,13 @@ public class MemoController {
 //	public String postMemoCreatePage(@Validated MemoForm memoForm, BindingResult result, Model model,
 //			RedirectAttributes redirectAttributes) {
 //		String userId = session.getAttribute("userId").toString();
-//		
+//
 //		if (result.hasErrors()) {
 //			model.addAttribute("userId", userId);
 //			return "memo/memo-create";
 //		}
-//		
-//		
+//
+//
 //		return "redirect:/memo/";
 //	}
 //
@@ -209,10 +189,10 @@ public class MemoController {
 //			HttpSession session, RedirectAttributes redirectAttributes) {
 //		int userId = Integer.parseInt(session.getAttribute("userId").toString());
 //		long memoId = Long.parseLong(memoForm.getMemoId());
-//		
-//		
+//
+//
 //		//	return "memo/details/" + memo.getMemoId();
-//		
+//
 //		return "redirect:/memo/";
 //	}
 //
