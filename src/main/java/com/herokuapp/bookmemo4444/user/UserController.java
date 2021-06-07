@@ -16,75 +16,64 @@ import com.herokuapp.bookmemo4444.service.UserService;
 
 @Controller
 public class UserController {
-	private final UserService userService;
-	private final HttpSession session;
-
-	@Autowired
-	public UserController(UserService userService, HttpSession session) {
-		this.userService = userService;
-		this.session = session;
-	}
 
 	@GetMapping("/")
 	public String getTopPage() {
-		//TODO Change toppage
+		// TODO Change toppage
 		return "top-page";
 	}
 
-	@GetMapping("/login")
-	public String getLoginPage() {
-		return "user/login";
-	}
-
-	@GetMapping("/signup")
-	public String getSignupPage(SignupForm signupForm, Model model) {
-		return "user/signup";
-	}
-
-	@PostMapping("/signup")
-	public String postSignup(@Validated SignupForm signupForm, BindingResult result, Model model,
-			RedirectAttributes redirectAttributes) {
-		User tmpUser = makeUser(signupForm, (long) 0, session.getId());
-		//TODO INS USER
-		return "redirect:/memo/";
-
-	}
-
-	@GetMapping("/profile")
-	public String getProfile(SignupForm signupForm, Model model) {
-		String userId = session.getAttribute("userId").toString();
-		//TODO GET USER DATA
-		return "user/user-profile";
-	}
-
-	@PostMapping("/profile/update")
-	public String postProfile(@Validated SignupForm signupForm, BindingResult result, Model model,
-			RedirectAttributes redirectAttributes) {
-		Long userId = Long.parseLong(session.getAttribute("userId").toString());
-		User user = makeUser(signupForm, userId, session.getId());
-		if (result.hasErrors() || user == null) {
-			model.addAttribute("signupForm", signupForm);
-			return "user/user-profile";
-		} else {
-		//TODO USER UPDATE
-			return "redirect:/memo/";
-		}
-	}
-
-	@GetMapping("/delete")
-	public String deleteUser(@Validated SignupForm signupForm, BindingResult result, Model model) {
-		//TODO USER delete
-		return "redirect:/";
-	}
-
-	private User makeUser(SignupForm signupForm, Long userId, String sessionId) {
-		User user = new User();
-		if (userId != 0) {
-			user.setUserId(userId);
-		}
-		user.setUserName(signupForm.getUserName());
-		user.setUserEmail(signupForm.getEmail());
-		user.setUserPassword(signupForm.getPassword());
-		return user;
-	}
+//	@GetMapping("/login")
+//	public String getLoginPage() {
+//		return "user/login";
+//	}
+//
+//	@GetMapping("/signup")
+//	public String getSignupPage(SignupForm signupForm, Model model) {
+//		return "user/signup";
+//	}
+//
+//	@PostMapping("/signup")
+//	public String postSignup(@Validated SignupForm signupForm, BindingResult result, Model model,
+//			RedirectAttributes redirectAttributes) {
+//
+//		// TODO INS USER
+//		return "redirect:/memo/";
+//
+//	}
+//
+//	@GetMapping("/profile")
+//	public String getProfile(SignupForm signupForm, Model model) {
+//
+//		// TODO GET USER DATA
+//		return "user/user-profile";
+//	}
+//
+//	@PostMapping("/profile/update")
+//	public String postProfile(@Validated SignupForm signupForm, BindingResult result, Model model,
+//			RedirectAttributes redirectAttributes) {
+//
+//		return "user/user-profile";
+//
+//		// TODO USER UPDATE
+//		// return "redirect:/memo/";
+//
+//	}
+//
+//	@GetMapping("/delete")
+//	public String deleteUser(@Validated SignupForm signupForm, BindingResult result, Model model) {
+//		// TODO USER delete
+//		return "redirect:/";
+//	}
+//
+//	private User makeUser(SignupForm signupForm, Long userId, String sessionId) {
+//		User user = new User();
+//		if (userId != 0) {
+//			user.setUserId(userId);
+//		}
+//		user.setUserName(signupForm.getUserName());
+//		user.setUserEmail(signupForm.getEmail());
+//		user.setUserPassword(signupForm.getPassword());
+//		return user;
+//	}
 }
