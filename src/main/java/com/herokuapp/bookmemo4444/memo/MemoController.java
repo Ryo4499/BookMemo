@@ -26,14 +26,14 @@ import com.herokuapp.bookmemo4444.service.UserService;
 @Controller
 @RequestMapping("/memo")
 public class MemoController {
-
-	/** １ページの表示数 */
-	private final String limit = "6";
-
-	/** ページネーションで表示するページ数 */
-	private int showPageSize = 3;
-
-	
+//
+//	/** １ページの表示数 */
+//	private final String limit = "6";
+//
+//	/** ページネーションで表示するページ数 */
+//	private int showPageSize = 3;
+//
+//	
 //	@GetMapping("/")
 //	public String getMemoListPage(Model model, Pageable pageable, @RequestParam HashMap<String, String> params,
 //			RedirectAttributes redirectAttributes) {
