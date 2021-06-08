@@ -1,6 +1,7 @@
 plugins {
   id 'org.springframework.boot' version '2.5.0'
   id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+  id "de.undercouch.download" version "3.4.3"
   id 'java'
   id 'war'
 }
@@ -31,6 +32,7 @@ dependencies {
   implementation 'org.springframework.boot:spring-boot-starter-web'
   implementation 'org.springframework.session:spring-session-jdbc'
   implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
+  compile 'com.github.jsimone:webapp-runner:8.5.11.3'
   compileOnly 'org.projectlombok:lombok'
   developmentOnly 'org.springframework.boot:spring-boot-devtools'
   runtimeOnly 'com.h2database:h2'
@@ -46,3 +48,26 @@ dependencies {
 test {
   useJUnitPlatform()
 }
+
+task stage() {
+    dependsOn clean, war
+}
+war.mustRunAfter clean
+
+task copyToLib(type: Copy) {
+    into "$buildDir/server"
+    from(configurations.compile) {
+        include "webapp-runner*"
+    }
+}
+
+stage.dependsOn(copyToLib)
+
+task downloadSqreen(type: Download) {
+    src 'https://download.sqreen.com/java/sqreen.jar'
+    dest "$buildDir/../sqreen.jar"
+    onlyIfModified false
+}
+
+stage.dependsOn(downloadSqreen)
+
