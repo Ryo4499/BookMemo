@@ -1,0 +1,96 @@
+[33m2e015e4[m[33m ([m[1;36mHEAD -> [m[1;32mdev[m[33m)[m HEAD@{0}: commit: changed sqreen
+[33md4a090f[m[33m ([m[1;31morigin/dev[m[33m)[m HEAD@{1}: commit: changed jar
+[33m9cdfd42[m HEAD@{2}: checkout: moving from war to dev
+[33m2b79fe4[m[33m ([m[1;31morigin/feature[m[33m, [m[1;32mwar[m[33m)[m HEAD@{3}: Branch: renamed refs/heads/feature to refs/heads/war
+[33m2b79fe4[m[33m ([m[1;31morigin/feature[m[33m, [m[1;32mwar[m[33m)[m HEAD@{5}: commit: changed proc server port
+[33mc3c814d[m HEAD@{6}: commit: changed procfile
+[33m01644b0[m HEAD@{7}: checkout: moving from 01644b07ca5ba18a5f4476d951815948c66dfaec to feature
+[33m01644b0[m HEAD@{8}: checkout: moving from dev to 01644b07ca5ba18a5f4476d951815948c66dfaec
+[33m9cdfd42[m HEAD@{9}: commit: del serv init
+[33m24d7155[m HEAD@{10}: commit: add stage task
+[33ma3fada1[m HEAD@{11}: commit: changed jar
+[33m4f76252[m HEAD@{12}: commit: add build folder
+[33m66a39f5[m HEAD@{13}: commit: add lib
+[33m01644b0[m HEAD@{14}: commit: changed webapp-runner
+[33md759855[m HEAD@{15}: commit: depend webapp
+[33md0bffe7[m HEAD@{16}: commit: changed deploy
+[33m41e25c8[m HEAD@{17}: commit: changed procfile
+[33mb1be23a[m HEAD@{18}: commit: add procfile
+[33m0a9aba6[m HEAD@{19}: commit: add error pages.
+[33meb3adb2[m HEAD@{20}: commit: impl login
+[33ma8b3a5f[m HEAD@{21}: commit: add maintenace
+[33mb93dc28[m HEAD@{22}: commit: clear
+[33me5be881[m HEAD@{23}: commit: comment out
+[33mf46db44[m HEAD@{24}: commit: delete login form
+[33m0481678[m HEAD@{25}: commit: add maintenance
+[33md6d098f[m HEAD@{26}: commit (merge): merge main
+[33m1929b0a[m HEAD@{27}: checkout: moving from main to dev
+[33m1fe610b[m[33m ([m[1;31morigin/main[m[33m, [m[1;32mmain[m[33m)[m HEAD@{28}: commit: add create page category list
+[33maa052f7[m HEAD@{29}: commit: changed title search
+[33mb4b3393[m HEAD@{30}: commit: changed + button position
+[33m03cefd4[m HEAD@{31}: commit: delete post title
+[33m1d76fc5[m HEAD@{32}: checkout: moving from feture to main
+[33md7dde3e[m HEAD@{33}: checkout: moving from main to feture
+[33m1d76fc5[m HEAD@{34}: merge feture: Merge made by the 'recursive' strategy.
+[33m72b4ab9[m HEAD@{35}: checkout: moving from feture to main
+[33md7dde3e[m HEAD@{36}: checkout: moving from d7dde3e66082d4a6856079e8fa6d5554cf98c04b to feture
+[33md7dde3e[m HEAD@{37}: checkout: moving from dev to d7dde3e66082d4a6856079e8fa6d5554cf98c04b
+[33m1929b0a[m HEAD@{38}: commit: changed non null
+[33m60eb097[m HEAD@{39}: commit: fix validation
+[33mb9ff6f0[m HEAD@{40}: commit: clean up
+[33ma166305[m HEAD@{41}: commit: add test case
+[33m7254703[m HEAD@{42}: commit: add validate
+[33md7dde3e[m HEAD@{43}: commit: clean up
+[33m32ddf59[m HEAD@{44}: commit: changed date format
+[33m4b31bf7[m HEAD@{45}: commit: changed date format
+[33mc07a266[m HEAD@{46}: commit: will merge main
+[33m88adc8e[m HEAD@{47}: commit: fixed sign up
+[33m5c51749[m HEAD@{48}: commit: update user-profile
+[33m962a701[m HEAD@{49}: commit: update user profile
+[33m2ad41f3[m HEAD@{50}: commit: add login page message.
+[33m0734af0[m HEAD@{51}: commit: complete?
+[33m1eb0a85[m HEAD@{52}: commit: update home
+[33mba0e273[m HEAD@{53}: commit: changed memo width
+[33m225cd45[m HEAD@{54}: commit: search title
+[33m40525ba[m HEAD@{55}: commit: add session
+[33me054ad7[m HEAD@{56}: commit: complete pagenation
+[33m6cd018a[m HEAD@{57}: commit: add regex
+[33m97fb90f[m HEAD@{58}: commit: update memo
+[33m89af055[m HEAD@{59}: commit: category,title page nation
+[33me53698e[m HEAD@{60}: commit: implements pagenation
+[33m5e0156d[m HEAD@{61}: commit: nanntonaku
+[33m3e6350d[m HEAD@{62}: commit: changed java 11
+[33m04190e4[m HEAD@{63}: commit: add memodetails
+[33m0788e3c[m HEAD@{64}: commit: カテゴリの連続表示
+[33m4a5b04b[m HEAD@{65}: commit: 連続表示
+[33mf7919db[m HEAD@{66}: commit: login
+[33mdda61ed[m HEAD@{67}: commit: update
+[33m367f716[m HEAD@{68}: commit: able to delete
+[33m91297b1[m HEAD@{69}: commit: changed a
+[33m50a3efb[m HEAD@{70}: commit: changed url
+[33m09c3648[m HEAD@{71}: commit: 邪魔な引数除去
+[33m7a6de0d[m HEAD@{72}: commit: add test
+[33m3fba2ba[m HEAD@{73}: commit: 追加
+[33mab74d60[m HEAD@{74}: commit: 本番環境用設定の追加
+[33ma6cd6c6[m HEAD@{75}: commit: add /
+[33m596d9e5[m HEAD@{76}: commit: finished gradle build
+[33m751ae62[m HEAD@{77}: commit: add signup
+[33m105007d[m HEAD@{78}: commit: pagenation top page
+[33m30efaf3[m HEAD@{79}: commit: git add logincss
+[33m6e6cff7[m HEAD@{80}: commit: change css directory
+[33m5852201[m HEAD@{81}: commit: debug userservice
+[33mcd2e87e[m HEAD@{82}: commit: pagenation top-page
+[33m4381949[m HEAD@{83}: commit: changed img path
+[33m02aac57[m HEAD@{84}: commit: add css
+[33m8c2eacb[m HEAD@{85}: commit: delete yagni package.
+[33m8087ab9[m HEAD@{86}: commit: add bootstrap.
+[33m3ae4a05[m HEAD@{87}: commit: select * from memos;
+[33m669a773[m HEAD@{88}: commit: add memo service dao form
+[33m72b4ab9[m HEAD@{89}: checkout: moving from main to dev
+[33m72b4ab9[m HEAD@{90}: commit: changed jre 8
+[33m58f208b[m HEAD@{91}: commit: implements select * from users
+[33m8339e9d[m HEAD@{92}: commit: add service dao entity
+[33m1e4d2c3[m HEAD@{93}: commit: first commit
+[33m4369330[m HEAD@{94}: Branch: renamed refs/heads/main to refs/heads/main
+[33m4369330[m HEAD@{96}: Branch: renamed refs/heads/main to refs/heads/main
+[33m4369330[m HEAD@{98}: commit (initial): first commit
