@@ -1,1 +1,1 @@
-web: java -javaagent:build/app/sqreen.jar -jar build/libs/*.jar
+web java -Dserver.port=$PORT $JAVA_OPTS -jar build/libs/*.jar -javaagent:build/app/sqreen.jar
