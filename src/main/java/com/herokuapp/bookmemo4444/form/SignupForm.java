@@ -25,7 +25,6 @@ public class SignupForm {
 	}
 
 	public SignupForm(@NonNull String userName, @NonNull String email, @NonNull String password) {
-		super();
 		this.userName = userName;
 		this.email = email;
 		this.password = password;

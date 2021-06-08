@@ -1,11 +1,23 @@
 package com.herokuapp.bookmemo4444.controller;
 
+
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @RequestMapping("/memo")
+@Slf4j
 public class MemoController {
+
+	@GetMapping("/")
+	public String getMemoPage() {
+		log.debug("top");
+		return "top-page";
+	}
+
 //
 //	/** １ページの表示数 */
 //	private final String limit = "6";

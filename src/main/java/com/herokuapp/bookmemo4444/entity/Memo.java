@@ -1,5 +1,7 @@
 package com.herokuapp.bookmemo4444.entity;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,13 +14,12 @@ import javax.persistence.Table;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
-@NoArgsConstructor
 @Data
 @Entity
 @Table(name = "memos")
-public class Memo {
+public class Memo implements Serializable {
+	private static final long serialVersionUID = -6320154827659426912L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "memo_id")
@@ -32,8 +33,8 @@ public class Memo {
 	@Column(name = "book_name", length = 30, nullable = false)
 	private String bookName;
 	@ManyToOne
-	@JoinColumn(name = "user_id")
-	private User user;
+	@JoinColumn(name = "account_id")
+	private Account account;
 	@Column(name = "created_date", nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private String createdDate;
