@@ -24,8 +24,6 @@ javax/validation/constraints/Pattern.java
  javax.validation.constraints.Pattern
 com/herokuapp/bookmemo4444/controller/MemoController.java
  com.herokuapp.bookmemo4444.controller.MemoController
-com/herokuapp/bookmemo4444/ServletInitializer.java
- com.herokuapp.bookmemo4444.ServletInitializer
 com/herokuapp/bookmemo4444/service/UserNotFoundException.java
  com.herokuapp.bookmemo4444.service.UserNotFoundException
 com/herokuapp/bookmemo4444/controller/UserController.java
