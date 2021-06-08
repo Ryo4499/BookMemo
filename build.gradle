@@ -79,13 +79,3 @@ dependencies {
 test {
 	useJUnitPlatform()
 }
-
-task stage(dependsOn: ['build', 'clean'])
-
-task downloadSqreen(type: Download) {
-    src 'https://download.sqreen.com/java/sqreen.jar'
-    dest "$buildDir/../sqreen.jar"
-    onlyIfModified false
-}
-
-stage.dependsOn(downloadSqreen)
