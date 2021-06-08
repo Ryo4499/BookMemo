@@ -1,30 +1,53 @@
 package com.herokuapp.bookmemo4444.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import java.util.HashSet;
+import java.util.Set;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import com.herokuapp.bookmemo4444.entity.User;
-import com.herokuapp.bookmemo4444.repository.UserRepository;
-import com.herokuapp.bookmemo4444.security.SecurityUser;
+import com.herokuapp.bookmemo4444.entity.Account;
+import com.herokuapp.bookmemo4444.entity.Role;
+import com.herokuapp.bookmemo4444.repository.AccountRepository;
+import com.herokuapp.bookmemo4444.security.CustomSecurityAccount;
 
+@Transactional
+@Service
 public class UserDetailsServiceImpl implements UserDetailsService {
-	private UserRepository userRepository;
+	private AccountRepository accountRepository;
 
-	@Autowired
-	UserDetailsServiceImpl(UserRepository userRepository) {
-		this.userRepository = userRepository;
+	public UserDetailsServiceImpl(AccountRepository accountRepository) {
+		this.accountRepository = accountRepository;
 	}
 
 	@Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-		User user = userRepository.findByUserEmail(email);
-
-		if (user == null) {
+		Account account = accountRepository.findByAccountEmail(email);
+		if (account == null) {
 			throw new UsernameNotFoundException("Username and or password was incorrect.");
 		}
+		System.out.println(account.getId());
+		System.out.println(account.getAccountEmail());
+		account.getRoles().forEach(set -> {
+			System.out.println(set.getId() + " " + set.getAuthority() + " " + set.getAccounts());
+		});
 
-		return new SecurityUser(user);
+		return new CustomSecurityAccount(account, getAuthorities(account));
+
 	}
+
+	private Set<GrantedAuthority> getAuthorities(Account account) {
+		Set<GrantedAuthority> authorities = new HashSet<>();
+		for (Role authrity : account.getRoles()) {
+			GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(authrity.getAuthority());
+			authorities.add(grantedAuthority);
+		}
+		return authorities;
+	}
+
 }

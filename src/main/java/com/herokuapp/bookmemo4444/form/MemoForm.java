@@ -25,7 +25,6 @@ public class MemoForm {
 
 	public MemoForm(String memoId, @NonNull String title, @NonNull String content, @NonNull String category,
 			@NonNull String bookName, String userId) {
-		super();
 		this.memoId = memoId;
 		this.title = title;
 		this.content = content;
