@@ -1,0 +1,30 @@
+spring:
+  h2:
+    console:
+      enabled: true
+  session:
+    store-type: jdbc
+    jdbc:
+      initialize-schema: always
+    timeout: 900    
+  jpa:
+    database: POSTGRESQL
+    database-platform: org.hibernate.dialect.PostgreSQL94Dialect
+    generate-ddl: true
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:      '[hibernate.jdbc.time_zone]': Asia/Tokyo
+  datasource:
+    url: jdbc:postgresql://localhost:5432/bookmemo4444
+    username: postgres
+    password: p4w0rd
+    driver-class-name: org.postgresql.Driver    
+  thymeleaf:
+    cache: false
+
+##本番
+#spring:#  datasource:#    driver-class-name: org.postgresql.Driver
+#    username: ${POSTGRES_USER}
+#    password: ${POSTGRES_PASS}
+#    url: ${DATABASE_URL}    

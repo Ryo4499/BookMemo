@@ -1,0 +1,25 @@
+article {
+	width: 100%;
+	margin: 0 auto;
+}
+
+form {
+	width: 100%;
+}
+
+h1 {
+	text-align: center;
+}
+
+label {
+	text-align: center;
+}
+
+input {
+	margin: 0 auto;
+	width: 80%;
+}
+
+.btn-c {
+	margin: 0 auto;
+}
