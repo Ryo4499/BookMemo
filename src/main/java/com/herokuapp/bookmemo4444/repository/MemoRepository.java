@@ -9,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.herokuapp.bookmemo4444.entity.Memo;
 
-@Transactional
 @Repository
 public interface MemoRepository extends JpaRepository<Memo, Long>{
 	public List<Memo> findByTitle(String title);

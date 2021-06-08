@@ -29,7 +29,7 @@ public class UpdateForm {
 	private String newPassword;
 	
 	@NotNull
-	@NotEmpty(message = "empty re password")
+	@NotEmpty(message = "empty retype password")
 	@Pattern(regexp = "/^(?=.*?[a-z])(?=.*?\\d)[a-z\\d]{8,50}$/i")	
 	private String rePassword;
 }

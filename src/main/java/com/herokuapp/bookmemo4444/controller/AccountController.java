@@ -20,12 +20,8 @@ import com.herokuapp.bookmemo4444.form.UpdateForm;
 import com.herokuapp.bookmemo4444.repository.AccountRepository;
 import com.herokuapp.bookmemo4444.repository.RoleRepository;
 import com.herokuapp.bookmemo4444.security.CustomSecurityAccount;
-import com.sun.org.apache.bcel.internal.generic.NEW;
-
-import lombok.extern.slf4j.Slf4j;
 
 @Controller
-@Slf4j
 public class AccountController {
 
 	private final AccountRepository accountRepository;
@@ -62,7 +58,7 @@ public class AccountController {
 	public String postSignup(@Validated SignupForm signupForm, BindingResult result, Model model) {
 		// TODO createAc
 		signupForm.setPassword(passwordEncoder.encode(signupForm.getPassword()));
-		if (!passwordEncoder.matches(signupForm.getRePassword(), signupForm.getPassword())) {
+		if (!passwordEncoder.matches(signupForm.getRePassword(), signupForm.getPassword()) || result.hasErrors()) {
 			signupForm.setPassword("");
 			signupForm.setRePassword("");
 			model.addAttribute("signupForm", signupForm);
@@ -88,10 +84,11 @@ public class AccountController {
 
 	@PostMapping("/profile/update")
 	public String postProfile(@Validated UpdateForm updateForm,
-			@AuthenticationPrincipal CustomSecurityAccount customSecurityAccount, Model model) {
+			@AuthenticationPrincipal CustomSecurityAccount customSecurityAccount, BindingResult result, Model model) {
 		updateForm.setNewPassword(passwordEncoder.encode(updateForm.getNewPassword()));
 		if (!passwordEncoder.matches(updateForm.getOldPassword(), customSecurityAccount.getPassword())
-				|| !passwordEncoder.matches(updateForm.getRePassword(), updateForm.getNewPassword())) {
+				|| !passwordEncoder.matches(updateForm.getRePassword(), updateForm.getNewPassword())
+				|| result.hasErrors()) {
 			updateForm.setOldPassword("");
 			updateForm.setNewPassword("");
 			updateForm.setRePassword("");
@@ -100,6 +97,7 @@ public class AccountController {
 		}
 		// TODO save
 		Account account = makeAccountUpdateForm(updateForm);
+		account.setMemos(customSecurityAccount.getMemos());
 		account.setRoles(customSecurityAccount.getRoles());
 		accountRepository.save(account);
 		return "account/profile";
@@ -114,7 +112,12 @@ public class AccountController {
 
 	@PostMapping("/delete")
 	public String postdeleteAccount(@AuthenticationPrincipal CustomSecurityAccount customSecurityAccount) {
-
+		Account account = new Account();
+		account.setId(customSecurityAccount.getId());
+		account.setAccountEmail(customSecurityAccount.getAccountEmail());
+		account.setAccountName(customSecurityAccount.getAccountName());
+		account.setPassword(customSecurityAccount.getPassword());
+		accountRepository.delete(account);
 		return "redirect:/";
 	}
 

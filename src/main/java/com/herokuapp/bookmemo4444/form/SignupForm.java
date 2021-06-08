@@ -25,7 +25,7 @@ public class SignupForm {
 	private String password;
 	
 	@NotNull
-	@NotEmpty(message = "empty password")
-	@Pattern(regexp = "/^(?=.*?[a-z])(?=.*?\\d)[a-z\\d]{8,50}$/i")	
+	@NotEmpty(message = "empty retype password")
+	@Pattern(regexp = "/^(?=.*?[a-z])(?=.*?\\d)[a-z\\d]{8,50}$/i")
 	private String rePassword;
 }

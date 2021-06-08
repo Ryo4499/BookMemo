@@ -6,11 +6,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.herokuapp.bookmemo4444.entity.Account;
 
-@Transactional
 @Repository
 public interface AccountRepository extends JpaRepository<Account, Long> {
 
 	Account findByAccountEmail(String accountEmail);
 
 	Account findByAccountName(String accountName);
+	
 }
