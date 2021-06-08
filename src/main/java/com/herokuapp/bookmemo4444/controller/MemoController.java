@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
 
+import org.h2.mvstore.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -28,6 +29,11 @@ import lombok.extern.slf4j.Slf4j;
 public class MemoController {
 
 
+	@GetMapping("/")
+	public String page() {
+		return "redirect:/profile";
+	}
+	
 //	/** １ページの表示数 */
 //	private final String limit = "6";
 //
