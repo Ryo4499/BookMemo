@@ -8,11 +8,11 @@ import lombok.Data;
 import lombok.NonNull;
 
 @Data
-public class AccountForm {
+public class SignupForm {
 	@NotNull
 	@NotEmpty(message = "empty username")
 	@Pattern(regexp = "^[a-zA-Z0-9]([a-zA-Z0-9]?|[\\-]?([a-zA-Z0-9])){2,30}$")
-	private String userName;
+	private String accountName;
 
 	@NotNull
 	@NotEmpty(message = "empty email")
@@ -27,5 +27,5 @@ public class AccountForm {
 	@NotNull
 	@NotEmpty(message = "empty password")
 	@Pattern(regexp = "/^(?=.*?[a-z])(?=.*?\\d)[a-z\\d]{8,50}$/i")	
-	private String repassword;
+	private String rePassword;
 }

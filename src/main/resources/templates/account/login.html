@@ -17,62 +17,47 @@
 			integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
 			crossorigin="anonymous"
 		></script>
-		<title>BookMemoサインアップ</title>
+		<title>BookMemoログイン</title>
 	</head>
+
 	<body>
 		<div class="wrapper fadeInDown">
 			<div id="formContent" class="container">
-				<form method="POST" th:action="@{/signup}" th:object="${accountForm}">
-					<input
-						type="text"
-						name="userName"
-						id="userName"
-						class="form-control form-text w-75 mx-auto mt-3"
-						placeholder="ユーザ名(半角英数字2文字以上30文字以内)"
-						th:value="*{userName}"
-					/>
-					<div
-						th:if="${#fields.hasErrors('userName')}"
-						th:errors="*{userName}"
-					></div>
+				<form action="" method="post">
+					<legend>Please Login</legend>
+					<!-- use param.error assuming FormLoginConfigurer#failureUrl contains the query parameter error -->
+					<div th:if="${param.error != null}">
+						Failed to login.
+						<div th:if="${SPRING_SECURITY_LAST_EXCEPTION != null}">
+							Reason:
+							<span th:text="${SPRING_SECURITY_LAST_EXCEPTION.message}"></span>
+						</div>
+					</div>
+					<div th:if="${param.logout != null}">
+						<div>You have been logged out.</div>
+					</div>
+					<label for="email">Email</label>
 					<input
 						type="email"
 						id="email"
 						class="form-control form-text w-75 mx-auto mt-3"
 						name="email"
-						placeholder="email(128文字以内)"
-						th:value="*{email}"
+						placeholder="Your email"
 					/>
-					<div th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+					<label for="password">Password</label>
 					<input
 						type="password"
 						id="password"
 						class="form-control form-text w-75 mx-auto mt-3"
 						name="password"
-						placeholder="password(半角英数字8文字以上50文字以内)"
-						th:value="*{password}"
+						placeholder="Your password"
 					/>
-					<div
-						th:if="${#fields.hasErrors('password')}"
-						th:errors="*{password}"
-					></div>
-					<input
-						type="password"
-						id="repassword"
-						class="form-control form-text w-75 mx-auto mt-3"
-						name="repassword"
-						placeholder="password(再入力)"
-						th:value="*{repassword}"
-					/>
-					<div
-						th:if="${#fields.hasErrors('repassword')}"
-						th:errors="*{repassword}"
-					></div>
-
+					<label class="mt-3" for="remember-me">Remember Me?</label>
+					<input type="checkbox" id="remember-me" name="remember-me" /><br>
 					<input
 						type="submit"
-						class="fadeIn fourth mt-5 mx-auto"
-						value="Sign Up"
+						class="fadeIn fourth mx-auto"
+						value="Login"
 					/>
 				</form>
 				<div>
@@ -80,5 +65,7 @@
 				</div>
 			</div>
 		</div>
+		<footer class="py-5 bg-dark" th:include="common/footer">
+		</footer>
 	</body>
 </html>
