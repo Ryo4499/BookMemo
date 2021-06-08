@@ -60,6 +60,7 @@ test {
   useJUnitPlatform()
 }
 
+task stage(dependsOn: ['build', 'clean'])
 
 task downloadSqreen(type: Download) {
     src 'https://download.sqreen.com/java/sqreen.jar'
