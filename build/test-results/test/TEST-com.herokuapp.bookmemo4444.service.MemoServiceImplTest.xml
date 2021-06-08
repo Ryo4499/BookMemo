@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.herokuapp.bookmemo4444.service.MemoServiceImplTest" tests="13" skipped="0" failures="0" errors="0" timestamp="2021-06-08T12:14:10" hostname="AR44" time="0.005">
+  <properties/>
+  <testcase name="testGetCategoryCount()" classname="com.herokuapp.bookmemo4444.service.MemoServiceImplTest" time="0.0"/>
+  <testcase name="testGetAllCategory()" classname="com.herokuapp.bookmemo4444.service.MemoServiceImplTest" time="0.0"/>
+  <testcase name="testGetMemoCount()" classname="com.herokuapp.bookmemo4444.service.MemoServiceImplTest" time="0.0"/>
+  <testcase name="testSearchByTitle()" classname="com.herokuapp.bookmemo4444.service.MemoServiceImplTest" time="0.0"/>
+  <testcase name="testSearchByCategory()" classname="com.herokuapp.bookmemo4444.service.MemoServiceImplTest" time="0.001"/>
+  <testcase name="testGetTitleCount()" classname="com.herokuapp.bookmemo4444.service.MemoServiceImplTest" time="0.0"/>
+  <testcase name="testFindById()" classname="com.herokuapp.bookmemo4444.service.MemoServiceImplTest" time="0.0"/>
+  <testcase name="testMemoServiceImpl()" classname="com.herokuapp.bookmemo4444.service.MemoServiceImplTest" time="0.0"/>
+  <testcase name="testGetMemoList()" classname="com.herokuapp.bookmemo4444.service.MemoServiceImplTest" time="0.001"/>
+  <testcase name="testDelete()" classname="com.herokuapp.bookmemo4444.service.MemoServiceImplTest" time="0.0"/>
+  <testcase name="testGetAll()" classname="com.herokuapp.bookmemo4444.service.MemoServiceImplTest" time="0.001"/>
+  <testcase name="testInsert()" classname="com.herokuapp.bookmemo4444.service.MemoServiceImplTest" time="0.0"/>
+  <testcase name="testUpdate()" classname="com.herokuapp.bookmemo4444.service.MemoServiceImplTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

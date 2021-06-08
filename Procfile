@@ -1,1 +1,1 @@
-web: java -javaagent:/app/sqreen.jar -jar build/server/webapp-runner-*.jar build/libs/*.war
+web: java -javaagent:build/app/sqreen.jar -jar build/server/webapp-runner-*.jar build/libs/*.war
