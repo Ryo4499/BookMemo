@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.herokuapp.bookmemo4444.repository.UserDaoImplTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2021-06-08T12:14:10" hostname="AR44" time="0.003">
+<testsuite name="com.herokuapp.bookmemo4444.repository.UserDaoImplTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2021-06-08T13:18:31" hostname="AR44" time="0.003">
   <properties/>
   <testcase name="testUpdateUser()" classname="com.herokuapp.bookmemo4444.repository.UserDaoImplTest" time="0.0"/>
   <testcase name="testFindByEmailAndPass()" classname="com.herokuapp.bookmemo4444.repository.UserDaoImplTest" time="0.0"/>
-  <testcase name="testFindById()" classname="com.herokuapp.bookmemo4444.repository.UserDaoImplTest" time="0.001"/>
+  <testcase name="testFindById()" classname="com.herokuapp.bookmemo4444.repository.UserDaoImplTest" time="0.0"/>
   <testcase name="testInsertUser()" classname="com.herokuapp.bookmemo4444.repository.UserDaoImplTest" time="0.0"/>
   <testcase name="testUserDaoImpl()" classname="com.herokuapp.bookmemo4444.repository.UserDaoImplTest" time="0.0"/>
-  <testcase name="testDeleteUser()" classname="com.herokuapp.bookmemo4444.repository.UserDaoImplTest" time="0.001"/>
-  <testcase name="testGetAll()" classname="com.herokuapp.bookmemo4444.repository.UserDaoImplTest" time="0.0"/>
-  <testcase name="testFindBySessionId()" classname="com.herokuapp.bookmemo4444.repository.UserDaoImplTest" time="0.001"/>
+  <testcase name="testDeleteUser()" classname="com.herokuapp.bookmemo4444.repository.UserDaoImplTest" time="0.0"/>
+  <testcase name="testGetAll()" classname="com.herokuapp.bookmemo4444.repository.UserDaoImplTest" time="0.001"/>
+  <testcase name="testFindBySessionId()" classname="com.herokuapp.bookmemo4444.repository.UserDaoImplTest" time="0.0"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
