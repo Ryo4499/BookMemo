@@ -4,22 +4,22 @@ spring:
       enabled: true
   session:
     store-type: jdbc
-    jdbc:
-      initialize-schema: always
-    timeout: 900    
+    jdbc:      initialize-schema: always
+      schema: classpath:org/springframework/session/jdbc/schema-postgresql.sql
+    timeout: 1000
   jpa:
     database: POSTGRESQL
     database-platform: org.hibernate.dialect.PostgreSQL94Dialect
     generate-ddl: true
     show-sql: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: create-drop
     properties:      '[hibernate.jdbc.time_zone]': Asia/Tokyo
   datasource:
     url: jdbc:postgresql://localhost:5432/bookmemo4444
     username: postgres
     password: p4w0rd
-    driver-class-name: org.postgresql.Driver    
+    driver-class-name: org.postgresql.Driver
   thymeleaf:
     cache: false
 
