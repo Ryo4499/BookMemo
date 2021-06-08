@@ -11,7 +11,7 @@ import com.herokuapp.bookmemo4444.entity.Memo;
 
 @Transactional
 @Repository
-public interface MemoRepository extends JpaRepository<Memo, Long>,CrudMethods{
+public interface MemoRepository extends JpaRepository<Memo, Long>{
 	public List<Memo> findByTitle(String title);
 
 	public List<Memo> findByCategory(String category);

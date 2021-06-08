@@ -19,8 +19,7 @@ spring:
     url: jdbc:postgresql://localhost:5432/bookmemo4444
     username: postgres
     password: p4w0rd
-    driver-class-name: org.postgresql.Driver
-    
+    driver-class-name: org.postgresql.Driver    
   thymeleaf:
     cache: false
 

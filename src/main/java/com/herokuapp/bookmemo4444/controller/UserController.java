@@ -35,13 +35,20 @@ public class UserController {
 
 	@PostMapping("/signup")
 	public String postSignup(@Validated AccountForm accountForm, BindingResult result, Model model) {
-		return "";
+		return "user/signup-success";
 	}
-	// @GetMapping("/profile")
-	// TODO public String getProfile(SignupForm signupForm, Model model) {
-	// @PostMapping("/profile/update")
-	// TODO public String postProfile(@Validated SignupForm signupForm,
-	// BindingResult result, Model model,
+
+	@GetMapping("/profile")
+	public String getProfile(Model model) {
+		//TODO findbyiduser
+		return "user/user-profile";
+	}
+
+	@PostMapping("/profile/update")
+	public String postProfile(@Validated AccountForm accountForm, BindingResult result, Model model) {
+		//TODO findbyiduser
+		return "user/user-profile";
+	}
 	// @GetMapping("/delete")
 	// TODO public String deleteUser(@Validated SignupForm signupForm, BindingResult
 	// result, Model model) {
