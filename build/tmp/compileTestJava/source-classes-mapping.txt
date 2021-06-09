@@ -4,6 +4,8 @@ com/herokuapp/bookmemo4444/repository/UserDaoImplTest.java
  com.herokuapp.bookmemo4444.repository.UserDaoImplTest
 com/herokuapp/bookmemo4444/memo/MemoControllerTest.java
  com.herokuapp.bookmemo4444.memo.MemoControllerTest
+com/herokuapp/bookmemo4444/security/GenerateBcrypt.java
+ com.herokuapp.bookmemo4444.security.GenerateBcrypt
 com/herokuapp/bookmemo4444/repository/MemoDaoImplTest.java
  com.herokuapp.bookmemo4444.repository.MemoDaoImplTest
 com/herokuapp/bookmemo4444/user/UserControllerTest.java

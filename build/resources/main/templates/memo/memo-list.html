@@ -17,51 +17,25 @@
 </head>
 
 <body>
-	<!-- Navigation-->
-	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-		<div class="container">
-			<a class="navbar-brand" th:href="@{/}">BookMemo</a>
-			<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-				data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-				aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<div class="collapse navbar-collapse" id="navbarSupportedContent">
-				<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-					<li class="nav-item">
-						<a class="nav-link" th:href="@{/memo/}">Home</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" th:href="@{/profile/}">Profile</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" th:href="@{/logout}">Log out</a>
-					</li>
-				</ul>
-			</div>
-		</div>
-	</nav>
+	<header th:include="common/header"></header>
 	<!-- Page Content-->
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-3">
 				<h1 class="my-2">新規作成</h1>
 				<div class="row">
-						<div class="col-3"></div>
-						<div class="mt-2 col-4">
-							<a
-								class="btn btn-primary rounded-circle p-0 new-memo-button"
-								th:href="@{/memo/create/}"
-							>
-								+
-							</a>
-						</div>
+					<div class="col-3"></div>
+					<div class="mt-2 col-4">
+						<a class="btn btn-primary rounded-circle p-0 new-memo-button" th:href="@{/memo/create/}">
+							+
+						</a>
 					</div>
+				</div>
 				<h1 class="my-4">Category</h1>
 				<!--TODO ここにカテゴリ-->
 				<div class="list-group" th:each="category:${categoryList}">
-					<a class="list-group-item" th:text="${category.category}"
-						th:href="@{'/memo/category/?page=1&selectCategory='+${category.category}}">
+					<a class="list-group-item" th:text="${category}"
+						th:href="@{'/memo/category/?page=1&selectCategory='+${category}}">
 						Category 1
 					</a>
 				</div>
@@ -107,9 +81,9 @@
 										th:text="${memo.title}" class="overflow-hidden" maxlength="10">Item One</a>
 								</h4>
 								<label>updated: </label>
-								<p class="text-muted" th:text="${memo.updatedDate}"></p>
+								<p class="text-muted" th:text="${#dates.format(memo.updatedDate, 'yyyy/MM/dd HH:mm')}"></p>
 								<label>created: </label>
-								<p class="text-muted" th:text="${memo.createdDate}"></p>
+								<p class="text-muted" th:text="${#dates.format(memo.createdDate, 'yyyy/MM/dd HH:mm')}"></p>
 								<p class="card-text,overflow-hidden" th:text="${memo.content}" maxlength="20">
 									Lorem ipsum dolor sit amet, consectetur adipisicing elit.
 									Amet numquam aspernatur!
@@ -161,10 +135,7 @@
 			</div>
 		</div>
 		<!-- Footer-->
-		<footer class="py-5 bg-dark">
-			<div class="container">
-				<p class="m-0 text-center text-white">Copyright &copy; AR44</p>
-			</div>
+		<footer class="py-5 bg-dark" th:include="common/footer">
 		</footer>
 	</body>
 </html>
