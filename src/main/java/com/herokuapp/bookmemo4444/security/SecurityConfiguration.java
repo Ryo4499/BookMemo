@@ -1,5 +1,8 @@
 package com.herokuapp.bookmemo4444.security;
 
+import java.net.URLDecoder;
+import java.net.URLEncoder;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -26,7 +29,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	public PasswordEncoder getPasswordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
-
+	
+	@Bean
+	public URLDecoder getUrlDecoder() {
+		return new URLDecoder();
+	}
+	
 	@Bean
 	public DaoAuthenticationProvider authenticationProvider() {
 		DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();

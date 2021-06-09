@@ -10,7 +10,7 @@ import lombok.NonNull;
 
 @Data
 public class MemoForm {
-	private String memoId;
+	private Long memoId;
 
 	@NotEmpty(message = "Title is empty.")
 	@Size(min = 1, max = 30, message = "1文字以上30文字以下で入力して下さい")

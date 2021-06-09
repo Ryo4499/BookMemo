@@ -31,8 +31,8 @@
 				<h1 class="my-4">Category</h1>
 				<!--TODO ここにカテゴリ-->
 				<div class="list-group" th:each="category:${categoryList}">
-					<a class="list-group-item" th:text="${category.category}"
-						th:href="@{'/memo/category/?page=1&selectCategory='+${category.category}}">
+					<a class="list-group-item" th:text="${category}"
+						th:href="@{'/memo/category/?page=1&selectCategory='+${category}}">
 						Category 1
 					</a>
 				</div>
