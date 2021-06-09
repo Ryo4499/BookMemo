@@ -1,3 +1,20 @@
+article,
+aside,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+main,
+nav,
+section {
+	display: block;
+}
+
+.error{
+	color: red;
+}
+
 article {
 	width: 100%;
 	margin: 0 auto;
