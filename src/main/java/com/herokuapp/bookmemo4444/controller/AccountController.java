@@ -3,8 +3,6 @@ package com.herokuapp.bookmemo4444.controller;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -23,8 +21,6 @@ import com.herokuapp.bookmemo4444.form.UpdateForm;
 import com.herokuapp.bookmemo4444.repository.AccountRepository;
 import com.herokuapp.bookmemo4444.repository.RoleRepository;
 import com.herokuapp.bookmemo4444.security.CustomSecurityAccount;
-
-import antlr.collections.List;
 
 //TODO htmlのバリのエラーの場所変更
 
@@ -90,7 +86,8 @@ public class AccountController {
 
 	@PostMapping("/profile")
 	public String postProfile(@Validated UpdateForm updateForm, BindingResult result,
-			@AuthenticationPrincipal CustomSecurityAccount customSecurityAccount, Model model,RedirectAttributes redirectAttributes) {
+			@AuthenticationPrincipal CustomSecurityAccount customSecurityAccount, Model model,
+			RedirectAttributes redirectAttributes) {
 		if (result.hasErrors()) {
 			updateForm.resetPassword();
 			model.addAttribute("updateForm", updateForm);
@@ -108,9 +105,9 @@ public class AccountController {
 		Account account = makeAccountUpdateForm(updateForm);
 		account.setMemos(customSecurityAccount.getMemos());
 		account.setRoles(customSecurityAccount.getRoles());
-		accountRepository.updateAccount(customSecurityAccount.getId(), account.getAccountName(),
-				account.getEmail(), account.getPassword());
-		redirectAttributes.addFlashAttribute("success","更新が完了しました");
+		accountRepository.updateAccount(customSecurityAccount.getId(), account.getAccountName(), account.getEmail(),
+				account.getPassword());
+		redirectAttributes.addFlashAttribute("success", "更新が完了しました");
 		return "redirect:/profile";
 	}
 

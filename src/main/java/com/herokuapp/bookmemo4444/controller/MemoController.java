@@ -1,18 +1,9 @@
 package com.herokuapp.bookmemo4444.controller;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
-import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
-
-import org.apache.catalina.util.URLEncoder;
-import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -26,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.herokuapp.bookmemo4444.entity.Account;
 import com.herokuapp.bookmemo4444.entity.Memo;
 import com.herokuapp.bookmemo4444.form.MemoForm;
 import com.herokuapp.bookmemo4444.repository.MemoRepository;
@@ -250,19 +240,6 @@ public class MemoController {
 	public String deleteMemo(@PathVariable("memoId") long memoId) {
 		memoRepository.deleteById(memoId);
 		return "redirect:/memo/";
-	}
-
-	private Memo makeMemo(MemoForm memoForm, long memoId, Account account) {
-		Memo memo = new Memo();
-		if (memoId != 0) {
-			memo.setMemoId(memoId);
-		}
-		memo.setTitle(memoForm.getTitle());
-		memo.setContent(memoForm.getContent());
-		memo.setCategory(memoForm.getCategory());
-		memo.setBookName(memoForm.getBookName());
-		memo.setAccount(account);
-		return memo;
 	}
 
 	private MemoForm makeMemoForm(Memo memo) {
