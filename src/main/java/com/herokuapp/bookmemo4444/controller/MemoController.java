@@ -73,7 +73,7 @@ public class MemoController {
 			// データ総数を取得
 			total = memoService.countMemoIdByAccount(customSecurityAccount);
 			// データ一覧を取得
-			// memoList = memoService.noConditionSearch(customSecurityAccount, search);
+			memoList = memoService.noConditionSearch(customSecurityAccount, search);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return "error/faital";
@@ -119,8 +119,8 @@ public class MemoController {
 		List<Memo> memoList = null;
 		try {
 			total = memoService.countTitleByTitleAndAccount(selectTitle, customSecurityAccount);
-			// memoList = memoService.searchTitle(selectTitle, customSecurityAccount,
-			// search);
+			 memoList = memoService.searchTitle(selectTitle, customSecurityAccount,
+			 search);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return "error/faital";
@@ -166,8 +166,8 @@ public class MemoController {
 		List<Memo> memoList = null;
 		try {
 			total = memoService.countCategoryByCategoryAndAccount(selectCategory, customSecurityAccount);
-			// memoList = memoService.searchCategory(selectCategory, customSecurityAccount,
-			// search);
+			 memoList = memoService.searchCategory(selectCategory, customSecurityAccount,
+			 search);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

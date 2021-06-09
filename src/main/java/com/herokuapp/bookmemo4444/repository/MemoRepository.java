@@ -1,5 +1,6 @@
 package com.herokuapp.bookmemo4444.repository;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.herokuapp.bookmemo4444.entity.Account;
 import com.herokuapp.bookmemo4444.entity.Memo;
+import com.herokuapp.bookmemo4444.security.CustomSecurityAccount;
 
 @Repository
 @EnableJpaRepositories
@@ -36,4 +38,5 @@ public interface MemoRepository extends JpaRepository<Memo, Long> {
 	@Query(value = "SELECT COUNT(memo_id) FROM memos WHERE book_name LIKE ?1,account_id = ?2", nativeQuery = true)
 	int countBookNameByContainingBookNameAndAccount(String bookName, Account account);
 
+	
 }

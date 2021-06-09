@@ -34,7 +34,7 @@ public class Account implements Serializable {
 	@Column(name = "account_name", unique = true, nullable = false)
 	private String accountName;
 	@Column(name = "account_email", unique = true, nullable = false)
-	private String accountEmail;
+	private String email;
 	@Column(name = "account_password", nullable = false)
 	private String password;
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "account")

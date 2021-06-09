@@ -6,11 +6,13 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.security.web.server.authorization.ServerAccessDeniedHandler;
 import org.springframework.stereotype.Service;
 
 import com.herokuapp.bookmemo4444.entity.Account;
 import com.herokuapp.bookmemo4444.entity.Memo;
 import com.herokuapp.bookmemo4444.repository.MemoRepository;
+import com.herokuapp.bookmemo4444.security.CustomSecurityAccount;
 
 @Service
 public class MemoServiceImpl implements MemoService {
@@ -58,6 +60,29 @@ public class MemoServiceImpl implements MemoService {
 	@Override
 	public void delete(long memoId) {
 		delete(memoId);
+	}
+
+	@Override
+	public List<Memo> noConditionSearch(CustomSecurityAccount customSecurityAccount, HashMap<String, String> search) {
+		int limit = Integer.parseInt(search.get("limit"));
+		int page = Integer.valueOf(search.get("page")) - 1;
+		return memoRepository.noConditionSearch(customSecurityAccount, limit * page, limit);
+	}
+
+	@Override
+	public List<Memo> searchTitle(String selectTitle, CustomSecurityAccount customSecurityAccount,
+			HashMap<String, String> search) {
+		int limit = Integer.parseInt(search.get("limit"));
+		int page = Integer.valueOf(search.get("page")) - 1;
+		return memoRepository.searchTitle(selectTitle, customSecurityAccount, limit * page, limit);
+	}
+
+	@Override
+	public List<Memo> searchCategory(String selectCategory, CustomSecurityAccount customSecurityAccount,
+			HashMap<String, String> search) {
+		int limit = Integer.parseInt(search.get("limit"));
+		int page = Integer.valueOf(search.get("page")) - 1;
+		return memoRepository.searchCategory(selectCategory, customSecurityAccount, limit * page, limit);
 	}
 
 }

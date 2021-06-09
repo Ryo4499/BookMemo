@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.herokuapp.bookmemo4444.entity.Account;
 import com.herokuapp.bookmemo4444.entity.Memo;
+import com.herokuapp.bookmemo4444.security.CustomSecurityAccount;
 
 @Service
 public interface MemoService {
@@ -30,6 +31,18 @@ public interface MemoService {
 	@Transactional(readOnly = true)
 	Optional<Memo> findByMemoId(Long id);
 
+	@Transactional(readOnly = false)
 	void delete(long memoId);
+
+	@Transactional(readOnly = true)
+	List<Memo> noConditionSearch(CustomSecurityAccount customSecurityAccount, HashMap<String, String> search);
+
+	@Transactional(readOnly = true)
+	List<Memo> searchTitle(String selectTitle, CustomSecurityAccount customSecurityAccount,
+			HashMap<String, String> search);
+
+	@Transactional(readOnly = true)
+	List<Memo> searchCategory(String selectCategory, CustomSecurityAccount customSecurityAccount,
+			HashMap<String, String> search);
 
 }
