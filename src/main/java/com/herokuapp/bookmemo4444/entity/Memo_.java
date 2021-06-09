@@ -4,7 +4,9 @@ import java.util.Date;
 
 import javax.persistence.metamodel.EntityType;
 import javax.persistence.metamodel.SingularAttribute;
+import javax.persistence.metamodel.StaticMetamodel;
 
+@StaticMetamodel(Memo.class)
 public class Memo_ {
 	public static volatile SingularAttribute<Memo, Long> memoId;
 	public static volatile SingularAttribute<Memo, String> title;
