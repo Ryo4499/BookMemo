@@ -32,7 +32,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 			throw new UsernameNotFoundException("Username and or password was incorrect.");
 		}
 		System.out.println(account.getId());
-		System.out.println(account.getAccountEmail());
+		System.out.println(account.getEmail());
 		account.getRoles().forEach(set -> {
 			System.out.println(set.getId() + " " + set.getAuthority() + " " + set.getAccounts());
 		});
