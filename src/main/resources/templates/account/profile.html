@@ -22,62 +22,72 @@
 		<div class="col-4"></div>
 		<div class="container col-4">
 			<h1 class="mt-4">プロフィール</h1>
-			<form th:action="@{/profile/update}" method="POST" th:object="${updateForm}">
-				<div class="form-group row">
+			<form action="" method="post" th:object="${updateForm}">
+				<div class="form-group row mt-3">
 					<label for="" class="col-form-label">アカウント名</label>
-					<input type="text" name="accountName" id="accountName" placeholder="account name"
-						th:value="*{accountName}" class="col-auto" />
-				</div>
-				<div th:if="${#fields.hasErrors('accountName')}"
-						th:errors="*{accountName}"
-					></div>
-				<div class="form-group row">
-					<label for="" class="col-form-label">Email</label>
-					<input type="email" id="email" class="col-auto" name="email" placeholder="email"
-						th:value="*{email}" />
-				</div>
-							<div
-						th:if="${#fields.hasErrors('email')}"
-						th:errors="*{email}"
-					></div>
-				<div class="form-group row">
-					<label for="" class="col-form-label">Password</label>
-					<input type="password" id="oldPassword" class="col-auto" name="oldPassword"
-						placeholder="old password" th:value="*{oldPassword}" />
-				</div>
-				<div th:if="${#fields.hasErrors('oldPassword')}"
-						th:errors="*{oldPassword}"
-					></div>
-					<div class="form-group row">
-						<label for="" class="col-form-label">Password</label>
+					<div th:if="${#fields.hasErrors('accountName')}" th:errors="*{accountName}" class="text-center error mb-1">
+						</div>
+						<input
+							type="text"
+							name="accountName"
+							id="accountName"
+							placeholder="account name"
+							th:value="*{accountName}"
+							class="col-auto"
+						/>
+					</div>
+					<div class="form-group row mt-2">
+						<label for="" class="col-form-label">Email</label>
+						<div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="text-center error mb-1">
+						</div>
+						<input
+							type="email"
+							id="email"
+							class="col-auto"
+							name="email"
+							placeholder="email"
+							th:value="*{email}"
+						/>
+					</div>
+					<div class="form-group row mt-2">
+						<label for="" class="col-form-label">Current Password</label>
+						<div th:if="${#fields.hasErrors('oldPassword')}" th:errors="*{oldPassword}"class="text-center error mb-1">
+						</div>
 						<input
 							type="password"
+							name="oldPassword"
+							id="oldPassword"
+							class="col-auto"
+							placeholder="current password"
+							th:value="*{oldPassword}"
+						/>
+					</div>
+					<div class="form-group row mt-2">
+						<label for="" class="col-form-label">New Password</label>
+						<div th:if="${#fields.hasErrors('newPassword')}" th:errors="*{newPassword}" class="text-center error mb-1">
+						</div>
+						<input
+							type="password"
+							name="newPassword"
 							id="newPassword"
 							class="col-auto"
-							name="newPassword"
 							placeholder="new password"
 							th:value="*{newPassword}"
 						/>
 					</div>
-					<div
-						th:if="${#fields.hasErrors('newPassword')}"
-						th:errors="*{newPassword}"
-					></div>
-					<div class="form-group row">
-						<label for="" class="col-form-label">Password(再入力)</label>
+					<div class="form-group row mt-2">
+						<label for="" class="col-form-label">New Password(再入力)</label>
+						<div th:if="${#fields.hasErrors('rePassword')}" th:errors="*{rePassword}" class="text-center error mb-1">
+						</div>
 						<input
 							type="password"
+							name="rePassword"
 							id="rePassword"
 							class="col-auto"
-							name="rePassword"
-							placeholder="password(再入力)"
+							placeholder="confirm new password"
 							th:value="*{rePassword}"
 						/>
 					</div>
-					<div
-						th:if="${#fields.hasErrors('rePassword')}"
-						th:errors="*{rePassword}"
-					></div>
 
 					<br />
 					<div class="form-group row">
@@ -92,7 +102,6 @@
 			</div>
 			<div class="col-4"></div>
 		</article>
-		<footer class="py-5 bg-dark" th:include="common/footer">
-		</footer>
+		<footer class="py-5 bg-dark" th:include="common/footer"></footer>
 	</body>
 </html>
