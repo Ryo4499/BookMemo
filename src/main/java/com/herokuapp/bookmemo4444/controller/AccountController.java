@@ -63,7 +63,6 @@ public class AccountController {
 
 	@PostMapping("/signup")
 	public String postSignup(@Validated SignupForm signupForm, BindingResult result, Model model) {
-		// TODO createAc
 		if (result.hasErrors()) {
 			signupForm.resetPassword();
 			model.addAttribute("signupForm", signupForm);
@@ -106,7 +105,6 @@ public class AccountController {
 			model.addAttribute("updateForm", updateForm);
 			return "account/profile";
 		}
-		// TODO save
 		Account account = makeAccountUpdateForm(updateForm);
 		account.setMemos(customSecurityAccount.getMemos());
 		account.setRoles(customSecurityAccount.getRoles());

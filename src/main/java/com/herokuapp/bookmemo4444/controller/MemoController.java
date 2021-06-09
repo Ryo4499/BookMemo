@@ -26,19 +26,13 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @RequestMapping("/memo")
 public class MemoController {
-
-
-	@GetMapping("/")
-	public String page() {
-		return "redirect:/profile";
-	}
 	
-//	/** １ページの表示数 */
-//	private final String limit = "6";
-//
-//	/** ページネーションで表示するページ数 */
-//	private int showPageSize = 3;
-//
+	/** １ページの表示数 */
+	private final String limit = "6";
+
+	/** ページネーションで表示するページ数 */
+	private int showPageSize = 3;
+
 //
 //	@GetMapping("/")
 //	public String getMemoListPage(Model model, Pageable pageable, @RequestParam HashMap<String, String> params,
