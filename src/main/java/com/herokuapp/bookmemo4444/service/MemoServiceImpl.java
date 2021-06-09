@@ -2,7 +2,6 @@ package com.herokuapp.bookmemo4444.service;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,7 +20,7 @@ public class MemoServiceImpl implements MemoService {
 
 	@Autowired
 	MemoServiceImpl(MemoDao memoDao) {
-		this.memoDao=memoDao;
+		this.memoDao = memoDao;
 	}
 
 	@Override

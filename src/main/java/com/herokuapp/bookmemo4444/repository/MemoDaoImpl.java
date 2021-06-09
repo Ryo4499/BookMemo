@@ -3,16 +3,11 @@ package com.herokuapp.bookmemo4444.repository;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaDelete;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.CriteriaUpdate;
 import javax.persistence.criteria.Root;
 
-import org.h2.pagestore.db.PageDataOverflow;
-import org.postgresql.shaded.com.ongres.scram.common.bouncycastle.pbkdf2.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -21,9 +16,6 @@ import com.herokuapp.bookmemo4444.entity.Account;
 import com.herokuapp.bookmemo4444.entity.Account_;
 import com.herokuapp.bookmemo4444.entity.Memo;
 import com.herokuapp.bookmemo4444.entity.Memo_;
-
-
-import net.bytebuddy.asm.Advice.This;
 
 @Repository
 public class MemoDaoImpl implements MemoDao {
@@ -104,6 +96,7 @@ public class MemoDaoImpl implements MemoDao {
 		return count;
 	}
 
+	@Override
 	public List<Memo> noConditionSearch(Account account, int page, int limit) {
 		CriteriaBuilder builder = entityManager.getCriteriaBuilder();
 		CriteriaQuery<Memo> query = builder.createQuery(Memo.class);
@@ -117,6 +110,7 @@ public class MemoDaoImpl implements MemoDao {
 		return memos;
 	}
 
+	@Override
 	public List<Memo> searchTitle(String selectTitle, Account account, int page, int limit) {
 		CriteriaBuilder builder = entityManager.getCriteriaBuilder();
 		CriteriaQuery<Memo> query = builder.createQuery(Memo.class);
@@ -130,6 +124,7 @@ public class MemoDaoImpl implements MemoDao {
 		return memos;
 	}
 
+	@Override
 	public List<Memo> searchCategory(String selectCategory, @Param("account") Account account, @Param("page") int page,
 			@Param("limit") int limit) {
 		CriteriaBuilder builder = entityManager.getCriteriaBuilder();

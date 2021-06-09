@@ -1,11 +1,9 @@
 package com.herokuapp.bookmemo4444.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.context.annotation.SessionScope;
 
 import com.herokuapp.bookmemo4444.entity.Role;
 
@@ -14,4 +12,5 @@ import com.herokuapp.bookmemo4444.entity.Role;
 public interface RoleRepository extends JpaRepository<Role, Long> {
 	@Secured(value = "ADMIN")
 	Role findByAuthority(String authority);
+	
 }

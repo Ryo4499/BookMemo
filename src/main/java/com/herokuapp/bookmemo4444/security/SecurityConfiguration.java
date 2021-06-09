@@ -1,7 +1,6 @@
 package com.herokuapp.bookmemo4444.security;
 
 import java.net.URLDecoder;
-import java.net.URLEncoder;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -29,12 +28,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	public PasswordEncoder getPasswordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
-	
+
 	@Bean
 	public URLDecoder getUrlDecoder() {
 		return new URLDecoder();
 	}
-	
+
 	@Bean
 	public DaoAuthenticationProvider authenticationProvider() {
 		DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
@@ -66,7 +65,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests().antMatchers("/", "/h2-console/**").permitAll().antMatchers("/login").permitAll()
 				.antMatchers("/signup").permitAll().antMatchers("/admin**/**").hasRole("ADMIN")
 				.antMatchers("/memo**/**").hasAnyRole("ADMIN", "USER").anyRequest().authenticated();
-		http.formLogin().loginPage("/login").defaultSuccessUrl("/memo/",true).usernameParameter("email")
+		http.formLogin().loginPage("/login").defaultSuccessUrl("/memo/", true).usernameParameter("email")
 				.passwordParameter("password").permitAll().and().rememberMe().key("uniqueAndSecret")
 				.userDetailsService(userDetailsServiceBean());
 		http.logout().logoutUrl("/logout").invalidateHttpSession(true).deleteCookies("JSESSIONID")

@@ -46,7 +46,7 @@ public class Memo implements Serializable {
 	@Column(name = "updated_date", nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date updatedDate;
-	
+
 	public void now() {
 		setUpdatedDate(new Date());
 	}

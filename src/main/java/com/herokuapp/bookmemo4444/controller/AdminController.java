@@ -16,11 +16,11 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class AdminController {
 	private final AccountRepository accountRepository;
-	
+
 	@GetMapping("/")
 	public String getAdminPage() {
 		List<Account> accounts = accountRepository.findAll();
-		accounts.forEach(account->{
+		accounts.forEach(account -> {
 			System.out.println(account.getAccountName());
 			System.out.println(account.getEmail());
 			System.out.println(account.getPassword());
