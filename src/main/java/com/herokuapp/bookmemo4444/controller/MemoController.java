@@ -29,8 +29,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.herokuapp.bookmemo4444.entity.Account;
 import com.herokuapp.bookmemo4444.entity.Memo;
 import com.herokuapp.bookmemo4444.form.MemoForm;
-import com.herokuapp.bookmemo4444.model.HibernateUtil;
-import com.herokuapp.bookmemo4444.model.MemoDao;
+import com.herokuapp.bookmemo4444.repository.MemoRepository;
 import com.herokuapp.bookmemo4444.security.CustomSecurityAccount;
 import com.herokuapp.bookmemo4444.service.MemoService;
 
@@ -46,9 +45,12 @@ public class MemoController {
 
 	private final MemoService memoService;
 
+	private final MemoRepository memoRepository;
+
 	@Autowired
-	public MemoController(MemoService memoService) {
+	public MemoController(MemoService memoService, MemoRepository memoRepository) {
 		this.memoService = memoService;
+		this.memoRepository = memoRepository;
 	}
 
 	@GetMapping("/")
@@ -67,7 +69,7 @@ public class MemoController {
 		search.put("limit", limit);
 		search.put("page", currentPage);
 
-		int total = 0;
+		Long total = 0L;
 		List<Memo> memoList = null;
 		try {
 			// データ総数を取得
@@ -81,13 +83,13 @@ public class MemoController {
 
 		// pagination処理
 		// "総数/1ページの表示数"から総ページ数を割り出す
-		int totalPage = (total + Integer.valueOf(limit) - 1) / Integer.valueOf(limit);
+		long totalPage = (total + Integer.valueOf(limit) - 1) / Integer.valueOf(limit);
 		int page = Integer.parseInt(currentPage);
 		// 表示する最初のページ番号を算出（今回は3ページ表示する設定）
 		// (例)1,2,3ページのstartPageは1。4,5,6ページのstartPageは4
 		int startPage = page - (page - 1) % showPageSize;
 		// 表示する最後のページ番号を算出
-		int endPage = startPage + showPageSize - 1 > totalPage ? totalPage : startPage + showPageSize - 1;
+		long endPage = startPage + showPageSize - 1 > totalPage ? totalPage : startPage + showPageSize - 1;
 
 		model.addAttribute("categoryList", categoryList);
 		model.addAttribute("memoList", memoList);
@@ -115,21 +117,20 @@ public class MemoController {
 		search.put("limit", limit);
 		search.put("page", currentPage);
 
-		int total = 0;
+		Long total = 0L;
 		List<Memo> memoList = null;
 		try {
 			total = memoService.countTitleByTitleAndAccount(selectTitle, customSecurityAccount);
-			 memoList = memoService.searchTitle(selectTitle, customSecurityAccount,
-			 search);
+			memoList = memoService.searchTitle(selectTitle, customSecurityAccount, search);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return "error/faital";
 		}
 
-		int totalPage = (total + Integer.valueOf(limit) - 1) / Integer.valueOf(limit);
+		long totalPage = (total + Integer.valueOf(limit) - 1) / Integer.valueOf(limit);
 		int page = Integer.parseInt(currentPage);
 		int startPage = page - (page - 1) % showPageSize;
-		int endPage = startPage + showPageSize - 1 > totalPage ? totalPage : startPage + showPageSize - 1;
+		long endPage = startPage + showPageSize - 1 > totalPage ? totalPage : startPage + showPageSize - 1;
 
 		model.addAttribute("selectTitle", selectTitle);
 		model.addAttribute("categoryList", categoryList);
@@ -162,22 +163,21 @@ public class MemoController {
 		search.put("limit", limit);
 		search.put("page", currentPage);
 
-		int total = 0;
+		Long total = 0L;
 		List<Memo> memoList = null;
 		try {
 			total = memoService.countCategoryByCategoryAndAccount(selectCategory, customSecurityAccount);
-			 memoList = memoService.searchCategory(selectCategory, customSecurityAccount,
-			 search);
+			memoList = memoService.searchCategory(selectCategory, customSecurityAccount, search);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		System.err.println("eeeeeeeeeeeeee" + total);
 		memoList.forEach(memo -> System.out.println(memo.getTitle()));
 
-		int totalPage = (total + Integer.valueOf(limit) - 1) / Integer.valueOf(limit);
+		long totalPage = (total + Integer.valueOf(limit) - 1) / Integer.valueOf(limit);
 		int page = Integer.parseInt(currentPage);
 		int startPage = page - (page - 1) % showPageSize;
-		int endPage = startPage + showPageSize - 1 > totalPage ? totalPage : startPage + showPageSize - 1;
+		long endPage = startPage + showPageSize - 1 > totalPage ? totalPage : startPage + showPageSize - 1;
 
 		model.addAttribute("selectCategory", selectCategory);
 		model.addAttribute("categoryList", categoryList);
@@ -211,7 +211,7 @@ public class MemoController {
 	public String getMemoDetailsPage(@AuthenticationPrincipal CustomSecurityAccount customSecurityAccount,
 			@PathVariable long memoId, Model model) {
 		List<String> categoryList = memoService.findDistinctCategoryByAccount(customSecurityAccount);
-		Optional<Memo> optionalMemo = memoService.findByMemoId(memoId);
+		Optional<Memo> optionalMemo = memoRepository.findById(memoId);
 		if (optionalMemo.isPresent()) {
 			Memo memo = optionalMemo.get();
 			model.addAttribute("categoryList", categoryList);
@@ -235,7 +235,7 @@ public class MemoController {
 	public String deleteConfirmPage(MemoForm memoForm,
 			@AuthenticationPrincipal CustomSecurityAccount customSecurityAccount, Model model) {
 		List<String> categoryList = memoService.findDistinctCategoryByAccount(customSecurityAccount);
-		Optional<Memo> optional = memoService.findByMemoId(memoForm.getMemoId());
+		Optional<Memo> optional = memoRepository.findById(memoForm.getMemoId());
 		// TODO メモを取ってきて､確認画面に反映
 		if (optional.isPresent()) {
 			Memo memo = optional.get();
@@ -248,7 +248,7 @@ public class MemoController {
 
 	@PostMapping("/delete/")
 	public String deleteMemo(@PathVariable("memoId") long memoId) {
-		memoService.delete(memoId);
+		memoRepository.deleteById(memoId);
 		return "redirect:/memo/";
 	}
 

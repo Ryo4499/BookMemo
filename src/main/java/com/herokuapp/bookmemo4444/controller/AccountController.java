@@ -83,7 +83,7 @@ public class AccountController {
 	public String getProfile(@AuthenticationPrincipal CustomSecurityAccount customSecurityAccount, Model model) {
 		UpdateForm updateForm = new UpdateForm();
 		updateForm.setAccountName(customSecurityAccount.getAccountName());
-		updateForm.setEmail(customSecurityAccount.getAccountEmail());
+		updateForm.setEmail(customSecurityAccount.getEmail());
 		model.addAttribute("updateForm", updateForm);
 		return "account/profile";
 	}
@@ -109,7 +109,7 @@ public class AccountController {
 		account.setMemos(customSecurityAccount.getMemos());
 		account.setRoles(customSecurityAccount.getRoles());
 		accountRepository.updateAccount(customSecurityAccount.getId(), account.getAccountName(),
-				account.getAccountEmail(), account.getPassword());
+				account.getEmail(), account.getPassword());
 		redirectAttributes.addFlashAttribute("success","更新が完了しました");
 		return "redirect:/profile";
 	}
@@ -117,7 +117,7 @@ public class AccountController {
 	@GetMapping("/delete")
 	public String getDeletePage(@AuthenticationPrincipal CustomSecurityAccount customSecurityAccount, Model model) {
 		model.addAttribute("accountName", customSecurityAccount.getAccountName());
-		model.addAttribute("email", customSecurityAccount.getAccountEmail());
+		model.addAttribute("email", customSecurityAccount.getEmail());
 		return "account/delete-confirm";
 	}
 
@@ -125,7 +125,7 @@ public class AccountController {
 	public String postdeleteAccount(@AuthenticationPrincipal CustomSecurityAccount customSecurityAccount) {
 		Account account = new Account();
 		account.setId(customSecurityAccount.getId());
-		account.setAccountEmail(customSecurityAccount.getAccountEmail());
+		account.setEmail(customSecurityAccount.getEmail());
 		account.setAccountName(customSecurityAccount.getAccountName());
 		account.setPassword(customSecurityAccount.getPassword());
 		accountRepository.delete(account);
@@ -135,7 +135,7 @@ public class AccountController {
 	private Account makeAccountSignUpForm(SignupForm signupForm) {
 		Account account = new Account();
 		account.setAccountName(signupForm.getAccountName());
-		account.setAccountEmail(signupForm.getEmail());
+		account.setEmail(signupForm.getEmail());
 		account.setPassword(signupForm.getPassword());
 		Role role = roleRepository.findByAuthority("ROLE_USER");
 		Set<Role> roles = new HashSet<>();
@@ -147,7 +147,7 @@ public class AccountController {
 	private Account makeAccountUpdateForm(UpdateForm updateForm) {
 		Account account = new Account();
 		account.setAccountName(updateForm.getAccountName());
-		account.setAccountEmail(updateForm.getEmail());
+		account.setEmail(updateForm.getEmail());
 		account.setPassword(updateForm.getNewPassword());
 		return account;
 	}

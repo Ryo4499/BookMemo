@@ -47,7 +47,7 @@ public class Memo implements Serializable {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date updatedDate;
 	
-	protected void now() {
+	public void now() {
 		setUpdatedDate(new Date());
 	}
 }

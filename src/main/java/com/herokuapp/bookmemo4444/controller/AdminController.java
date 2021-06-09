@@ -22,7 +22,7 @@ public class AdminController {
 		List<Account> accounts = accountRepository.findAll();
 		accounts.forEach(account->{
 			System.out.println(account.getAccountName());
-			System.out.println(account.getAccountEmail());
+			System.out.println(account.getEmail());
 			System.out.println(account.getPassword());
 			System.out.println(account.getRoles());
 		});

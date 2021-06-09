@@ -22,7 +22,7 @@ public class CustomSecurityAccount extends Account implements UserDetails {
 		setAuthorities(set);
 		setId(account.getId());
 		setAccountName(account.getAccountName());
-		setAccountEmail(account.getAccountEmail());
+		setEmail(account.getEmail());
 		setPassword(account.getPassword());
 		setMemos(account.getMemos());
 	}
@@ -31,7 +31,7 @@ public class CustomSecurityAccount extends Account implements UserDetails {
 		setRoles(account.getRoles());
 		setId(account.getId());
 		setAccountName(account.getAccountName());
-		setAccountEmail(account.getAccountEmail());
+		setEmail(account.getEmail());
 		setPassword(account.getPassword());
 		setMemos(account.getMemos());
 	}
@@ -58,6 +58,6 @@ public class CustomSecurityAccount extends Account implements UserDetails {
 
 	@Override
 	public String getUsername() {
-		return getAccountEmail();
+		return getEmail();
 	}
 }
