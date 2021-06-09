@@ -23,6 +23,10 @@
 		<div class="wrapper fadeInDown">
 			<div id="formContent" class="container">
 				<form method="POST" th:action="@{/signup}" th:object="${signupForm}">
+					<div
+						th:if="${#fields.hasErrors('accountName')}"
+						th:errors="*{accountName}"
+					></div>
 					<input
 						type="text"
 						name="accountName"
@@ -31,10 +35,7 @@
 						placeholder="ユーザ名(半角英数字2文字以上30文字以内)"
 						th:value="*{accountName}"
 					/>
-					<div
-						th:if="${#fields.hasErrors('accountName')}"
-						th:errors="*{accountName}"
-					></div>
+					<div th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
 					<input
 						type="email"
 						id="email"
@@ -43,7 +44,10 @@
 						placeholder="email(128文字以内)"
 						th:value="*{email}"
 					/>
-					<div th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+					<div
+						th:if="${#fields.hasErrors('password')}"
+						th:errors="*{password}"
+					></div>
 					<input
 						type="password"
 						id="password"
@@ -53,8 +57,8 @@
 						th:value="*{password}"
 					/>
 					<div
-						th:if="${#fields.hasErrors('password')}"
-						th:errors="*{password}"
+						th:if="${#fields.hasErrors('rePassword')}"
+						th:errors="*{rePassword}"
 					></div>
 					<input
 						type="password"
@@ -64,10 +68,6 @@
 						placeholder="password(再入力)"
 						th:value="*{rePassword}"
 					/>
-					<div
-						th:if="${#fields.hasErrors('rePassword')}"
-						th:errors="*{rePassword}"
-					></div>
 
 					<input
 						type="submit"
@@ -80,7 +80,6 @@
 				</div>
 			</div>
 		</div>
-		<footer class="py-5 bg-dark" th:include="common/footer">
-		</footer>
+		<footer class="py-5 bg-dark" th:include="common/footer"></footer>
 	</body>
 </html>

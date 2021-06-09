@@ -1,6 +1,9 @@
 package com.herokuapp.bookmemo4444.entity;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,6 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -35,11 +40,16 @@ public class Memo implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "account_id")
 	private Account account;
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "created_date", nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private String createdDate;
+	private Date createdDate;
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "updated_date", nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private String updatedDate;
-
+	private Date updatedDate;
+	
+	protected void now() {
+		setUpdatedDate(new Date());
+	}
 }

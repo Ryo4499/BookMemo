@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.herokuapp.bookmemo4444.entity.Role;
 
 @Repository
+@Transactional
 public interface RoleRepository extends JpaRepository<Role, Long> {
 	Role findByAuthority(String authority);
 }

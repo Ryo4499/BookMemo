@@ -25,7 +25,6 @@ import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @RequestMapping("/memo")
-@Slf4j
 public class MemoController {
 
 
