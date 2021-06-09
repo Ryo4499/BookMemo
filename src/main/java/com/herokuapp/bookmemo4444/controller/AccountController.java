@@ -14,6 +14,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.herokuapp.bookmemo4444.entity.Account;
 import com.herokuapp.bookmemo4444.entity.Role;
@@ -22,6 +23,8 @@ import com.herokuapp.bookmemo4444.form.UpdateForm;
 import com.herokuapp.bookmemo4444.repository.AccountRepository;
 import com.herokuapp.bookmemo4444.repository.RoleRepository;
 import com.herokuapp.bookmemo4444.security.CustomSecurityAccount;
+
+import antlr.collections.List;
 
 //TODO htmlのバリのエラーの場所変更
 
@@ -88,7 +91,7 @@ public class AccountController {
 
 	@PostMapping("/profile")
 	public String postProfile(@Validated UpdateForm updateForm, BindingResult result,
-			@AuthenticationPrincipal CustomSecurityAccount customSecurityAccount, Model model) {
+			@AuthenticationPrincipal CustomSecurityAccount customSecurityAccount, Model model,RedirectAttributes redirectAttributes) {
 		if (result.hasErrors()) {
 			updateForm.resetPassword();
 			model.addAttribute("updateForm", updateForm);
@@ -99,6 +102,7 @@ public class AccountController {
 		if (!passwordEncoder.matches(updateForm.getOldPassword(), customSecurityAccount.getPassword())
 				|| !passwordEncoder.matches(updateForm.getRePassword(), updateForm.getNewPassword())) {
 			updateForm.resetPassword();
+			model.addAttribute("errorPass", "パスワードが一致しません");
 			model.addAttribute("updateForm", updateForm);
 			return "account/profile";
 		}
@@ -108,7 +112,8 @@ public class AccountController {
 		account.setRoles(customSecurityAccount.getRoles());
 		accountRepository.updateAccount(customSecurityAccount.getId(), account.getAccountName(),
 				account.getAccountEmail(), account.getPassword());
-		return "account/profile";
+		redirectAttributes.addFlashAttribute("success","更新が完了しました");
+		return "redirect:/profile";
 	}
 
 	@GetMapping("/delete")

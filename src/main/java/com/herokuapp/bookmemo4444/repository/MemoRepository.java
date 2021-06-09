@@ -10,14 +10,17 @@ import com.herokuapp.bookmemo4444.entity.Account;
 import com.herokuapp.bookmemo4444.entity.Memo;
 
 @Repository
-@Transactional
 public interface MemoRepository extends JpaRepository<Memo, Long>{
+	@Transactional(readOnly = true)
 	public List<Memo> findByTitle(String title);
 
+	@Transactional(readOnly = true)
 	public List<Memo> findByCategory(String category);
 
+	@Transactional(readOnly = true)
 	public List<Memo> findByBookName(String bookName);
 	
+	@Transactional(readOnly = true)
 	public List<Memo> findByAccount(Account account);
 	
 }
