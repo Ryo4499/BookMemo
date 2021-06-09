@@ -1,10 +1,12 @@
 package com.herokuapp.bookmemo4444.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.herokuapp.bookmemo4444.entity.Account;
 import com.herokuapp.bookmemo4444.entity.Memo;
@@ -21,58 +23,41 @@ public class MemoServiceImpl implements MemoService {
 	}
 
 	@Override
-	public List<Memo> searchTitle(String title, Long id, int page, int limit) {
-		page = page * limit;
-		String parsent = "%" + title + "%";
-		return memoRepository.findByContainingTitleAndAccountOrderByUpdatedDate(parsent, id, page, limit);
-	}
-
-	@Override
-	public List<Memo> searchCategory(String category, Long id, int page, int limit) {
-		page = page * limit;
-		String parsent = "%" + category + "%";
-		return memoRepository.findByContainingCategoryAndAccountOrderByUpdatedDate(parsent, id, page, limit);
-	}
-
-	@Override
-	public List<Memo> searchBookName(String bookName, Long id, int page, int limit) {
-		page = page * limit;
-		String parsent = "%" + bookName + "%";
-		return memoRepository.findByContainingBookNameAndAccountOrderByUpdatedDate(parsent, id, page, limit);
-	}
-
-	@Override
-	public List<Memo> noConditionSearch(Long id, int page, int limit) {
-		page = page * limit;
-		return memoRepository.limitOffsetList(id, page, limit);
-	}
-
-	@Override
-	public List<Memo> findDistinctCategoryByAccount(Account account) {
+	public List<String> findDistinctCategoryByAccount(Account account) {
 		return memoRepository.findDistinctCategoryByAccount(account);
 	}
 
 	@Override
-	public int countMemoIdByAccount(Long memoId, Long accountId) {
-		return memoRepository.countMemoIdByAccount(memoId, accountId);
+	public int countMemoIdByAccount(Account account) {
+		return memoRepository.countMemoIdByAccount(account);
 	}
 
 	@Override
-	public int countCategoryByCategoryAndAccount(String category, Long accountId) {
+	public int countCategoryByCategoryAndAccount(String category, Account account) {
 		String parsent = "%" + category + "%";
-		return memoRepository.countCategoryByContainingCategoryAndAccount(parsent, accountId);
+		return memoRepository.countCategoryByContainingCategoryAndAccount(parsent, account);
 	}
 
 	@Override
-	public int countTitleByTitleAndAccount(String title, Long accountId) {
+	public int countTitleByTitleAndAccount(String title, Account account) {
 		String parsent = "%" + title + "%";
-		return memoRepository.countTitleByContainingTitleAndAccount(parsent, accountId);
+		return memoRepository.countTitleByContainingTitleAndAccount(parsent, account);
 	}
 
 	@Override
-	public int countBookNameByBookNameAndAccount(String bookName, Long accountId) {
+	public int countBookNameByBookNameAndAccount(String bookName, Account account) {
 		String parsent = "%" + bookName + "%";
-		return memoRepository.countBookNameByContainingBookNameAndAccount(parsent, accountId);
+		return memoRepository.countBookNameByContainingBookNameAndAccount(parsent, account);
+	}
+
+	@Override
+	public Optional<Memo> findByMemoId(Long id) {
+		return memoRepository.findById(id);
+	}
+
+	@Override
+	public void delete(long memoId) {
+		delete(memoId);
 	}
 
 }

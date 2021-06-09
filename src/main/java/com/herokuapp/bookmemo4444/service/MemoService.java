@@ -1,6 +1,8 @@
 package com.herokuapp.bookmemo4444.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,30 +13,23 @@ import com.herokuapp.bookmemo4444.entity.Memo;
 @Service
 public interface MemoService {
 	@Transactional(readOnly = true)
-	List<Memo> searchTitle(String title, Long id, int page, int limit);
+	List<String> findDistinctCategoryByAccount(Account account);
 
 	@Transactional(readOnly = true)
-	List<Memo> searchCategory(String category, Long id, int page, int limit);
+	int countMemoIdByAccount(Account account);
 
 	@Transactional(readOnly = true)
-	List<Memo> searchBookName(String bookName, Long id, int page, int limit);
+	int countCategoryByCategoryAndAccount(String category, Account account);
 
 	@Transactional(readOnly = true)
-	List<Memo> noConditionSearch(Long id, int page, int limit);
+	int countTitleByTitleAndAccount(String title, Account account);
 
 	@Transactional(readOnly = true)
-	List<Memo> findDistinctCategoryByAccount(Account account);
+	int countBookNameByBookNameAndAccount(String bookName, Account account);
 
 	@Transactional(readOnly = true)
-	int countMemoIdByAccount(Long memoId, Long accountId);
+	Optional<Memo> findByMemoId(Long id);
 
-	@Transactional(readOnly = true)
-	int countCategoryByCategoryAndAccount(String category, Long accountId);
-
-	@Transactional(readOnly = true)
-	int countTitleByTitleAndAccount(String title, Long accountId);
-
-	@Transactional(readOnly = true)
-	int countBookNameByBookNameAndAccount(String bookName, Long accountId);
+	void delete(long memoId);
 
 }

@@ -1,8 +1,6 @@
 package com.herokuapp.bookmemo4444.entity;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.Date;
 
 import javax.persistence.Column;

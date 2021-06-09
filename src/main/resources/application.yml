@@ -14,7 +14,7 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: create-drop
-    properties:      '[hibernate.jdbc.time_zone]': Asia/Tokyo
+    properties:      '[hibernate.jdbc.time_zone]': Asia/Tokyo      mapping-resources:
   datasource:
     url: jdbc:postgresql://localhost:5432/bookmemo4444
     username: postgres
