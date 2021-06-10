@@ -28,6 +28,8 @@ import com.herokuapp.bookmemo4444.repository.MemoRepository;
 import com.herokuapp.bookmemo4444.security.CustomSecurityAccount;
 import com.herokuapp.bookmemo4444.service.MemoService;
 
+// TODO タイトルが見つからなかったときのエラー処理
+
 @Controller
 @RequestMapping("/memo")
 public class MemoController {
@@ -55,6 +57,7 @@ public class MemoController {
 	public String getMemoListPage(Model model, @RequestParam HashMap<String, String> params,
 			@AuthenticationPrincipal CustomSecurityAccount customSecurityAccount,
 			RedirectAttributes redirectAttributes) {
+		req.getSession().removeAttribute("memoId");
 		List<String> categoryList = memoService.findDistinctCategoryByAccount(customSecurityAccount);
 		// パラメータを設定し、現在のページを取得する
 		String currentPage = params.get("page");
@@ -102,7 +105,7 @@ public class MemoController {
 	@GetMapping("/title")
 	public String getTitleMemoListPage(@RequestParam HashMap<String, String> params,
 			@AuthenticationPrincipal CustomSecurityAccount customSecurityAccount, Model model) {
-		// TODO タイトルが見つからなかったときの例外
+		req.getSession().removeAttribute("memoId");
 		List<String> categoryList = memoService.findDistinctCategoryByAccount(customSecurityAccount);
 		String selectTitle = params.get("selectTitle");
 		String currentPage = params.get("page");
@@ -144,6 +147,7 @@ public class MemoController {
 	@GetMapping("/category")
 	public String getCategoryMemoListPage(@RequestParam HashMap<String, String> params,
 			@AuthenticationPrincipal CustomSecurityAccount customSecurityAccount, Model model) {
+		req.getSession().removeAttribute("memoId");
 		List<String> categoryList = memoService.findDistinctCategoryByAccount(customSecurityAccount);
 		String currentPage = params.get("page");
 		String selectCategory = params.get("selectCategory");

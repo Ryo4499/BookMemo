@@ -25,6 +25,14 @@
 	</head>
 
 	<body>
+		<script th:inline="javascript">
+		/*<![CDATA[*/
+		let message =  /*[[${success}]]*/ 'default'; 
+		if(message){
+			window.alert(message);
+		}		
+		/*]]>*/
+		</script>
 		<header th:include="common/header"></header>
 		<!-- Page Content-->
 		<div class="container">
