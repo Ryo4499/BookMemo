@@ -18,8 +18,40 @@
 
 <body>
 	<header th:include="common/header"></header>
-	<div class="container">
-		<h1>管理者画面</h1>
+	<div class="container w-100 h-100 my-5">
+<script th:inline="javascript">
+				/*<![CDATA[*/
+				let message = /*[[${message}]]*/ "default";
+				if (message) {
+					window.alert(message);
+				}
+				/*]]>*/
+			</script>
+		<h1 class="fs-3 mt-3" th:text="${name}+'さんのメモ一覧'"></h1>
+		<table class="table table-striped my-5">
+			<tr>
+				<th>ID</th>
+				<th>Title</th>
+				<th>Content</th>
+				<th>Category</th>
+				<th>Book Name</th>
+				<th>Updated</th>
+				<th>Created</th>
+				<th>Delete</th>
+			</tr>
+			<div th:each="memo:${memoList}">
+				<tr>
+					<td th:text="${memo.memoId}"></td>
+					<td th:text="${memo.title}"></td>
+					<td th:text="${memo.content}"></td>
+					<td th:text="${memo.category}"></td>
+					<td th:text="${memo.bookName}"></td>
+					<td th:text="${#dates.format(memo.updatedDate, 'yyyy/MM/dd HH:mm')}"></td>
+					<td th:text="${#dates.format(memo.createdDate, 'yyyy/MM/dd HH:mm')}"></td>
+					<td><a class="btn btn-danger" th:href="@{'/admin/show/delete?memoId='+${memo.memoId}}">削除</a></td>
+				</tr>
+			</div>
+		</table>
 	</div>
 	<footer class="py-3 bg-dark" th:include="common/footer"></footer>
 	</footer>

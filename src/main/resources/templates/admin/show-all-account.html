@@ -26,10 +26,10 @@
 
 	<body>
 		<header th:include="common/header"></header>
-		<div class="container w-100 h-100">
+		<div class="container w-100 h-100 my-5">
 			<script th:inline="javascript">
 				/*<![CDATA[*/
-				let message = /*[[${success}]]*/ "default";
+				let message = /*[[${message}]]*/ "default";
 				if (message) {
 					window.alert(message);
 				}
@@ -56,14 +56,15 @@
 							<p th:text="${role.authority}"></p>
 						</td>
 						<td>
-							<a
-								th:href="@{'/admin/show?accountId='+${account.id}}"
-								>Show Memo</a
+							<a class="btn btn-dark"
+								th:href="@{'/admin/show?accountId='+${account.id}+'&accountName='+${account.accountName}}"
+								>詳細</a
 							>
 						</td>
 						<td>
-							<a th:href="@{'/admin/delete?accountId='+${account.id}+'&accountName='+${account.accountName}}"
-								>Delete</a
+							<a class="btn btn-danger"
+								th:href="@{'/admin/delete?accountId='+${account.id}+'&accountName='+${account.accountName}}"
+								>削除</a
 							>
 						</td>
 					</tr>
