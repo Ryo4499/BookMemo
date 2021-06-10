@@ -2,7 +2,7 @@
 <div class="card mb-4">
 	<div class="card-header">メモ新規作成</div>
 	<div class="card-body">
-		<a href="/memo/create/" class="btn btn-flat"><span>Create!</span></a>
+		<a href="/memo/create" class="btn btn-flat"><span>Create!</span></a>
 	</div>
 </div>
 <!-- Search widget-->
@@ -11,7 +11,7 @@
 	<div class="card-header">書籍名検索</div>
 	<div class="card-body">
 		<form
-			th:action="@{'/memo/title/?page=1&selectBook='+${selectBook_value}}"
+			th:action="@{'/memo/book?page=1&selectBook='+${selectBook_value}}"
 			method="GET"
 		>
 			<div class="input-group">
@@ -22,10 +22,10 @@
 					id="selectBook"
 					th:value="${selectBook_value}"
 					placeholder="Enter search book name..."
-					aria-label="Enter search title..."
+					aria-label="Enter search book name..."
 					aria-describedby="button-search"
 				/>
-				<button class="btn btn-dark" id="button-search" type="submit">
+				<button class="btn btn-dark button-search" id="" type="submit">
 					Go!
 				</button>
 			</div>
@@ -45,7 +45,7 @@
 						<a
 							class="list-group-item"
 							th:text="${category}"
-							th:href="@{'/memo/category/?page=1&selectCategory='+${category}}"
+							th:href="@{'/memo/category?page=1&selectCategory='+${category}}"
 						>
 							Category 1
 						</a>
@@ -61,7 +61,7 @@
 	<div class="card-header">タイトル検索</div>
 	<div class="card-body">
 		<form
-			th:action="@{'/memo/title/?page=1&selectTitle='+${selectTitle_value}}"
+			th:action="@{'/memo/title?page=1&selectTitle='+${selectTitle_value}}"
 			method="GET"
 		>
 			<div class="input-group">
@@ -75,7 +75,7 @@
 					aria-label="Enter search title..."
 					aria-describedby="button-search"
 				/>
-				<button class="btn btn-dark" id="button-search" type="submit">
+				<button class="btn btn-dark button-search" id="" type="submit">
 					Go!
 				</button>
 			</div>

@@ -1,14 +1,23 @@
 package com.herokuapp.bookmemo4444.form;
 
+import java.util.Date;
+
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+
+import org.springframework.lang.Nullable;
 
 import lombok.Data;
 
 @Data
 public class MemoForm {
+
 	private Long memoId;
+//	@org.springframework.data.relational.core.mapping.Embedded.Nullable
+//	private Date createdDate;
+//	@org.springframework.data.relational.core.mapping.Embedded.Nullable
+//	private Date upDatedDate;
 
 	@NotEmpty(message = "Title is empty.")
 	@Size(min = 1, max = 30, message = "1文字以上30文字以下で入力して下さい")

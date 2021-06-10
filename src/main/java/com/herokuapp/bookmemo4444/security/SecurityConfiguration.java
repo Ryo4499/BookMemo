@@ -4,6 +4,7 @@ import java.net.URLDecoder;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -11,9 +12,12 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.access.channel.ChannelProcessingFilter;
+import org.springframework.web.multipart.support.MultipartFilter;
 
 import com.herokuapp.bookmemo4444.repository.AccountRepository;
 import com.herokuapp.bookmemo4444.service.UserDetailsServiceImpl;
@@ -57,19 +61,21 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		web.ignoring().antMatchers("/images/**", "/js/**", "/css/**");
 	}
 
+	// TODO H2は削除
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.sessionManagement().sessionFixation().changeSessionId().maximumSessions(1).maxSessionsPreventsLogin(false);
-		http.csrf().disable();
-		http.headers().frameOptions().disable();
-		http.authorizeRequests().antMatchers("/", "/h2-console/**").permitAll().antMatchers("/login").permitAll()
-				.antMatchers("/signup").permitAll().antMatchers("/admin**/**").hasRole("ADMIN")
-				.antMatchers("/memo**/**").hasAnyRole("ADMIN", "USER").anyRequest().authenticated();
-		http.formLogin().loginPage("/login").defaultSuccessUrl("/memo/", true).usernameParameter("email")
+		http.authorizeRequests().antMatchers(HttpMethod.POST,"/signup","/signupsuccess").anonymous()
+				.antMatchers("/", "/h2-console/**","/signup","/signupsuccess").permitAll().antMatchers("/admin**/**")
+				.hasRole("ADMIN").antMatchers("/memo**/**").hasAnyRole("ADMIN", "USER").anyRequest().authenticated();
+		http.formLogin().loginPage("/login").defaultSuccessUrl("/memo", true).usernameParameter("email")
 				.passwordParameter("password").permitAll().and().rememberMe().key("uniqueAndSecret")
 				.userDetailsService(userDetailsServiceBean());
-		http.logout().logoutUrl("/logout").invalidateHttpSession(true).deleteCookies("JSESSIONID")
-				.logoutSuccessUrl("/");
+		http.logout().logoutUrl("/logout").invalidateHttpSession(true)
+				.deleteCookies("JSESSIONID", "SESSION", "remember-me").logoutSuccessUrl("/").permitAll();
+		http.sessionManagement().sessionFixation().newSession().maximumSessions(1).maxSessionsPreventsLogin(false);
+		http.csrf().disable();
+		http.headers().frameOptions().disable();
+		
 	}
 
 }

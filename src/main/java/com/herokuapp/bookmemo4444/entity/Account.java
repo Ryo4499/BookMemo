@@ -37,7 +37,7 @@ public class Account implements Serializable {
 	private String email;
 	@Column(name = "account_password", nullable = false)
 	private String password;
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "account")
+	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY, orphanRemoval = true, mappedBy = "account")
 	private List<Memo> memos;
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "account_role", joinColumns = @JoinColumn(name = "account_id", referencedColumnName = "account_id"), inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))

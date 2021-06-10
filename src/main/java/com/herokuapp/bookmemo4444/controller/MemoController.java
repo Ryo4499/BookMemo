@@ -1,5 +1,6 @@
 package com.herokuapp.bookmemo4444.controller;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
@@ -251,13 +252,16 @@ public class MemoController {
 			RedirectAttributes redirectAttributes) {
 		// TODO memo save
 		if (result.hasErrors()) {
+			result.getAllErrors().forEach(System.out::println);
 			model.addAttribute("memoForm", memoForm);
 			return "memo/memo-create";
 		}
 		Memo memo = makeMemo(memoForm, customSecurityAccount);
+		memo.setCreatedDate(new Date());
+		memo.setUpdatedDate(new Date());
 		memoRepository.save(memo);
 		redirectAttributes.addFlashAttribute("success", "登録が完了しました｡");
-		return "redirect:/memo/create";
+		return "redirect:/memo/";
 	}
 
 	@GetMapping("/details")
@@ -279,11 +283,19 @@ public class MemoController {
 
 	@PostMapping("/details")
 	public String putMemoUpdatePage(@Validated MemoForm memoForm, BindingResult result, Model model,
+			@AuthenticationPrincipal CustomSecurityAccount customSecurityAccount,
 			RedirectAttributes redirectAttributes) {
+		long memoId = (long) req.getSession().getAttribute("memoId");
 		if (result.hasErrors()) {
+			model.addAttribute("memoForm", memoForm);
 			return "memo/memo-details";
 		}
-
+		Memo memo = makeMemo(memoForm, customSecurityAccount);
+		memo.setUpdatedDate(new Date());
+		memo.setCreatedDate(memoRepository.findByMemoId(memoId));
+		memoRepository.save(memo);
+		redirectAttributes.addFlashAttribute("success", "更新が完了しました｡");
+		req.getSession().removeAttribute("memoId");
 		return "redirect:/memo/";
 	}
 
@@ -303,10 +315,11 @@ public class MemoController {
 	}
 
 	@PostMapping("/delete")
-	public String deleteMemo() {
+	public String deleteMemo(RedirectAttributes redirectAttributes) {
 		long memoId = (long) req.getSession().getAttribute("memoId");
 		memoRepository.deleteById(memoId);
 		req.getSession().removeAttribute("memoId");
+		redirectAttributes.addFlashAttribute("success", "削除が完了しました｡");
 		return "redirect:/memo/";
 	}
 
@@ -322,10 +335,13 @@ public class MemoController {
 
 	private Memo makeMemo(MemoForm memoForm, Account account) {
 		Memo memo = new Memo();
+		memo.setMemoId(memoForm.getMemoId());
 		memo.setTitle(memoForm.getTitle());
 		memo.setContent(memoForm.getContent());
 		memo.setCategory(memoForm.getCategory());
 		memo.setBookName(memoForm.getBookName());
+//		memo.setCreatedDate(memoForm.getCreatedDate());
+//		memo.setUpdatedDate(memoForm.getUpDatedDate());
 		memo.setAccount(account);
 		return memo;
 	}
