@@ -28,5 +28,4 @@ spring:
       enabled: true
   thymeleaf:
     cache: false
-
-    
+        

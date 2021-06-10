@@ -10,6 +10,7 @@
  * Copyright 2011-2021 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
+
 :root {
 	--blue: #007bff;
 	--indigo: #6610f2;
@@ -88,9 +89,9 @@ body {
 }
 
 .new-memo-button {
-  margin: 0 0 0 auto;
-  text-align: center;
-  vertical-align: auto;
+	margin: 0 0 0 auto;
+	text-align: center;
+	vertical-align: auto;
 	width: 2rem;
 	height: 2rem;
 }
@@ -385,6 +386,56 @@ template {
 	display: none !important;
 }
 
+a.btn-flat {
+	display: inline-block;
+	width: 200px;
+	text-align: center;
+	background-color: #000;
+	border: 2px solid #000;
+	font-size: 16px;
+	color: #000;
+	text-decoration: none;
+	font-weight: bold;
+	padding: 10px 24px;
+	border-radius: 4px;
+	position: relative;
+}
+
+a.btn-flat span {
+	position: relative;
+	z-index: 1;
+}
+
+a.btn-flat::before,
+a.btn-flat::after {
+	content: "";
+	display: block;
+	background-color: #fff;
+	width: 50%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	transition: 0.2s;
+}
+
+a.btn-flat::before {
+	left: 0;
+}
+
+a.btn-flat::after {
+	right: 0;
+}
+
+a.btn-flat:hover:before,
+a.btn-flat:hover:after {
+	width: 0;
+	background-color: #fff;
+}
+
+a.btn-flat:hover {
+	color: #fff;
+}
+
 h1,
 h2,
 h3,
@@ -616,13 +667,13 @@ pre code {
 		max-width: 960px;
 	}
 }
-@media (min-width: 1200px) {
+@media (min-width: 1680px) {
 	.container-xl,
 	.container-lg,
 	.container-md,
 	.container-sm,
 	.container {
-		max-width: 1140px;
+		max-width: 1600px;
 	}
 }
 .row {

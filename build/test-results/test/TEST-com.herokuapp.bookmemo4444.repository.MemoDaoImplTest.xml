@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.herokuapp.bookmemo4444.repository.MemoDaoImplTest" tests="13" skipped="0" failures="0" errors="0" timestamp="2021-06-09T20:09:34" hostname="AR44" time="0.006">
+<testsuite name="com.herokuapp.bookmemo4444.repository.MemoDaoImplTest" tests="13" skipped="0" failures="0" errors="0" timestamp="2021-06-10T05:06:00" hostname="AR44" time="0.006">
   <properties/>
-  <testcase name="testMemoDaoImpl()" classname="com.herokuapp.bookmemo4444.repository.MemoDaoImplTest" time="0.0"/>
+  <testcase name="testMemoDaoImpl()" classname="com.herokuapp.bookmemo4444.repository.MemoDaoImplTest" time="0.001"/>
   <testcase name="testGetCategoryCount()" classname="com.herokuapp.bookmemo4444.repository.MemoDaoImplTest" time="0.001"/>
   <testcase name="testGetAllCategory()" classname="com.herokuapp.bookmemo4444.repository.MemoDaoImplTest" time="0.0"/>
   <testcase name="testGetMemoCount()" classname="com.herokuapp.bookmemo4444.repository.MemoDaoImplTest" time="0.0"/>
   <testcase name="testUpdateMemo()" classname="com.herokuapp.bookmemo4444.repository.MemoDaoImplTest" time="0.0"/>
-  <testcase name="testSearchByTitle()" classname="com.herokuapp.bookmemo4444.repository.MemoDaoImplTest" time="0.001"/>
+  <testcase name="testSearchByTitle()" classname="com.herokuapp.bookmemo4444.repository.MemoDaoImplTest" time="0.0"/>
   <testcase name="testSearchByCategory()" classname="com.herokuapp.bookmemo4444.repository.MemoDaoImplTest" time="0.0"/>
   <testcase name="testGetTitleCount()" classname="com.herokuapp.bookmemo4444.repository.MemoDaoImplTest" time="0.0"/>
-  <testcase name="testFindById()" classname="com.herokuapp.bookmemo4444.repository.MemoDaoImplTest" time="0.001"/>
+  <testcase name="testFindById()" classname="com.herokuapp.bookmemo4444.repository.MemoDaoImplTest" time="0.0"/>
   <testcase name="testInsertMemo()" classname="com.herokuapp.bookmemo4444.repository.MemoDaoImplTest" time="0.0"/>
   <testcase name="testGetMemoList()" classname="com.herokuapp.bookmemo4444.repository.MemoDaoImplTest" time="0.0"/>
   <testcase name="testDeleteMemo()" classname="com.herokuapp.bookmemo4444.repository.MemoDaoImplTest" time="0.0"/>

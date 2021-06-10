@@ -1,10 +1,17 @@
+#デプロイ時に変更
 spring:
-  h2:
-    console:
-      enabled: true
-  session:
-    store-type: jdbc
-    jdbc:      initialize-schema: always
+##本番#  datasource:
+#    driver-class-name: org.postgresql.Driver
+#    username: ${POSTGRES_USER}
+#    password: ${POSTGRES_PASS}
+#    url: ${DATABASE_URL}
+  datasource:
+    url: jdbc:postgresql://localhost:5432/bookmemo4444
+    username: postgres
+    password: p4w0rd
+  session:    store-type: jdbc
+    jdbc:
+      initialize-schema: always
       schema: classpath:org/springframework/session/jdbc/schema-postgresql.sql
     timeout: 1000
   jpa:
@@ -12,19 +19,13 @@ spring:
     database-platform: org.hibernate.dialect.PostgreSQL94Dialect
     generate-ddl: true
     show-sql: true
-    hibernate:
-      ddl-auto: create-drop
-    properties:      '[hibernate.jdbc.time_zone]': Asia/Tokyo      mapping-resources:
-  datasource:
-    url: jdbc:postgresql://localhost:5432/bookmemo4444
-    username: postgres
-    password: p4w0rd
+    hibernate:      ddl-auto: create-drop    properties:
+      '[hibernate.jdbc.time_zone]': Asia/Tokyo
+      mapping-resources:
     driver-class-name: org.postgresql.Driver
+  h2:
+    console:
+      enabled: true
   thymeleaf:
     cache: false
-
-##本番
-#spring:#  datasource:#    driver-class-name: org.postgresql.Driver
-#    username: ${POSTGRES_USER}
-#    password: ${POSTGRES_PASS}
-#    url: ${DATABASE_URL}    
+        
