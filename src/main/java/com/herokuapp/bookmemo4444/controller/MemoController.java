@@ -24,6 +24,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.herokuapp.bookmemo4444.entity.Account;
 import com.herokuapp.bookmemo4444.entity.Memo;
+import com.herokuapp.bookmemo4444.entity.Role;
 import com.herokuapp.bookmemo4444.form.MemoForm;
 import com.herokuapp.bookmemo4444.repository.MemoRepository;
 import com.herokuapp.bookmemo4444.security.CustomSecurityAccount;
@@ -59,6 +60,11 @@ public class MemoController {
 			@AuthenticationPrincipal CustomSecurityAccount customSecurityAccount,
 			RedirectAttributes redirectAttributes) {
 		req.getSession().removeAttribute("memoId");
+
+		if (isAdmin(customSecurityAccount)) {
+			model.addAttribute("admin", "管理者画面へ");
+		}
+
 		List<String> categoryList = memoService.findDistinctCategoryByAccount(customSecurityAccount);
 		// パラメータを設定し、現在のページを取得する
 		String currentPage = params.get("page");
@@ -107,10 +113,14 @@ public class MemoController {
 	public String getTitleMemoListPage(@RequestParam HashMap<String, String> params,
 			@AuthenticationPrincipal CustomSecurityAccount customSecurityAccount, Model model) {
 		req.getSession().removeAttribute("memoId");
+
+		if (isAdmin(customSecurityAccount)) {
+			model.addAttribute("admin", "管理者画面へ");
+		}
+
 		List<String> categoryList = memoService.findDistinctCategoryByAccount(customSecurityAccount);
 		String selectTitle = params.get("selectTitle");
 		String currentPage = params.get("page");
-
 		if (currentPage == null) {
 			currentPage = "1";
 		}
@@ -149,6 +159,11 @@ public class MemoController {
 	public String getCategoryMemoListPage(@RequestParam HashMap<String, String> params,
 			@AuthenticationPrincipal CustomSecurityAccount customSecurityAccount, Model model) {
 		req.getSession().removeAttribute("memoId");
+
+		if (isAdmin(customSecurityAccount)) {
+			model.addAttribute("admin", "管理者画面へ");
+		}
+
 		List<String> categoryList = memoService.findDistinctCategoryByAccount(customSecurityAccount);
 		String currentPage = params.get("page");
 		String selectCategory = params.get("selectCategory");
@@ -194,6 +209,9 @@ public class MemoController {
 	@GetMapping("/book")
 	public String getBookMemoListPage(@RequestParam HashMap<String, String> params,
 			@AuthenticationPrincipal CustomSecurityAccount customSecurityAccount, Model model) {
+		if (isAdmin(customSecurityAccount)) {
+			model.addAttribute("admin", "管理者画面へ");
+		}
 		List<String> categoryList = memoService.findDistinctCategoryByAccount(customSecurityAccount);
 		String currentPage = params.get("page");
 		String selectBook = params.get("selectBook");
@@ -239,6 +257,10 @@ public class MemoController {
 	@GetMapping("/create")
 	public String getMemoCreatePage(@AuthenticationPrincipal CustomSecurityAccount customSecurityAccount, Model model) {
 		List<String> categoryList = memoService.findDistinctCategoryByAccount(customSecurityAccount);
+		if (isAdmin(customSecurityAccount)) {
+			model.addAttribute("admin", "管理者画面へ");
+		}
+
 		model.addAttribute("memoForm", new MemoForm());
 		model.addAttribute("categoryList", categoryList);
 		return "memo/memo-create";
@@ -267,6 +289,10 @@ public class MemoController {
 			@AuthenticationPrincipal CustomSecurityAccount customSecurityAccount, Model model, HttpServletRequest req) {
 		long memoId = Long.parseLong(params.get("memoId"));
 		req.getSession().setAttribute("memoId", memoId);
+		if (isAdmin(customSecurityAccount)) {
+			model.addAttribute("admin", "管理者画面へ");
+		}
+
 		List<String> categoryList = memoService.findDistinctCategoryByAccount(customSecurityAccount);
 		Optional<Memo> optionalMemo = memoRepository.findById(memoId);
 		if (optionalMemo.isPresent()) {
@@ -301,6 +327,7 @@ public class MemoController {
 	public String deleteConfirmPage(MemoForm memoForm,
 			@AuthenticationPrincipal CustomSecurityAccount customSecurityAccount, Model model) {
 		long memoId = (long) req.getSession().getAttribute("memoId");
+
 		List<String> categoryList = memoService.findDistinctCategoryByAccount(customSecurityAccount);
 		Optional<Memo> optional = memoRepository.findById(memoId);
 		// TODO メモを取ってきて､確認画面に反映
@@ -341,5 +368,13 @@ public class MemoController {
 		memo.setBookName(memoForm.getBookName());
 		memo.setAccount(account);
 		return memo;
+	}
+
+	private boolean isAdmin(CustomSecurityAccount customSecurityAccount) {
+		String string = customSecurityAccount.getAuthorities().toString();
+		if (string.contains("ROLE_ADMIN")) {
+			return true;
+		}
+		return false;
 	}
 }
