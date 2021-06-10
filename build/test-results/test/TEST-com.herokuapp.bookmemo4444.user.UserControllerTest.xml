@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.herokuapp.bookmemo4444.user.UserControllerTest" tests="10" skipped="0" failures="0" errors="0" timestamp="2021-06-10T05:06:00" hostname="AR44" time="0.004">
+<testsuite name="com.herokuapp.bookmemo4444.user.UserControllerTest" tests="10" skipped="0" failures="0" errors="0" timestamp="2021-06-10T06:42:24" hostname="AR44" time="0.003">
   <properties/>
   <testcase name="testPostLogin()" classname="com.herokuapp.bookmemo4444.user.UserControllerTest" time="0.001"/>
   <testcase name="testGetTopPage()" classname="com.herokuapp.bookmemo4444.user.UserControllerTest" time="0.0"/>
-  <testcase name="testGetLoginPage()" classname="com.herokuapp.bookmemo4444.user.UserControllerTest" time="0.0"/>
+  <testcase name="testGetLoginPage()" classname="com.herokuapp.bookmemo4444.user.UserControllerTest" time="0.001"/>
   <testcase name="testPostProfile()" classname="com.herokuapp.bookmemo4444.user.UserControllerTest" time="0.0"/>
   <testcase name="testGetProfile()" classname="com.herokuapp.bookmemo4444.user.UserControllerTest" time="0.0"/>
-  <testcase name="testUserController()" classname="com.herokuapp.bookmemo4444.user.UserControllerTest" time="0.001"/>
-  <testcase name="testPostSignup()" classname="com.herokuapp.bookmemo4444.user.UserControllerTest" time="0.0"/>
+  <testcase name="testUserController()" classname="com.herokuapp.bookmemo4444.user.UserControllerTest" time="0.0"/>
+  <testcase name="testPostSignup()" classname="com.herokuapp.bookmemo4444.user.UserControllerTest" time="0.001"/>
   <testcase name="testDeleteUser()" classname="com.herokuapp.bookmemo4444.user.UserControllerTest" time="0.0"/>
   <testcase name="testGetSignupPage()" classname="com.herokuapp.bookmemo4444.user.UserControllerTest" time="0.0"/>
   <testcase name="testGetLogout()" classname="com.herokuapp.bookmemo4444.user.UserControllerTest" time="0.0"/>

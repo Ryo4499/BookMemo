@@ -48,7 +48,7 @@
 							<li th:if="${startPage} > 1" class="page-item">
 								<a
 									class="page-link"
-									th:href="@{'/memo/book/?page=1&selectBook='+${selectBook}}"
+									th:href="@{'/memo/book?page=1&selectBook='+${selectBook}}"
 									　tabindex="-2"
 									>最初</a
 								>
@@ -56,7 +56,7 @@
 							<li th:if="${page} > 1" class="page-item">
 								<a
 									class="page-link"
-									th:href="@{'/memo/book/?page=' + ${page-1} +'&selectBook='+${selectBook}}"
+									th:href="@{'/memo/book?page=' + ${page-1} +'&selectBook='+${selectBook}}"
 									　tabindex="-1"
 									>前へ</a
 								>
@@ -69,7 +69,7 @@
 								>
 									<a
 										class="page-link"
-										th:href="@{'/memo/book/?page='+ ${i} +'&selectBook='+${selectBook} }"
+										th:href="@{'/memo/book?page='+ ${i} +'&selectBook='+${selectBook} }"
 										th:text="${i}"
 									></a>
 								</li>
@@ -83,7 +83,7 @@
 								>
 									<a
 										class="page-link"
-										th:href="@{'/memo/book/?page=' + ${i}+'&selectBook='+${selectBook}}"
+										th:href="@{'/memo/book?page=' + ${i}+'&selectBook='+${selectBook}}"
 										th:text="${i}"
 									></a>
 								</li>
@@ -91,14 +91,14 @@
 							<li th:if="${page} < ${totalPage}" class="page-item">
 								<a
 									class="page-link"
-									th:href="@{'/memo/book/?page=' + ${page+1}+'&selectBook='+${selectBook}}"
+									th:href="@{'/memo/book?page=' + ${page+1}+'&selectBook='+${selectBook}}"
 									>次へ</a
 								>
 							</li>
 							<li th:if="${endPage} < ${totalPage}" class="page-item">
 								<a
 									class="page-link"
-									th:href="@{'/memo/book/?page=' + ${totalPage}+'&selectBook='+${selectBook}}"
+									th:href="@{'/memo/book?page=' + ${totalPage}+'&selectBook='+${selectBook}}"
 									>最後</a
 								>
 							</li>

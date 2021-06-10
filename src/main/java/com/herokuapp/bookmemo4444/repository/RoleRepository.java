@@ -10,7 +10,6 @@ import com.herokuapp.bookmemo4444.entity.Role;
 @Repository
 @Transactional(readOnly = true)
 public interface RoleRepository extends JpaRepository<Role, Long> {
-	@Secured(value = "ADMIN")
+	//これはAdmin権限にするな!!!!
 	Role findByAuthority(String authority);
-	
 }

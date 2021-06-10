@@ -125,14 +125,13 @@ public class MemoDaoImpl implements MemoDao {
 	}
 
 	@Override
-	public List<Memo> searchCategory(String selectCategory, @Param("account") Account account, @Param("page") int page,
-			@Param("limit") int limit) {
+	public List<Memo> searchCategory(String selectCategory, Account account, int page, int limit) {
 		CriteriaBuilder builder = entityManager.getCriteriaBuilder();
 		CriteriaQuery<Memo> query = builder.createQuery(Memo.class);
 		Root<Memo> root = query.from(Memo.class);
 		query.select(root)
 				.where(builder.equal(root.get(Memo_.account).get(Account_.id), account.getId()),
-						builder.like(root.get(Memo_.category), "%" + selectCategory + "%"))
+						builder.equal(root.get(Memo_.category),selectCategory))
 				.orderBy(builder.desc(root.get(Memo_.updatedDate)), builder.desc(root.get(Memo_.memoId)));
 
 		TypedQuery<Memo> typedQuery = entityManager.createQuery(query);

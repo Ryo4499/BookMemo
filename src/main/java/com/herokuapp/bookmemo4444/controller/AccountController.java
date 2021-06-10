@@ -3,9 +3,16 @@ package com.herokuapp.bookmemo4444.controller;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -20,6 +27,7 @@ import com.herokuapp.bookmemo4444.entity.Role;
 import com.herokuapp.bookmemo4444.form.SignupForm;
 import com.herokuapp.bookmemo4444.form.UpdateForm;
 import com.herokuapp.bookmemo4444.repository.AccountRepository;
+import com.herokuapp.bookmemo4444.repository.MemoRepository;
 import com.herokuapp.bookmemo4444.repository.RoleRepository;
 import com.herokuapp.bookmemo4444.security.CustomSecurityAccount;
 
@@ -34,12 +42,18 @@ public class AccountController {
 
 	private final PasswordEncoder passwordEncoder;
 
+	private final HttpServletRequest req;
+
+	private final MemoRepository memoRepository;
+
 	@Autowired
 	public AccountController(AccountRepository accountRepository, RoleRepository roleRepository,
-			PasswordEncoder passwordEncoder) {
+			PasswordEncoder passwordEncoder, HttpServletRequest req, MemoRepository memoRepository) {
 		this.accountRepository = accountRepository;
 		this.roleRepository = roleRepository;
 		this.passwordEncoder = passwordEncoder;
+		this.memoRepository = memoRepository;
+		this.req = req;
 	}
 
 	@GetMapping("/")
@@ -65,14 +79,23 @@ public class AccountController {
 			model.addAttribute("signupForm", signupForm);
 			return "account/signup";
 		}
+
 		signupForm.setPassword(passwordEncoder.encode(signupForm.getPassword()));
 		if (!passwordEncoder.matches(signupForm.getRePassword(), signupForm.getPassword())) {
 			signupForm.resetPassword();
 			model.addAttribute("signupForm", signupForm);
 			return "account/signup";
 		}
+
 		Account account = makeAccountSignUpForm(signupForm);
+
 		accountRepository.save(account);
+
+		return "redirect:/signupsuccess";
+	}
+
+	@GetMapping("/signupsuccess")
+	public String getSignupSuccess() {
 		return "account/signup-success";
 	}
 
@@ -126,6 +149,8 @@ public class AccountController {
 		account.setEmail(customSecurityAccount.getEmail());
 		account.setAccountName(customSecurityAccount.getAccountName());
 		account.setPassword(customSecurityAccount.getPassword());
+		req.getSession().invalidate();
+		memoRepository.deleteByAccount(account.getId());
 		accountRepository.delete(account);
 		return "redirect:/";
 	}
