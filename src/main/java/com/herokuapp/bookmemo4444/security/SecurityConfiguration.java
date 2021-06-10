@@ -64,18 +64,19 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	// TODO H2は削除
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers(HttpMethod.POST,"/signup","/signupsuccess").anonymous()
-				.antMatchers("/", "/h2-console/**","/signup","/signupsuccess").permitAll().antMatchers("/admin**/**")
-				.hasRole("ADMIN").antMatchers("/memo**/**").hasAnyRole("ADMIN", "USER").anyRequest().authenticated();
+		http.authorizeRequests().antMatchers("/", "/h2-console/**", "/signup", "/signupsuccess").permitAll()
+				.antMatchers("/admin**/**").hasRole("ADMIN").antMatchers("/memo**/**").hasAnyRole("ADMIN", "USER")
+				.anyRequest().authenticated();
 		http.formLogin().loginPage("/login").defaultSuccessUrl("/memo", true).usernameParameter("email")
 				.passwordParameter("password").permitAll().and().rememberMe().key("uniqueAndSecret")
 				.userDetailsService(userDetailsServiceBean());
 		http.logout().logoutUrl("/logout").invalidateHttpSession(true)
 				.deleteCookies("JSESSIONID", "SESSION", "remember-me").logoutSuccessUrl("/").permitAll();
-		http.sessionManagement().sessionFixation().newSession().maximumSessions(1).maxSessionsPreventsLogin(false);
+		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED).sessionFixation()
+				.changeSessionId().maximumSessions(1).maxSessionsPreventsLogin(false);
 		http.csrf().disable();
 		http.headers().frameOptions().disable();
-		
+
 	}
 
 }

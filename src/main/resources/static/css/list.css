@@ -88,10 +88,6 @@ body {
 	outline: 0 !important;
 }
 
-.button-search:hover {
-	color: #000;
-	background-color: #fff;
-}
 
 .new-memo-button {
 	margin: 0 0 0 auto;
