@@ -33,7 +33,7 @@ public interface MemoRepository extends JpaRepository<Memo, Long> {
 	List<Memo> findByAccountId(Long accountId);
 
 	@Secured("ROLE_ADMIN")
-	@Modifying(clearAutomatically = true, flushAutomatically = true)
+	@Modifying(clearAutomatically = true, flushAutomatically = false)
 	@Transactional(readOnly = false)
 	@Query(value = "DELETE FROM memos WHERE memo_id = :memoId",nativeQuery = true)
 	void deleteByMemoId(@Param("memoId") Long memoId);

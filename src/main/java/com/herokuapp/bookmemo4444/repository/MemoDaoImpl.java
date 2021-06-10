@@ -3,10 +3,13 @@ package com.herokuapp.bookmemo4444.repository;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaDelete;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
@@ -131,7 +134,7 @@ public class MemoDaoImpl implements MemoDao {
 		Root<Memo> root = query.from(Memo.class);
 		query.select(root)
 				.where(builder.equal(root.get(Memo_.account).get(Account_.id), account.getId()),
-						builder.equal(root.get(Memo_.category),selectCategory))
+						builder.equal(root.get(Memo_.category), selectCategory))
 				.orderBy(builder.desc(root.get(Memo_.updatedDate)), builder.desc(root.get(Memo_.memoId)));
 
 		TypedQuery<Memo> typedQuery = entityManager.createQuery(query);
@@ -152,6 +155,18 @@ public class MemoDaoImpl implements MemoDao {
 		TypedQuery<Memo> typedQuery = entityManager.createQuery(query);
 		List<Memo> memos = typedQuery.setFirstResult(page).setMaxResults(limit).getResultList();
 		return memos;
+	}
+
+	@Override
+	@Transactional
+	public void deleteByMemoId(Long memoId) {
+		CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+		CriteriaDelete<Memo> query = builder.createCriteriaDelete(Memo.class);
+		Root<Memo> root = query.from(Memo.class);
+		query.where(builder.equal(root.get(Memo_.memoId), memoId));
+
+		Query query2 = entityManager.createQuery(query);
+		query2.executeUpdate();
 	}
 
 }

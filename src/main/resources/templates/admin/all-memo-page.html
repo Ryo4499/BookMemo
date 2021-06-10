@@ -48,7 +48,7 @@
 					<td th:text="${memo.bookName}"></td>
 					<td th:text="${#dates.format(memo.updatedDate, 'yyyy/MM/dd HH:mm')}"></td>
 					<td th:text="${#dates.format(memo.createdDate, 'yyyy/MM/dd HH:mm')}"></td>
-					<td><a class="btn btn-danger" th:href="@{'/admin/show/delete?memoId='+${memo.memoId}}">削除</a></td>
+					<td><a class="btn btn-danger" th:href="@{'/admin/memodelete?memoId='+${memo.memoId}}">削除</a></td>
 				</tr>
 			</div>
 		</table>

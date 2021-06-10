@@ -28,7 +28,8 @@
 		<header th:include="common/header"></header>
 		<div class="container w-75 my-5">
 			<h1 class="mt-4" th:text="メモ詳細"></h1>
-			<form th:action="@{/admin/show/delete}" method="post" th:object="${memo}">
+			<form action="" method="post" th:object="${memo}">
+				<input type="hidden" id="memoId" name="memoId" th:value="${memoId}" />
 				<!-- Post header-->
 				<header class="mb-2">
 					<!-- Post title-->

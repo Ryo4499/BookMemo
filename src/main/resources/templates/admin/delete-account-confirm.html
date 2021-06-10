@@ -28,7 +28,7 @@
 		<header th:include="common/header"></header>
 		<div class="container w-75 my-5">
 			<h1 class="mt-4" th:text="${account.accountName}+'さんのProfile'"></h1>
-			<form th:action="@{/admin/delete}" method="post" th:object="${account}">
+			<form action="" method="post" th:object="${account}">
 				<div class="form-group row mt-3">
 					<label for="" class="col-form-label fs-5">Account Name</label>
 					<p
