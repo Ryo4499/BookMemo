@@ -71,6 +71,12 @@ section {
 	display: block;
 }
 
+.logout {
+	background-color: #343a40;
+	border: none;
+	outline: none;
+}
+
 footer {
 	height: 6%;
 	bottom: 0;
