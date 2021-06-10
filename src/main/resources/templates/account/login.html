@@ -24,9 +24,9 @@
 		<div class="wrapper fadeInDown">
 			<div id="formContent" class="container">
 				<form action="" method="post">
-					<legend>Please Login</legend>
+					<legend class="mb-3">Please Login</legend>
 					<!-- use param.error assuming FormLoginConfigurer#failureUrl contains the query parameter error -->
-					<div th:if="${param.error != null}">
+					<div class="error" th:if="${param.error != null}">
 						Failed to login.
 						<div th:if="${SPRING_SECURITY_LAST_EXCEPTION != null}">
 							Reason:
@@ -40,7 +40,7 @@
 					<input
 						type="email"
 						id="email"
-						class="form-control form-text w-75 mx-auto mt-3"
+						class="form-control form-text w-75 mx-auto mt-2 mb-2"
 						name="email"
 						placeholder="Your email"
 					/>
@@ -48,24 +48,19 @@
 					<input
 						type="password"
 						id="password"
-						class="form-control form-text w-75 mx-auto mt-3"
+						class="form-control form-text w-75 mx-auto mt-2 mb-2"
 						name="password"
 						placeholder="Your password"
 					/>
-					<label class="mt-3" for="remember-me">Remember Me?</label>
-					<input type="checkbox" id="remember-me" name="remember-me" /><br>
-					<input
-						type="submit"
-						class="fadeIn fourth mx-auto"
-						value="Login"
-					/>
+					<label class="mt-2 mb-2" for="remember-me">Remember Me?</label>
+					<input type="checkbox" id="remember-me" name="remember-me" /><br />
+					<input type="submit" class="fadeIn fourth mx-auto" value="Login" />
 				</form>
 				<div>
 					<a th:href="@{/}" class="btn btn-dark mb-3 fadeIn fourth">Top Page</a>
 				</div>
 			</div>
 		</div>
-		<footer class="py-5 bg-dark" th:include="common/footer">
-		</footer>
+
 	</body>
 </html>
