@@ -355,14 +355,21 @@ public class MemoController {
 		return memoForm;
 	}
 
-	private Memo makeMemo(MemoForm memoForm, CustomSecurityAccount account) {
+	private Memo makeMemo(MemoForm memoForm, CustomSecurityAccount customSecurityAccount) {
 		Memo memo = new Memo();
 		memo.setMemoId(memoForm.getMemoId());
 		memo.setTitle(memoForm.getTitle());
 		memo.setContent(memoForm.getContent());
 		memo.setCategory(memoForm.getCategory());
 		memo.setBookName(memoForm.getBookName());
-		memo.setAccount(new Account(account));
+		Account account = new Account();
+		account.setId(customSecurityAccount.getId());
+		account.setAccountName(customSecurityAccount.getAccountName());
+		account.setEmail(customSecurityAccount.getEmail());
+		account.setPassword(customSecurityAccount.getPassword());
+		account.setRoles(customSecurityAccount.getRoles());
+		account.setMemos(customSecurityAccount.getMemos());
+		memo.setAccount(account);
 		return memo;
 	}
 

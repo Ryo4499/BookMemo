@@ -45,13 +45,4 @@ public class Account implements Serializable {
 	@JoinTable(name = "account_role", joinColumns = @JoinColumn(name = "account_id", referencedColumnName = "account_id"), inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
 	private Set<Role> roles;
 
-	public Account(CustomSecurityAccount customSecurityAccount) {
-		id = customSecurityAccount.getId();
-		accountName = customSecurityAccount.getUsername();
-		email = customSecurityAccount.getEmail();
-		password = customSecurityAccount.getPassword();
-		roles = customSecurityAccount.getRoles();
-		memos = customSecurityAccount.getMemos();
-	}
-
 }

@@ -26,6 +26,11 @@
 
 	<body>
 		<header th:include="common/header"></header>
+			<input
+							type="hidden"
+							th:name="${_csrf.parameterName}"
+							th:value="${_csrf.token}"
+						/>
 		<!-- Page content-->
 		<div class="container my-5">
 			<div class="row">

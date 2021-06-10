@@ -37,7 +37,7 @@ public class Memo implements Serializable {
 	private String category;
 	@Column(name = "book_name", length = 30, nullable = false)
 	private String bookName;
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "account_id")
 	private Account account;
 	@Temporal(TemporalType.TIMESTAMP)
