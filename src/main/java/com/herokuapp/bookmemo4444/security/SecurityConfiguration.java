@@ -59,7 +59,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.sessionManagement().sessionFixation().newSession().maximumSessions(1).maxSessionsPreventsLogin(false);
+		http.sessionManagement().sessionFixation().changeSessionId().maximumSessions(1).maxSessionsPreventsLogin(false);
 		http.csrf().disable();
 		http.headers().frameOptions().disable();
 		http.authorizeRequests().antMatchers("/", "/h2-console/**").permitAll().antMatchers("/login").permitAll()

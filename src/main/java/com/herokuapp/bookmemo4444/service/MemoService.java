@@ -32,4 +32,7 @@ public interface MemoService {
 	List<Memo> searchCategory(String selectCategory, CustomSecurityAccount customSecurityAccount,
 			HashMap<String, String> search);
 
+	List<Memo> searchBookName(String selectBook, CustomSecurityAccount customSecurityAccount,
+			HashMap<String, String> search);
+
 }

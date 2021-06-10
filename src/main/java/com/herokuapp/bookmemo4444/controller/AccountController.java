@@ -41,7 +41,7 @@ public class AccountController {
 		this.passwordEncoder = passwordEncoder;
 	}
 
-	@GetMapping("/")
+	@GetMapping("")
 	public String getTopPage() {
 		return "top-page";
 	}

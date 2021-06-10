@@ -35,20 +35,17 @@ public class MemoServiceImpl implements MemoService {
 
 	@Override
 	public Long countCategoryByCategoryAndAccount(String category, Account account) {
-		String parsent = "%" + category + "%";
-		return memoDao.countCategoryByContainingCategoryAndAccount(parsent, account);
+		return memoDao.countCategoryByContainingCategoryAndAccount(category, account);
 	}
 
 	@Override
 	public Long countTitleByTitleAndAccount(String title, Account account) {
-		String parsent = "%" + title + "%";
-		return memoDao.countTitleByContainingTitleAndAccount(parsent, account);
+		return memoDao.countTitleByContainingTitleAndAccount(title, account);
 	}
 
 	@Override
 	public Long countBookNameByBookNameAndAccount(String bookName, Account account) {
-		String parsent = "%" + bookName + "%";
-		return memoDao.countBookNameByContainingBookNameAndAccount(parsent, account);
+		return memoDao.countBookNameByContainingBookNameAndAccount(bookName, account);
 	}
 
 	@Override
@@ -72,6 +69,14 @@ public class MemoServiceImpl implements MemoService {
 		int limit = Integer.parseInt(search.get("limit"));
 		int page = Integer.valueOf(search.get("page")) - 1;
 		return memoDao.searchCategory(selectCategory, customSecurityAccount, limit * page, limit);
+	}
+
+	@Override
+	public List<Memo> searchBookName(String selectBook, CustomSecurityAccount customSecurityAccount,
+			HashMap<String, String> search) {
+		int limit = Integer.parseInt(search.get("limit"));
+		int page = Integer.valueOf(search.get("page")) - 1;
+		return memoDao.searchBookName(selectBook, customSecurityAccount, page, limit);
 	}
 
 }

@@ -1,0 +1,41 @@
+<div class="mb-4">
+	<div class="card h-100">
+		<h3 class="pl-2" th:text="${memo.bookName}"></h3>
+		<div class="card-body">
+			<h4 class="card-title">
+				<a
+					th:href="@{/memo/details/{memoId} (memoId=${memo.memoId})}"
+					th:text="${memo.title}"
+					class="overflow-hidden"
+					maxlength="10"
+					>Item One</a
+				>
+			</h4>
+			<label>updated: </label>
+			<p
+				class="text-muted"
+				th:text="${#dates.format(memo.updatedDate, 'yyyy/MM/dd HH:mm')}"
+			></p>
+			<label>created: </label>
+			<p
+				class="text-muted"
+				th:text="${#dates.format(memo.createdDate, 'yyyy/MM/dd HH:mm')}"
+			></p>
+			<p
+				class="card-text,overflow-hidden"
+				th:text="${memo.content}"
+				maxlength="20"
+			>
+				Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam
+				aspernatur!
+			</p>
+		</div>
+		<div class="card-footer">
+			<small
+				class="text-muted"
+				th:text="${memo.category}"
+				maxlength="10"
+			></small>
+		</div>
+	</div>
+</div>
