@@ -26,7 +26,5 @@ public interface MemoDao {
 	List<Memo> searchCategory(String selectCategory, Account account, int page, int limit);
 
 	List<Memo> searchBookName(String selectBookName, Account account, int page, int limit);
-
-	void deleteByMemoId(Long memoId);
 	
 }

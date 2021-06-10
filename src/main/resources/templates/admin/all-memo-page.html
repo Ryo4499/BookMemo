@@ -37,7 +37,6 @@
 				<th>Book Name</th>
 				<th>Updated</th>
 				<th>Created</th>
-				<th>Delete</th>
 			</tr>
 			<div th:each="memo:${memoList}">
 				<tr>
@@ -48,7 +47,6 @@
 					<td th:text="${memo.bookName}"></td>
 					<td th:text="${#dates.format(memo.updatedDate, 'yyyy/MM/dd HH:mm')}"></td>
 					<td th:text="${#dates.format(memo.createdDate, 'yyyy/MM/dd HH:mm')}"></td>
-					<td><a class="btn btn-danger" th:href="@{'/admin/memodelete?memoId='+${memo.memoId}}">削除</a></td>
 				</tr>
 			</div>
 		</table>

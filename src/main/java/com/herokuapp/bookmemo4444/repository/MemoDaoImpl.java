@@ -156,17 +156,4 @@ public class MemoDaoImpl implements MemoDao {
 		List<Memo> memos = typedQuery.setFirstResult(page).setMaxResults(limit).getResultList();
 		return memos;
 	}
-
-	@Override
-	@Transactional
-	public void deleteByMemoId(Long memoId) {
-		CriteriaBuilder builder = entityManager.getCriteriaBuilder();
-		CriteriaDelete<Memo> query = builder.createCriteriaDelete(Memo.class);
-		Root<Memo> root = query.from(Memo.class);
-		query.where(builder.equal(root.get(Memo_.memoId), memoId));
-
-		Query query2 = entityManager.createQuery(query);
-		query2.executeUpdate();
-	}
-
 }

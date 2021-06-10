@@ -1,42 +1,39 @@
-//TODO 後でレイアウト直せー
 <div class="mb-4">
-	<div class="card h-100">
-		<h3 class="pl-2" th:text="${memo.bookName}"></h3>
-		<div class="card-body">
-			<h4 class="card-title">
-				<a
-					th:href="@{'/memo/details?memoId='+${memo.memoId}}"
-					th:text="${memo.title}"
-					class="overflow-hidden"
-					maxlength="10"
-					>Item One</a
-				>
-			</h4>
-			<label>updated: </label>
-			<p
-				class="text-muted"
-				th:text="${#dates.format(memo.updatedDate, 'yyyy/MM/dd HH:mm')}"
-			></p>
-			<label>created: </label>
-			<p
-				class="text-muted"
-				th:text="${#dates.format(memo.createdDate, 'yyyy/MM/dd HH:mm')}"
-			></p>
-			<p
-				class="card-text,overflow-hidden"
-				th:text="${memo.content}"
-				maxlength="20"
-			>
-				Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam
-				aspernatur!
-			</p>
+	<a
+		th:href="@{'/memo/details?memoId='+${memo.memoId}}"
+		class="overflow-hidden"
+		maxlength="10"
+	>
+		<div class="card h-100 row">
+			<h3 class="pl-2 fs-3 col-12" th:text="'書籍名: '+${memo.bookName}"></h3>
+			<div class="card-body row">
+				<h4 class="card-title col-3" th:text="${memo.title}"></h4>
+				<small
+					class="text-muted col-9 text-right"
+					th:text="'updated: '+${#dates.format(memo.updatedDate, 'yyyy/MM/dd HH:mm')}"
+				></small>
+				<div class="row">
+					<p
+						class="card-text,overflow-hidden col-8"
+						th:text="${memo.content}"
+						maxlength="100"
+					>
+						Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet
+						numquam aspernatur!
+					</p>
+					<p
+						class="text-muted col-4 align-middle text-right"
+						th:text="${memo.category}"
+						maxlength="10"
+					></p>
+				</div>
+			</div>
+			<div class="card-footer">
+				<small
+					class="text-muted"
+					th:text="'created:' +${#dates.format(memo.createdDate, 'yyyy/MM/dd HH:mm')}"
+				></small>
+			</div>
 		</div>
-		<div class="card-footer">
-			<small
-				class="text-muted"
-				th:text="${memo.category}"
-				maxlength="10"
-			></small>
-		</div>
-	</div>
+	</a>
 </div>

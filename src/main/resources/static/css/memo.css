@@ -90,6 +90,15 @@ body {
 	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
+body>.box{
+	height:auto;
+}
+
+.box{
+	height:100%;
+	min-height: 100%;
+}
+
 footer{
 	height: 6%;
 	bottom:0;

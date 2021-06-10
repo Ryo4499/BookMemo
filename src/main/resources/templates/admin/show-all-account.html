@@ -56,13 +56,13 @@
 							<p th:text="${role.authority}"></p>
 						</td>
 						<td>
-							<a class="btn btn-dark"
+							<a class="btn btn-dark mx-auto"
 								th:href="@{'/admin/show?accountId='+${account.id}+'&accountName='+${account.accountName}}"
 								>詳細</a
 							>
 						</td>
 						<td>
-							<a class="btn btn-danger"
+							<a class="btn btn-danger mx-auto"
 								th:href="@{'/admin/delete?accountId='+${account.id}+'&accountName='+${account.accountName}}"
 								>削除</a
 							>
