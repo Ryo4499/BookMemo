@@ -2,6 +2,8 @@ package com.herokuapp.bookmemo4444.repository;
 
 import java.util.List;
 
+import org.springframework.data.repository.query.Param;
+
 import com.herokuapp.bookmemo4444.entity.Account;
 import com.herokuapp.bookmemo4444.entity.Memo;
 
@@ -25,4 +27,6 @@ public interface MemoDao {
 
 	List<Memo> searchBookName(String selectBookName, Account account, int page, int limit);
 
+	void deleteByMemoId(Long memoId);
+	
 }
