@@ -4,6 +4,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.apache.coyote.http11.Http11AprProtocol;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -17,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.herokuapp.bookmemo4444.entity.Account;
 import com.herokuapp.bookmemo4444.entity.Memo;
 import com.herokuapp.bookmemo4444.form.MemoForm;
 import com.herokuapp.bookmemo4444.repository.MemoRepository;
@@ -37,13 +42,16 @@ public class MemoController {
 
 	private final MemoRepository memoRepository;
 
+	private final HttpServletRequest req;
+
 	@Autowired
-	public MemoController(MemoService memoService, MemoRepository memoRepository) {
+	public MemoController(MemoService memoService, MemoRepository memoRepository, HttpServletRequest req) {
 		this.memoService = memoService;
 		this.memoRepository = memoRepository;
+		this.req = req;
 	}
 
-	@GetMapping("/")
+	@GetMapping("")
 	public String getMemoListPage(Model model, @RequestParam HashMap<String, String> params,
 			@AuthenticationPrincipal CustomSecurityAccount customSecurityAccount,
 			RedirectAttributes redirectAttributes) {
@@ -88,10 +96,10 @@ public class MemoController {
 		model.addAttribute("totalPage", totalPage);
 		model.addAttribute("startPage", startPage);
 		model.addAttribute("endPage", endPage);
-		return "memo/memo-list";
+		return "memo/memo-top";
 	}
 
-	@GetMapping("/title/")
+	@GetMapping("/title")
 	public String getTitleMemoListPage(@RequestParam HashMap<String, String> params,
 			@AuthenticationPrincipal CustomSecurityAccount customSecurityAccount, Model model) {
 		// TODO タイトルが見つからなかったときの例外
@@ -133,7 +141,7 @@ public class MemoController {
 		return "memo/memo-title";
 	}
 
-	@GetMapping("/category/")
+	@GetMapping("/category")
 	public String getCategoryMemoListPage(@RequestParam HashMap<String, String> params,
 			@AuthenticationPrincipal CustomSecurityAccount customSecurityAccount, Model model) {
 		List<String> categoryList = memoService.findDistinctCategoryByAccount(customSecurityAccount);
@@ -180,26 +188,79 @@ public class MemoController {
 		return "memo/memo-category";
 	}
 
-	@GetMapping("/create/")
-	public String getMemoCreatePage(MemoForm memoForm, Model model) {
+	@GetMapping("/book")
+	public String getBookMemoListPage(@RequestParam HashMap<String, String> params,
+			@AuthenticationPrincipal CustomSecurityAccount customSecurityAccount, Model model) {
+		List<String> categoryList = memoService.findDistinctCategoryByAccount(customSecurityAccount);
+		String currentPage = params.get("page");
+		String selectBook = params.get("selectBook");
+
+		params.forEach((k, v) -> {
+			System.out.println(k);
+			System.out.println(v);
+		});
+
+		if (currentPage == null) {
+			currentPage = "1";
+		}
+
+		HashMap<String, String> search = new HashMap<String, String>();
+		search.put("limit", limit);
+		search.put("page", currentPage);
+
+		Long total = 0L;
+		List<Memo> memoList = null;
+		try {
+			total = memoService.countBookNameByBookNameAndAccount(selectBook, customSecurityAccount);
+			memoList = memoService.searchBookName(selectBook, customSecurityAccount, search);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		System.err.println("eeeeeeeeeeeeee" + total);
+		memoList.forEach(memo -> System.out.println(memo.getTitle()));
+
+		long totalPage = (total + Integer.valueOf(limit) - 1) / Integer.valueOf(limit);
+		int page = Integer.parseInt(currentPage);
+		int startPage = page - (page - 1) % showPageSize;
+		long endPage = startPage + showPageSize - 1 > totalPage ? totalPage : startPage + showPageSize - 1;
+
+		model.addAttribute("selectBook", selectBook);
+		model.addAttribute("categoryList", categoryList);
+		model.addAttribute("memoList", memoList);
+		model.addAttribute("total", total);
+		model.addAttribute("page", page);
+		model.addAttribute("totalPage", totalPage);
+		model.addAttribute("startPage", startPage);
+		model.addAttribute("endPage", endPage);
+		return "memo/memo-book";
+	}
+
+	@GetMapping("/create")
+	public String getMemoCreatePage(Model model) {
+		model.addAttribute("memoForm", new MemoForm());
 		return "memo/memo-create";
 	}
 
-	@PostMapping("/create/")
+	@PostMapping("/create")
 	public String postMemoCreatePage(@Validated MemoForm memoForm, BindingResult result, Model model,
+			@AuthenticationPrincipal CustomSecurityAccount customSecurityAccount,
 			RedirectAttributes redirectAttributes) {
-//TODO memo save
+		// TODO memo save
 		if (result.hasErrors()) {
-
+			model.addAttribute("memoForm", memoForm);
 			return "memo/memo-create";
 		}
-
-		return "redirect:/memo/";
+		Memo memo = makeMemo(memoForm, customSecurityAccount);
+		memoRepository.save(memo);
+		redirectAttributes.addFlashAttribute("success", "登録が完了しました｡");
+		return "redirect:/memo/create";
 	}
 
-	@GetMapping("/details/{memoId}")
-	public String getMemoDetailsPage(@AuthenticationPrincipal CustomSecurityAccount customSecurityAccount,
-			@PathVariable long memoId, Model model) {
+	@GetMapping("/details")
+	public String getMemoDetailsPage(@RequestParam HashMap<String, String> params,
+			@AuthenticationPrincipal CustomSecurityAccount customSecurityAccount, Model model, HttpServletRequest req) {
+		long memoId = Long.parseLong(params.get("memoId"));
+		req.getSession().setAttribute("memoId", memoId);
 		List<String> categoryList = memoService.findDistinctCategoryByAccount(customSecurityAccount);
 		Optional<Memo> optionalMemo = memoRepository.findById(memoId);
 		if (optionalMemo.isPresent()) {
@@ -212,16 +273,17 @@ public class MemoController {
 		return "memo/memo-details";
 	}
 
-	@PostMapping("/details/")
+	@PostMapping("/details")
 	public String putMemoUpdatePage(@Validated MemoForm memoForm, BindingResult result, Model model,
 			RedirectAttributes redirectAttributes) {
-
-		// return "memo/details/" + memo.getMemoId();
+		if (result.hasErrors()) {
+			return "memo/memo-details";
+		}
 
 		return "redirect:/memo/";
 	}
 
-	@GetMapping("/delete/")
+	@GetMapping("/delete")
 	public String deleteConfirmPage(MemoForm memoForm,
 			@AuthenticationPrincipal CustomSecurityAccount customSecurityAccount, Model model) {
 		List<String> categoryList = memoService.findDistinctCategoryByAccount(customSecurityAccount);
@@ -236,9 +298,11 @@ public class MemoController {
 		return "memo/delete-confirm";
 	}
 
-	@PostMapping("/delete/")
-	public String deleteMemo(@PathVariable("memoId") long memoId) {
+	@PostMapping("/delete")
+	public String deleteMemo() {
+		long memoId = (long) req.getSession().getAttribute("memoId");
 		memoRepository.deleteById(memoId);
+		req.getSession().removeAttribute("memoId");
 		return "redirect:/memo/";
 	}
 
@@ -250,5 +314,15 @@ public class MemoController {
 		memoForm.setCategory(memo.getCategory());
 		memoForm.setBookName(memo.getBookName());
 		return memoForm;
+	}
+
+	private Memo makeMemo(MemoForm memoForm, Account account) {
+		Memo memo = new Memo();
+		memo.setTitle(memoForm.getTitle());
+		memo.setContent(memoForm.getContent());
+		memo.setCategory(memoForm.getCategory());
+		memo.setBookName(memoForm.getBookName());
+		memo.setAccount(account);
+		return memo;
 	}
 }

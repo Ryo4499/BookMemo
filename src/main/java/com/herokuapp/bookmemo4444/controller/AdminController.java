@@ -17,7 +17,7 @@ import lombok.AllArgsConstructor;
 public class AdminController {
 	private final AccountRepository accountRepository;
 
-	@GetMapping("/")
+	@GetMapping("")
 	public String getAdminPage() {
 		List<Account> accounts = accountRepository.findAll();
 		accounts.forEach(account -> {
