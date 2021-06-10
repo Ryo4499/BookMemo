@@ -29,7 +29,13 @@ public interface MemoRepository extends JpaRepository<Memo, Long> {
 
 	@Secured("ROLE_ADMIN")
 	@Transactional(readOnly = true)
-	@Query("select m from Memo m where m.account = ?1")
+	@Query(value = "select * from memos where account_id = ?1", nativeQuery = true)
 	List<Memo> findByAccountId(Long accountId);
+
+	@Secured("ROLE_ADMIN")
+	@Modifying(clearAutomatically = true, flushAutomatically = true)
+	@Transactional(readOnly = false)
+	@Query(value = "DELETE FROM memos WHERE memo_id = :memoId",nativeQuery = true)
+	void deleteByMemoId(@Param("memoId") Long memoId);
 
 }

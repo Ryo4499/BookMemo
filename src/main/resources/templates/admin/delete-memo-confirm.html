@@ -27,34 +27,55 @@
 	<body>
 		<header th:include="common/header"></header>
 		<div class="container w-75 my-5">
-			<h1 class="mt-4" th:text="${account.accountName}+'さんのProfile'"></h1>
-			<form th:action="@{/admin/delete}" method="post" th:object="${account}">
-				<div class="form-group row mt-3">
-					<label for="" class="col-form-label fs-5">Account Name</label>
+			<h1 class="mt-4" th:text="メモ詳細"></h1>
+			<form th:action="@{/admin/show/delete}" method="post" th:object="${memo}">
+				<!-- Post header-->
+				<header class="mb-2">
+					<!-- Post title-->
+					<label class="fs-4">タイトル:</label>
 					<p
-						name="accountName"
-						id="accountName"
-						th:text="*{accountName}"
-						class="col-auto"
-					></p>
-				</div>
+						id="title"
+						name="title"
+						class="form-control text-break mt-2"
+						th:text="*{title}"
+						maxlength="30"
+						placeholder="タイトル"
+					>
+						<label class="fs-4">書籍名:</label>
+					</p>
 
-				<div class="form-group row mt-2">
-					<label for="" class="col-form-label fs-5">Email</label>
-					<p id="email" class="col-auto" name="email" th:text="*{email}"></p>
-				</div>
-
-				<div class="form-group row mt-2">
-					<label for="" class="col-form-label fs-5">Current Password</label>
 					<p
-						name="password"
-						id="password"
-						class="col-auto"
-						th:text="*{password}"
+						type="text"
+						id="bookName"
+						name="bookName"
+						class="form-control text-break mt-2"
+						th:text="*{bookName}"
+						maxlength="50"
+						placeholder="書籍名"
 					></p>
-				</div>
 
-				<br />
+					<label class="fs-4">カテゴリ:</label>
+					<p
+						class="form-control text-break mt-2"
+						id="category"
+						name="category"
+						th:text="*{category}"
+						maxlength="30"
+						placeholder="カテゴリ名"
+					></p>
+					<label class="fs-4">コンテンツ:</label>
+				</header>
+				<!-- Post content-->
+				<textarea
+					class="mb-3 memo-content text-break"
+					id="content"
+					name="content"
+					rows="100"
+					cols="100"
+					th:field="*{content}"
+					maxlength="3000"
+					readonly
+				></textarea>
 				<div class="form-group row mt-4">
 					<div class="col-5"></div>
 					<button type="submit" class="btn btn-danger col-2">削除</button>
@@ -63,7 +84,7 @@
 			</form>
 			<div class="row mt-4">
 				<div class="col-5"></div>
-				<a th:href="@{/admin}" class="btn btn-dark col-2">戻る</a>
+				<a th:href="@{/admin/show}" class="btn btn-dark col-2">戻る</a>
 				<div class="col-5"></div>
 			</div>
 		</div>
