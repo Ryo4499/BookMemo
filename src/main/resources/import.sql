@@ -3,7 +3,7 @@ INSERT INTO roles (authority) values ('ROLE_USER');
 
 INSERT INTO accounts (account_name,account_email,account_password) values ('aaa','aaa@example.com','$2a$10$d8DVzpGAp5Pexvf6c3Whi./ZMVcT1gAWHXeFM.jZBhvfxhyToFa0e');
 INSERT INTO account_role values (1,2);
-INSERT INTO accounts (account_name,account_email,account_password) values ('aa','arai@example.com','$2a$10$d8DVzpGAp5Pexvf6c3Whi./ZMVcT1gAWHXeFM.jZBhvfxhyToFa0e');
+INSERT INTO accounts (account_name,account_email,account_password) values ('aa','arairyo@example.com','$2y$10$IJonSRL4hTCoTvieQeWGMeSV09PSSMmiAHS83ok48rOwfZKHtH.py');
 INSERT INTO account_role values (2,1);
 INSERT INTO accounts (account_name,account_email,account_password) values ('dd','ddd@example.com','$2a$10$hC3v6TZOLwSNPzrgNl5y9.G1tP3Owd6AySTWHSAc4eNBpXCAhunKO');
 INSERT INTO account_role values (3,2);

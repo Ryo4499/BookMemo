@@ -174,8 +174,6 @@ public class MemoController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		System.err.println("eeeeeeeeeeeeee" + total);
-		memoList.forEach(memo -> System.out.println(memo.getTitle()));
 
 		long totalPage = (total + Integer.valueOf(limit) - 1) / Integer.valueOf(limit);
 		int page = Integer.parseInt(currentPage);
@@ -221,8 +219,6 @@ public class MemoController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		System.err.println("eeeeeeeeeeeeee" + total);
-		memoList.forEach(memo -> System.out.println(memo.getTitle()));
 
 		long totalPage = (total + Integer.valueOf(limit) - 1) / Integer.valueOf(limit);
 		int page = Integer.parseInt(currentPage);
@@ -241,8 +237,10 @@ public class MemoController {
 	}
 
 	@GetMapping("/create")
-	public String getMemoCreatePage(Model model) {
+	public String getMemoCreatePage(@AuthenticationPrincipal CustomSecurityAccount customSecurityAccount, Model model) {
+		List<String> categoryList = memoService.findDistinctCategoryByAccount(customSecurityAccount);
 		model.addAttribute("memoForm", new MemoForm());
+		model.addAttribute("categoryList", categoryList);
 		return "memo/memo-create";
 	}
 
@@ -302,8 +300,9 @@ public class MemoController {
 	@GetMapping("/delete")
 	public String deleteConfirmPage(MemoForm memoForm,
 			@AuthenticationPrincipal CustomSecurityAccount customSecurityAccount, Model model) {
+		long memoId = (long) req.getSession().getAttribute("memoId");
 		List<String> categoryList = memoService.findDistinctCategoryByAccount(customSecurityAccount);
-		Optional<Memo> optional = memoRepository.findById(memoForm.getMemoId());
+		Optional<Memo> optional = memoRepository.findById(memoId);
 		// TODO メモを取ってきて､確認画面に反映
 		if (optional.isPresent()) {
 			Memo memo = optional.get();
@@ -340,8 +339,6 @@ public class MemoController {
 		memo.setContent(memoForm.getContent());
 		memo.setCategory(memoForm.getCategory());
 		memo.setBookName(memoForm.getBookName());
-//		memo.setCreatedDate(memoForm.getCreatedDate());
-//		memo.setUpdatedDate(memoForm.getUpDatedDate());
 		memo.setAccount(account);
 		return memo;
 	}

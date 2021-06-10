@@ -26,7 +26,48 @@
 
 	<body>
 		<header th:include="common/header"></header>
-		<footer class="py-5 bg-dark" th:include="common/footer">
-		</footer>
+		<div class="container w-75">
+			<h1 class="mt-4" th:text="${name}">Profile</h1>
+			<form th:action="@{/admin/delete}" method="post" th:object="${account}">
+				<input type="hidden" id="id" name="id" th:value="${id}" />
+				<div class="form-group row mt-3">
+					<label for="" class="col-form-label fs-5">Account Name</label>
+					<p
+						name="accountName"
+						id="accountName"
+						th:text="*{accountName}"
+						class="col-auto"
+					></p>
+				</div>
+
+				<div class="form-group row mt-2">
+					<label for="" class="col-form-label fs-5">Email</label>
+					<p id="email" class="col-auto" name="email" th:text="*{email}"></p>
+				</div>
+
+				<div class="form-group row mt-2">
+					<label for="" class="col-form-label fs-5">Current Password</label>
+					<p
+						name="password"
+						id="password"
+						class="col-auto"
+						th:text="*{password}"
+					></p>
+				</div>
+
+				<br />
+				<div class="form-group row mt-4">
+					<div class="col-5"></div>
+					<button type="submit" class="btn btn-danger col-2">削除</button>
+					<div class="col-5"></div>
+				</div>
+			</form>
+			<div class="row mt-4">
+				<div class="col-5"></div>
+				<a th:href="@{/admin}" class="btn btn-dark col-2">戻る</a>
+				<div class="col-5"></div>
+			</div>
+		</div>
+		<footer class="py-3 bg-dark" th:include="common/footer"></footer>
 	</body>
 </html>

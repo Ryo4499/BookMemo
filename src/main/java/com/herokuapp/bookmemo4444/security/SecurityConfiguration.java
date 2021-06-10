@@ -64,7 +64,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	// TODO H2は削除
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/", "/h2-console/**", "/signup", "/signupsuccess").permitAll()
+		http.authorizeRequests().antMatchers("/", "/h2-console/**", "/signup", "/signupsuccess","/thanks").permitAll()
 				.antMatchers("/admin**/**").hasRole("ADMIN").antMatchers("/memo**/**").hasAnyRole("ADMIN", "USER")
 				.anyRequest().authenticated();
 		http.formLogin().loginPage("/login").defaultSuccessUrl("/memo", true).usernameParameter("email")

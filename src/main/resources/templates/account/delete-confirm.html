@@ -29,17 +29,17 @@
 				<p th:text="${email}"></p>
 				<div class="form-group row">
 					<div class="col-5"></div>
-					<button type="submit" class="btn btn-success col-2">退会</button>
+					<button type="submit" class="btn btn-danger col-2">退会</button>
 				</div>
 			</form>
 			<div class="row mt-4">
 				<div class="col-5"></div>
-				<a th:href="@{/profile}" class="btn btn-danger col-2">戻る</a>
+				<a th:href="@{/profile}" class="btn btn-dark col-2">戻る</a>
 			</div>
 		</div>
 		<div class="col-4"></div>
 	</article>
-	<footer class="py-5 bg-dark" th:include="common/footer">
+	<footer class="py-3 bg-dark" th:include="common/footer"></footer>
 		</footer>
 </body>
 

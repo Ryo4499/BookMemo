@@ -81,8 +81,10 @@ public class AccountController {
 		}
 
 		signupForm.setPassword(passwordEncoder.encode(signupForm.getPassword()));
+		
 		if (!passwordEncoder.matches(signupForm.getRePassword(), signupForm.getPassword())) {
 			signupForm.resetPassword();
+			model.addAttribute("errorPass","パスワードが一致しません");
 			model.addAttribute("signupForm", signupForm);
 			return "account/signup";
 		}
@@ -97,6 +99,11 @@ public class AccountController {
 	@GetMapping("/signupsuccess")
 	public String getSignupSuccess() {
 		return "account/signup-success";
+	}
+	
+	@GetMapping("/thanks")
+	public String getThanksPage() {
+		return "account/thanks";
 	}
 
 	@GetMapping("/profile")
@@ -152,7 +159,7 @@ public class AccountController {
 		req.getSession().invalidate();
 		memoRepository.deleteByAccount(account.getId());
 		accountRepository.delete(account);
-		return "redirect:/";
+		return "redirect:/thanks";
 	}
 
 	private Account makeAccountSignUpForm(SignupForm signupForm) {
