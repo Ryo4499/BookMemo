@@ -38,6 +38,11 @@
 				<div class="container col-6">
 					<h1 class="mt-4">Profile</h1>
 					<form action="" method="post" th:object="${updateForm}">
+						<input
+							type="hidden"
+							th:name="${_csrf.parameterName}"
+							th:value="${_csrf.token}"
+						/>
 						<div
 							th:if="${errorPass} != null"
 							th:text="${errorPass}"

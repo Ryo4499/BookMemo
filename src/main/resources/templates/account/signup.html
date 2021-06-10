@@ -23,6 +23,11 @@
 		<div class="wrapper fadeInDown">
 			<div id="formContent" class="container">
 				<form action="" method="post" th:object="${signupForm}">
+					<input
+							type="hidden"
+							th:name="${_csrf.parameterName}"
+							th:value="${_csrf.token}"
+						/>
 					<legend class="mb-3">Please Signup</legend>
 					<div
 						class="error"

@@ -6,20 +6,14 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.herokuapp.bookmemo4444.entity.Account;
@@ -81,10 +75,10 @@ public class AccountController {
 		}
 
 		signupForm.setPassword(passwordEncoder.encode(signupForm.getPassword()));
-		
+
 		if (!passwordEncoder.matches(signupForm.getRePassword(), signupForm.getPassword())) {
 			signupForm.resetPassword();
-			model.addAttribute("errorPass","パスワードが一致しません");
+			model.addAttribute("errorPass", "パスワードが一致しません");
 			model.addAttribute("signupForm", signupForm);
 			return "account/signup";
 		}
@@ -100,7 +94,7 @@ public class AccountController {
 	public String getSignupSuccess() {
 		return "account/signup-success";
 	}
-	
+
 	@GetMapping("/thanks")
 	public String getThanksPage() {
 		return "account/thanks";

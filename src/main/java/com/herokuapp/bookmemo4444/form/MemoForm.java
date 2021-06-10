@@ -1,12 +1,8 @@
 package com.herokuapp.bookmemo4444.form;
 
-import java.util.Date;
-
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-
-import org.springframework.lang.Nullable;
 
 import lombok.Data;
 
