@@ -31,6 +31,11 @@
 			<div class="row">
 				<div class="col-lg-8">
 					<form action="" method="POST" th:object="${memo}">
+						<input
+							type="hidden"
+							th:name="${_csrf.parameterName}"
+							th:value="${_csrf.token}"
+						/>
 						<h1 class="">以下のメモを削除します｡よろしいですか?</h1>
 						<!-- Post content-->
 						<article>

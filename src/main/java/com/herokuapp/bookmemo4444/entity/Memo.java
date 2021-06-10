@@ -37,15 +37,15 @@ public class Memo implements Serializable {
 	private String category;
 	@Column(name = "book_name", length = 30, nullable = false)
 	private String bookName;
-	@ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "account_id")
 	private Account account;
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "created_date",nullable = false, columnDefinition = "TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP")
+	@Column(name = "created_date", nullable = false, columnDefinition = "TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date createdDate;
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "updated_date",nullable = false, columnDefinition = "TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP")
+	@Column(name = "updated_date", nullable = false, columnDefinition = "TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date updatedDate;
 

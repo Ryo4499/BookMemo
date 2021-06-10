@@ -24,7 +24,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	public UserDetailsServiceImpl(AccountRepository accountRepository) {
 		this.accountRepository = accountRepository;
 	}
-	
+
 	@Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 		Account account = accountRepository.findByEmail(email);
@@ -40,7 +40,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		return new CustomSecurityAccount(account, getAuthorities(account));
 
 	}
-	
+
 	private Set<GrantedAuthority> getAuthorities(Account account) {
 		Set<GrantedAuthority> authorities = new HashSet<>();
 		for (Role authrity : account.getRoles()) {

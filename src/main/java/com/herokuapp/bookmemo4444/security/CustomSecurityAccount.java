@@ -1,7 +1,5 @@
 package com.herokuapp.bookmemo4444.security;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 import org.springframework.security.core.GrantedAuthority;

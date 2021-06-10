@@ -6,9 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
-import org.apache.coyote.http11.Http11AprProtocol;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -16,7 +14,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,7 +21,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.herokuapp.bookmemo4444.entity.Account;
 import com.herokuapp.bookmemo4444.entity.Memo;
-import com.herokuapp.bookmemo4444.entity.Role;
 import com.herokuapp.bookmemo4444.form.MemoForm;
 import com.herokuapp.bookmemo4444.repository.MemoRepository;
 import com.herokuapp.bookmemo4444.security.CustomSecurityAccount;
@@ -359,14 +355,14 @@ public class MemoController {
 		return memoForm;
 	}
 
-	private Memo makeMemo(MemoForm memoForm, Account account) {
+	private Memo makeMemo(MemoForm memoForm, CustomSecurityAccount account) {
 		Memo memo = new Memo();
 		memo.setMemoId(memoForm.getMemoId());
 		memo.setTitle(memoForm.getTitle());
 		memo.setContent(memoForm.getContent());
 		memo.setCategory(memoForm.getCategory());
 		memo.setBookName(memoForm.getBookName());
-		memo.setAccount(account);
+		memo.setAccount(new Account(account));
 		return memo;
 	}
 

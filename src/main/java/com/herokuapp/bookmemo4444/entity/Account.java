@@ -17,6 +17,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.herokuapp.bookmemo4444.security.CustomSecurityAccount;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -37,10 +39,19 @@ public class Account implements Serializable {
 	private String email;
 	@Column(name = "account_password", nullable = false)
 	private String password;
-	@OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL,orphanRemoval = true, mappedBy = "account")
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "account")
 	private List<Memo> memos;
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "account_role", joinColumns = @JoinColumn(name = "account_id", referencedColumnName = "account_id"), inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
 	private Set<Role> roles;
+
+	public Account(CustomSecurityAccount customSecurityAccount) {
+		id = customSecurityAccount.getId();
+		accountName = customSecurityAccount.getUsername();
+		email = customSecurityAccount.getEmail();
+		password = customSecurityAccount.getPassword();
+		roles = customSecurityAccount.getRoles();
+		memos = customSecurityAccount.getMemos();
+	}
 
 }

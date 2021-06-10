@@ -4,7 +4,6 @@ import java.net.URLDecoder;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -16,8 +15,6 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.access.channel.ChannelProcessingFilter;
-import org.springframework.web.multipart.support.MultipartFilter;
 
 import com.herokuapp.bookmemo4444.repository.AccountRepository;
 import com.herokuapp.bookmemo4444.service.UserDetailsServiceImpl;
@@ -61,10 +58,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		web.ignoring().antMatchers("/images/**", "/js/**", "/css/**");
 	}
 
-	// TODO H2は削除
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/", "/h2-console/**", "/signup", "/signupsuccess","/thanks").permitAll()
+		http.authorizeRequests().antMatchers("/", "/signup", "/signupsuccess", "/thanks").permitAll()
 				.antMatchers("/admin**/**").hasRole("ADMIN").antMatchers("/memo**/**").hasAnyRole("ADMIN", "USER")
 				.anyRequest().authenticated();
 		http.formLogin().loginPage("/login").defaultSuccessUrl("/memo", true).usernameParameter("email")
@@ -74,7 +70,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.deleteCookies("JSESSIONID", "SESSION", "remember-me").logoutSuccessUrl("/").permitAll();
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED).sessionFixation()
 				.changeSessionId().maximumSessions(1).maxSessionsPreventsLogin(false);
-		http.csrf().disable();
 		http.headers().frameOptions().disable();
 
 	}

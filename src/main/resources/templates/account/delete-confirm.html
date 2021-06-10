@@ -23,6 +23,11 @@
 		<div class="container col-4">
 			<h1 class="mt-4">退会確認</h1>
 			<form action="" method="POST">
+				<input
+							type="hidden"
+							th:name="${_csrf.parameterName}"
+							th:value="${_csrf.token}"
+						/>
 				<h2>下記のアカウントを削除します｡</h2>
 				<h3>削除後は二度と復元できません｡</h3>
 				<p th:text="${accountName}"></p>
