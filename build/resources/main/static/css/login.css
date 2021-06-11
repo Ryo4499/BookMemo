@@ -1,4 +1,5 @@
 @charset "UTF-8";
+
 :root {
 	--blue: #007bff;
 	--indigo: #6610f2;
@@ -50,18 +51,22 @@ body {
 		"Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 	height: 100vh;
 }
-header{
-	position:absolute;
+
+.error {
+	color: red;
+}
+
+header {
+	position: relative;
 	width: 100%;
-	top:0;
+	top: 0;
 }
 
-footer{
-	  position: absolute;
-		width: 100%;
-    bottom: 0;
+footer {
+	position: absolute;
+	width: 100%;
+	bottom: 0;
 }
-
 
 a {
 	color: #92badd;
@@ -81,7 +86,6 @@ h2 {
 }
 
 /* STRUCTURE */
-
 .wrapper {
 	display: flex;
 	align-items: center;
@@ -116,7 +120,6 @@ h2 {
 }
 
 /* TABS */
-
 h2.inactive {
 	color: #cccccc;
 }
@@ -127,7 +130,6 @@ h2.active {
 }
 
 /* FORM TYPOGRAPHY*/
-
 input[type="button"],
 input[type="submit"],
 input[type="reset"] {
@@ -198,17 +200,6 @@ input[type="text"]:placeholder {
 }
 
 /* ANIMATIONS */
-
-/* Simple CSS3 Fade-in-down Animation */
-.fadeInDown {
-	-webkit-animation-name: fadeInDown;
-	animation-name: fadeInDown;
-	-webkit-animation-duration: 1s;
-	animation-duration: 1s;
-	-webkit-animation-fill-mode: both;
-	animation-fill-mode: both;
-}
-
 @-webkit-keyframes fadeInDown {
 	0% {
 		opacity: 0;
@@ -261,16 +252,24 @@ input[type="text"]:placeholder {
 	}
 }
 
+/* Simple CSS3 Fade-in-down Animation */
+.fadeInDown {
+	-webkit-animation-name: fadeInDown;
+	animation-name: fadeInDown;
+	-webkit-animation-duration: 1s;
+	animation-duration: 1s;
+	-webkit-animation-fill-mode: both;
+	animation-fill-mode: both;
+}
+
 .fadeIn {
 	opacity: 0;
 	-webkit-animation: fadeIn ease-in 1;
 	-moz-animation: fadeIn ease-in 1;
 	animation: fadeIn ease-in 1;
-
 	-webkit-animation-fill-mode: forwards;
 	-moz-animation-fill-mode: forwards;
 	animation-fill-mode: forwards;
-
 	-webkit-animation-duration: 1s;
 	-moz-animation-duration: 1s;
 	animation-duration: 1s;
@@ -321,7 +320,6 @@ input[type="text"]:placeholder {
 }
 
 /* OTHERS */
-
 *:focus {
 	outline: none;
 }

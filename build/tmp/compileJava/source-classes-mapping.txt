@@ -1,5 +1,5 @@
-com/herokuapp/bookmemo4444/form/MemoForm.java
- com.herokuapp.bookmemo4444.form.MemoForm
+com/herokuapp/bookmemo4444/form/UpdateForm.java
+ com.herokuapp.bookmemo4444.form.UpdateForm
 com/herokuapp/bookmemo4444/config/WebMvcConfig.java
  com.herokuapp.bookmemo4444.config.WebMvcConfig
 com/herokuapp/bookmemo4444/form/SignupForm.java
@@ -14,8 +14,8 @@ com/herokuapp/bookmemo4444/config/WebMvcControllerAdvice.java
  com.herokuapp.bookmemo4444.config.WebMvcControllerAdvice
 com/herokuapp/bookmemo4444/service/UserNotFoundException.java
  com.herokuapp.bookmemo4444.service.UserNotFoundException
-com/herokuapp/bookmemo4444/form/UpdateForm.java
- com.herokuapp.bookmemo4444.form.UpdateForm
+com/herokuapp/bookmemo4444/form/MemoForm.java
+ com.herokuapp.bookmemo4444.form.MemoForm
 com/herokuapp/bookmemo4444/security/SecurityConfiguration.java
  com.herokuapp.bookmemo4444.security.SecurityConfiguration
 com/herokuapp/bookmemo4444/repository/MemoDao.java

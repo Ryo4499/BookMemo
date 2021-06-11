@@ -80,10 +80,10 @@ header {
 footer {
 	font-family: sans-serif;
 	position: absolute;
+	height: 6%;
 	width: 100%;
 	bottom: 0;
 }
-
 
 body {
 	background-image: "../img/old-books-436498_1920.jpg";
@@ -6609,7 +6609,7 @@ button.bg-light:focus {
 }
 
 .bg-dark {
-	background-color: #343a40 !important;
+	background-color: #212529 !important;
 }
 
 a.bg-dark:hover,
