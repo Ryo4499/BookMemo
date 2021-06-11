@@ -19,7 +19,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import com.herokuapp.bookmemo4444.repository.AccountRepository;
 import com.herokuapp.bookmemo4444.service.UserDetailsServiceImpl;
 
-@EnableWebSecurity
+@EnableWebSecurity(debug = true)
 @EnableGlobalMethodSecurity(securedEnabled = true)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Autowired
