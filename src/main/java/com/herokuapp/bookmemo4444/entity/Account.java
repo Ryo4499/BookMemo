@@ -17,8 +17,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.herokuapp.bookmemo4444.security.CustomSecurityAccount;
-
 import lombok.Getter;
 import lombok.Setter;
 

@@ -70,7 +70,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.deleteCookies("JSESSIONID", "SESSION", "remember-me").logoutSuccessUrl("/").permitAll();
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED).sessionFixation()
 				.changeSessionId().maximumSessions(1).maxSessionsPreventsLogin(false);
-		
+
 		http.headers().frameOptions().disable();
 
 	}
