@@ -1,3 +1,4 @@
-#BookMemo4444
+# BookMemo4444
+デプロイ出来た
 
-日々の読書を記録します｡
+Procfileへの理解不足とDynoのConfigの入れ忘れ
