@@ -83,6 +83,11 @@ footer {
 	padding: 20px;
 }
 
+.logout {
+	background-color: #343a40;
+	border: none;
+	outline: none;
+}
 .error {
 	color: red;
 }

@@ -2,6 +2,7 @@
 <header class="mb-2">
 	<!-- Post title-->
 	<label class="fs-4">タイトル:</label>
+	<div class="text-danger" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
 	<input
 		type="text"
 		id="title"
@@ -11,9 +12,9 @@
 		maxlength="30"
 		placeholder="タイトル"
 	/>
-	<div th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
 	<!-- Post meta content-->
 	<label class="fs-4">書籍名:</label>
+	<div class="text-danger" th:if="${#fields.hasErrors('bookName')}" th:errors="*{bookName}"></div>
 	<input
 		type="text"
 		id="bookName"
@@ -23,9 +24,9 @@
 		maxlength="50"
 		placeholder="書籍名"
 	/>
-	<div th:if="${#fields.hasErrors('bookName')}" th:errors="*{bookName}"></div>
 	<!-- Post categories-->
 	<label class="fs-4">カテゴリ:</label>
+	<div class="text-danger" th:if="${#fields.hasErrors('category')}" th:errors="*{category}"></div>
 	<input
 		type="text"
 		class="form-control memo-input text-break mt-2"
@@ -35,10 +36,10 @@
 		maxlength="30"
 		placeholder="カテゴリ名"
 	/>
-	<div th:if="${#fields.hasErrors('category')}" th:errors="*{category}"></div>
 	<label class="fs-4">コンテンツ:</label>
 </header>
 <!-- Post content-->
+<div  class="text-danger"th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></div>
 <textarea
 	class="mb-3 memo-content text-break"
 	id="content"
@@ -49,4 +50,3 @@
 	maxlength="3000"
 	placeholder="内容をここに入力"
 ></textarea>
-<div th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></div>

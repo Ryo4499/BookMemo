@@ -53,7 +53,7 @@
 							<div
 								th:if="${#fields.hasErrors('accountName')}"
 								th:errors="*{accountName}"
-								class="text-center error mb-1"
+								class="text-center text-danger mb-1"
 							></div>
 							<input
 								type="text"
@@ -69,7 +69,7 @@
 							<div
 								th:if="${#fields.hasErrors('email')}"
 								th:errors="*{email}"
-								class="text-center error mb-1"
+								class="text-center text-danger mb-1"
 							></div>
 							<input
 								type="email"
@@ -85,7 +85,7 @@
 							<div
 								th:if="${#fields.hasErrors('oldPassword')}"
 								th:errors="*{oldPassword}"
-								class="text-center error mb-1"
+								class="text-center text-danger mb-1"
 							></div>
 							<input
 								type="password"
@@ -101,7 +101,7 @@
 							<div
 								th:if="${#fields.hasErrors('newPassword')}"
 								th:errors="*{newPassword}"
-								class="text-center error mb-1"
+								class="text-center text-danger mb-1"
 							></div>
 							<input
 								type="password"
@@ -119,7 +119,7 @@
 							<div
 								th:if="${#fields.hasErrors('rePassword')}"
 								th:errors="*{rePassword}"
-								class="text-center error mb-1"
+								class="text-center text-danger mb-1"
 							></div>
 							<input
 								type="password"
