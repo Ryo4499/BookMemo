@@ -60,7 +60,7 @@ public class MemoDaoImpl implements MemoDao {
 		Root<Memo> root = query.from(Memo.class);
 		query.select(builder.count(root)).where(
 				builder.equal(root.get(Memo_.account).get(Account_.id), account.getId()),
-				builder.like(root.get(Memo_.category), category));
+				builder.like(root.get(Memo_.category), "'"+category+"'"));
 
 		final Long count = entityManager.createQuery(query).getSingleResult().longValue();
 
@@ -116,7 +116,7 @@ public class MemoDaoImpl implements MemoDao {
 		Root<Memo> root = query.from(Memo.class);
 		query.select(root)
 				.where(builder.equal(root.get(Memo_.account).get(Account_.id), account.getId()),
-						builder.like(root.get(Memo_.title), "%" + selectTitle + "%"))
+						builder.like(root.get(Memo_.title), "'%" + selectTitle + "%'"))
 				.orderBy(builder.desc(root.get(Memo_.updatedDate)), builder.desc(root.get(Memo_.memoId)));
 		TypedQuery<Memo> typedQuery = entityManager.createQuery(query);
 		List<Memo> memos = typedQuery.setFirstResult(page).setMaxResults(limit).getResultList();
@@ -130,7 +130,7 @@ public class MemoDaoImpl implements MemoDao {
 		Root<Memo> root = query.from(Memo.class);
 		query.select(root)
 				.where(builder.equal(root.get(Memo_.account).get(Account_.id), account.getId()),
-						builder.equal(root.get(Memo_.category), selectCategory))
+						builder.equal(root.get(Memo_.category), "'" + selectCategory + "'"))
 				.orderBy(builder.desc(root.get(Memo_.updatedDate)), builder.desc(root.get(Memo_.memoId)));
 
 		TypedQuery<Memo> typedQuery = entityManager.createQuery(query);
