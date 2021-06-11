@@ -1,15 +1,15 @@
 #デプロイ時に変更
 spring:
-##本番#  datasource:
-#    driver-class-name: org.postgresql.Driver
-#    username: ${POSTGRES_USER}
-#    password: ${POSTGRES_PASS}
-#    url: ${DATABASE_URL}
-  datasource:
+##本番  datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/bookmemo4444
-    username: postgres
-    password: p4w0rd  session:
+    username: ${POSTGRES_USER}
+    password: ${POSTGRES_PASS}
+    url: ${DATABASE_URL}
+#  datasource:
+#    driver-class-name: org.postgresql.Driver
+#    url: jdbc:postgresql://localhost:5432/bookmemo4444
+#    username: postgres
+#    password: p4w0rd  session:
     store-type: jdbc
     jdbc:
       initialize-schema: embedded
