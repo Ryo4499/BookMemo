@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.herokuapp.bookmemo4444.service.MemoServiceImplTest" tests="13" skipped="0" failures="0" errors="0" timestamp="2021-06-11T00:25:00" hostname="AR44" time="0.008">
+<testsuite name="com.herokuapp.bookmemo4444.service.MemoServiceImplTest" tests="13" skipped="0" failures="0" errors="0" timestamp="2021-06-11T00:33:53" hostname="AR44" time="0.005">
   <properties/>
   <testcase name="testGetCategoryCount()" classname="com.herokuapp.bookmemo4444.service.MemoServiceImplTest" time="0.0"/>
   <testcase name="testGetAllCategory()" classname="com.herokuapp.bookmemo4444.service.MemoServiceImplTest" time="0.0"/>
-  <testcase name="testGetMemoCount()" classname="com.herokuapp.bookmemo4444.service.MemoServiceImplTest" time="0.001"/>
-  <testcase name="testSearchByTitle()" classname="com.herokuapp.bookmemo4444.service.MemoServiceImplTest" time="0.0"/>
+  <testcase name="testGetMemoCount()" classname="com.herokuapp.bookmemo4444.service.MemoServiceImplTest" time="0.0"/>
+  <testcase name="testSearchByTitle()" classname="com.herokuapp.bookmemo4444.service.MemoServiceImplTest" time="0.001"/>
   <testcase name="testSearchByCategory()" classname="com.herokuapp.bookmemo4444.service.MemoServiceImplTest" time="0.0"/>
   <testcase name="testGetTitleCount()" classname="com.herokuapp.bookmemo4444.service.MemoServiceImplTest" time="0.0"/>
   <testcase name="testFindById()" classname="com.herokuapp.bookmemo4444.service.MemoServiceImplTest" time="0.0"/>
   <testcase name="testMemoServiceImpl()" classname="com.herokuapp.bookmemo4444.service.MemoServiceImplTest" time="0.0"/>
-  <testcase name="testGetMemoList()" classname="com.herokuapp.bookmemo4444.service.MemoServiceImplTest" time="0.0"/>
+  <testcase name="testGetMemoList()" classname="com.herokuapp.bookmemo4444.service.MemoServiceImplTest" time="0.001"/>
   <testcase name="testDelete()" classname="com.herokuapp.bookmemo4444.service.MemoServiceImplTest" time="0.0"/>
   <testcase name="testGetAll()" classname="com.herokuapp.bookmemo4444.service.MemoServiceImplTest" time="0.0"/>
   <testcase name="testInsert()" classname="com.herokuapp.bookmemo4444.service.MemoServiceImplTest" time="0.001"/>
