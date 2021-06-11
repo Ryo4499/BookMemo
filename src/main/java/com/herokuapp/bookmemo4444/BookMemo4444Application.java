@@ -11,7 +11,7 @@ public class BookMemo4444Application {
 	public static void main(String[] args) {
 		SpringApplication.run(BookMemo4444Application.class, args);
 	}
-	
+
 	@Bean
 	public ServletContextInitializer servletContextInitializer() {
 		return servletContext -> servletContext.getSessionCookieConfig().setName("bookmemo.session");
