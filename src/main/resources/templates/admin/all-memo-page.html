@@ -28,19 +28,21 @@
 				/*]]>*/
 			</script>
 		<h1 class="fs-3 mt-3" th:text="${name}+'さんのメモ一覧'"></h1>
-		<table class="table table-striped my-5">
-			<tr>
-				<th>ID</th>
-				<th>Title</th>
-				<th>Content</th>
-				<th>Category</th>
-				<th>Book Name</th>
-				<th>Updated</th>
-				<th>Created</th>
+		<table class="table my-5">
+			 <thead class="thead-dark">
+			<tr class="my-3">
+				<th scope="col">ID</th>
+				<th scope="col">Title</th>
+				<th scope="col">Content</th>
+				<th scope="col">Category</th>
+				<th scope="col">Book Name</th>
+				<th scope="col">Updated</th>
+				<th scope="col">Created</th>
 			</tr>
-			<div th:each="memo:${memoList}">
-				<tr>
-					<td th:text="${memo.memoId}"></td>
+			</thead>
+			 <tbody th:each="memo:${memoList}">
+				<tr class="my-2">
+					<th scope="row" th:text="${memo.memoId}"></td>
 					<td th:text="${memo.title}"></td>
 					<td th:text="${memo.content}"></td>
 					<td th:text="${memo.category}"></td>
@@ -48,7 +50,7 @@
 					<td th:text="${#dates.format(memo.updatedDate, 'yyyy/MM/dd HH:mm')}"></td>
 					<td th:text="${#dates.format(memo.createdDate, 'yyyy/MM/dd HH:mm')}"></td>
 				</tr>
-			</div>
+			</tbody>
 		</table>
 	</div>
 	<footer class="py-3 bg-dark" th:include="common/footer"></footer>

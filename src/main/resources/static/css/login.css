@@ -57,7 +57,7 @@ body {
 }
 
 header {
-	position: absolute;
+	position: relative;
 	width: 100%;
 	top: 0;
 }

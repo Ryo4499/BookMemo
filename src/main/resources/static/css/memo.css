@@ -105,10 +105,18 @@ body > .box {
 	min-height: 100%;
 }
 
+header {
+	position: relative;
+	width: 100%;
+	top: 0;
+}
+
 footer {
-	height: 6%;
-	bottom: 0;
 	font-family: sans-serif;
+	position: relative;
+	height: 6%;
+	width: 100%;
+	bottom: 0;
 }
 
 a.btn-flat {
