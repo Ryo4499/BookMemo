@@ -79,6 +79,7 @@ section {
 
 footer {
 	height: 6%;
+	position: relative;
 	bottom: 0;
 	font-family: sans-serif;
 }
