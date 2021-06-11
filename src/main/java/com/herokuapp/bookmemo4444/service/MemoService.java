@@ -3,30 +3,36 @@ package com.herokuapp.bookmemo4444.service;
 import java.util.HashMap;
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.herokuapp.bookmemo4444.entity.Account;
 import com.herokuapp.bookmemo4444.entity.Memo;
+import com.herokuapp.bookmemo4444.security.CustomSecurityAccount;
 
+@Service
+@Transactional(readOnly = true)
 public interface MemoService {
-	void insert(Memo memo);
 
-	void update(Memo memo);
+	List<String> findDistinctCategoryByAccount(Account account);
 
-	void delete(long id);
+	Long countMemoIdByAccount(Account account);
 
-	List<Memo> getAll();
+	Long countCategoryByCategoryAndAccount(String category, Account account);
 
-	Memo findById(long id);
+	Long countTitleByTitleAndAccount(String title, Account account);
 
-	List<Memo> getAllCategory();
+	Long countBookNameByBookNameAndAccount(String bookName, Account account);
 
-	int getMemoCount();
+	List<Memo> noConditionSearch(CustomSecurityAccount customSecurityAccount, HashMap<String, String> search);
 
-	int getCategoryCount(String category);
+	List<Memo> searchTitle(String selectTitle, CustomSecurityAccount customSecurityAccount,
+			HashMap<String, String> search);
 
-	int getTitleCount(String title);
+	List<Memo> searchCategory(String selectCategory, CustomSecurityAccount customSecurityAccount,
+			HashMap<String, String> search);
 
-	List<Memo> searchByCategory(HashMap<String, String> search, String category);
+	List<Memo> searchBookName(String selectBook, CustomSecurityAccount customSecurityAccount,
+			HashMap<String, String> search);
 
-	List<Memo> searchByTitle(HashMap<String, String> search, String title);
-
-	List<Memo> getMemoList(HashMap<String, String> search);
 }

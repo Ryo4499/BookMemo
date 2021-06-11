@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="utf-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1, shrink-to-fit=no"
+		/>
+		<meta name="description" content="" />
+		<meta name="author" content="" />
+		<title>BookMemo全ユーザ検索</title>
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+			integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
+			crossorigin="anonymous"
+		/>
+		<link rel="stylesheet" th:href="@{/css/memo.css}" />
+		<link rel="stylesheet" href="../../static/css/memo.css" />
+		<script
+			src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+			integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+			crossorigin="anonymous"
+		></script>
+	</head>
+
+	<body>
+		<header th:include="common/header"></header>
+		<div class="container w-100 h-100 my-5">
+			<script th:inline="javascript">
+				/*<![CDATA[*/
+				let message = /*[[${message}]]*/ "default";
+				if (message) {
+					window.alert(message);
+				}
+				/*]]>*/
+			</script>
+			<h1 class="fs-3 mt-3">全ユーザ一覧</h1>
+			<table class="table  my-5">
+				<thead class="thead-dark">
+				<tr>
+					<th scope="col">ID</th>
+					<th scope="col">Account Name</th>
+					<th scope="col">Email</th>
+					<th scope="col">Password</th>
+					<th scope="col">Role</th>
+					<th scope="col">Show Memo</th>
+					<th scope="col">Delete</th>
+				</tr>
+				</thead>
+				<div th:each="account:${accountList}">
+					<tr>
+						<th scope="row" th:text="${account.id}"></td>
+						<td th:text="${account.accountName}"></td>
+						<td th:text="${account.email}"></td>
+						<td th:text="${account.password}"></td>
+						<td th:each="role:${account.roles}">
+							<p th:text="${role.authority}"></p>
+						</td>
+						<td>
+							<a class="btn btn-dark mx-auto"
+								th:href="@{'/admin/show?accountId='+${account.id}+'&accountName='+${account.accountName}}"
+								>詳細</a
+							>
+						</td>
+						<td>
+							<a class="btn btn-danger mx-auto"
+								th:href="@{'/admin/delete?accountId='+${account.id}+'&accountName='+${account.accountName}}"
+								>削除</a
+							>
+						</td>
+					</tr>
+				</div>
+			</table>
+		</div>
+		<footer class="py-3 bg-dark" th:include="common/footer"></footer>
+	</body>
+</html>

@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+<header>
+	<meta charset="UTF-8" />
+	<title>405 Error</title>
+</header>
+<body>
+	<h1 th:text="${status}+''+${error}">405 Method Not Allowed</h1>
+	<p><a th:href="@{/}">Back to index</a></p>
+</body>

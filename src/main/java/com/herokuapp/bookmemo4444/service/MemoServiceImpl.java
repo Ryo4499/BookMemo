@@ -7,78 +7,76 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.herokuapp.bookmemo4444.entity.Account;
 import com.herokuapp.bookmemo4444.entity.Memo;
 import com.herokuapp.bookmemo4444.repository.MemoDao;
+import com.herokuapp.bookmemo4444.security.CustomSecurityAccount;
 
 @Service
+@Transactional(readOnly = true)
 public class MemoServiceImpl implements MemoService {
 
-	private MemoDao memoDao;
+	private final MemoDao memoDao;
 
 	@Autowired
-	public MemoServiceImpl(MemoDao memoDao) {
+	MemoServiceImpl(MemoDao memoDao) {
 		this.memoDao = memoDao;
 	}
 
 	@Override
-	public void insert(Memo memo) {
-		memoDao.insertMemo(memo);
+	public List<String> findDistinctCategoryByAccount(Account account) {
+		return memoDao.findDistinctCategoryByAccount(account);
 	}
 
 	@Override
-	public List<Memo> getAll() {
-		return memoDao.getAll();
+	public Long countMemoIdByAccount(Account account) {
+		return memoDao.countMemoIdByAccount(account);
 	}
 
 	@Override
-	public void update(Memo memo) {
-		memoDao.updateMemo(memo);
+	public Long countCategoryByCategoryAndAccount(String category, Account account) {
+		return memoDao.countCategoryByContainingCategoryAndAccount(category, account);
 	}
 
 	@Override
-	public void delete(long id) {
-		memoDao.deleteMemo(id);
+	public Long countTitleByTitleAndAccount(String title, Account account) {
+		return memoDao.countTitleByContainingTitleAndAccount(title, account);
 	}
 
 	@Override
-	public Memo findById(long id) {
-		return memoDao.findById(id);
+	public Long countBookNameByBookNameAndAccount(String bookName, Account account) {
+		return memoDao.countBookNameByContainingBookNameAndAccount(bookName, account);
 	}
 
 	@Override
-	public List<Memo> getAllCategory() {
-		return memoDao.getAllCategory();
+	public List<Memo> noConditionSearch(CustomSecurityAccount customSecurityAccount, HashMap<String, String> search) {
+		int limit = Integer.parseInt(search.get("limit"));
+		int page = Integer.valueOf(search.get("page")) - 1;
+		return memoDao.noConditionSearch(customSecurityAccount, limit * page, limit);
 	}
 
 	@Override
-	public int getMemoCount() {
-		return memoDao.getMemoCount();
+	public List<Memo> searchTitle(String selectTitle, CustomSecurityAccount customSecurityAccount,
+			HashMap<String, String> search) {
+		int limit = Integer.parseInt(search.get("limit"));
+		int page = Integer.valueOf(search.get("page")) - 1;
+		return memoDao.searchTitle(selectTitle, customSecurityAccount, limit * page, limit);
 	}
 
 	@Override
-	public int getCategoryCount(String category) {
-		return memoDao.getCategoryCount(category);
+	public List<Memo> searchCategory(String selectCategory, CustomSecurityAccount customSecurityAccount,
+			HashMap<String, String> search) {
+		int limit = Integer.parseInt(search.get("limit"));
+		int page = Integer.valueOf(search.get("page")) - 1;
+		return memoDao.searchCategory(selectCategory, customSecurityAccount, limit * page, limit);
 	}
 
 	@Override
-	public int getTitleCount(String title) {
-		return memoDao.getTitleCount(title);
-	}
-
-	@Override
-	public List<Memo> searchByCategory(HashMap<String, String> search, String category) {
-		return memoDao.searchByCategory(search, category);
-	}
-
-	@Override
-	public List<Memo> searchByTitle(HashMap<String, String> search, String title) {
-		return memoDao.searchByTitle(search, title);
-	}
-
-	@Transactional(readOnly = true)
-	@Override
-	public List<Memo> getMemoList(HashMap<String, String> search) {
-		return memoDao.getMemoList(search);
+	public List<Memo> searchBookName(String selectBook, CustomSecurityAccount customSecurityAccount,
+			HashMap<String, String> search) {
+		int limit = Integer.parseInt(search.get("limit"));
+		int page = Integer.valueOf(search.get("page")) - 1;
+		return memoDao.searchBookName(selectBook, customSecurityAccount, page, limit);
 	}
 
 }

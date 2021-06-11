@@ -16,4 +16,5 @@ public class BookMemo4444Application {
 	public ServletContextInitializer servletContextInitializer() {
 		return servletContext -> servletContext.getSessionCookieConfig().setName("bookmemo.session");
 	}
+
 }

@@ -1,182 +1,53 @@
 package com.herokuapp.bookmemo4444.entity;
 
-public class Memo {
-	private long memoId;
+import java.io.Serializable;
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+import lombok.Data;
+
+@Data
+@Entity
+@Table(name = "memos")
+public class Memo implements Serializable {
+	private static final long serialVersionUID = -6320154827659426912L;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "memo_id")
+	private Long memoId;
+	@Column(name = "title", length = 30, nullable = false)
 	private String title;
+	@Column(name = "content", length = 3000, nullable = false)
 	private String content;
+	@Column(name = "category", length = 30, nullable = false)
 	private String category;
+	@Column(name = "book_name", length = 30, nullable = false)
 	private String bookName;
-	private User user;
-	private String createdDate;
-	private String updatedDate;
+	@ManyToOne
+	@JoinColumn(name = "account_id")
+	private Account account;
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "created_date", nullable = false, columnDefinition = "TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date createdDate;
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "updated_date", nullable = false, columnDefinition = "TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date updatedDate;
 
-	public Memo() {
+	public void now() {
+		setUpdatedDate(new Date());
 	}
-
-	public Memo(long memoId, String title, String content, String category, String bookName, User user,
-			String createdDate, String updatedDate) {
-		super();
-		this.memoId = memoId;
-		this.title = title;
-		this.content = content;
-		this.category = category;
-		this.bookName = bookName;
-		this.user = user;
-		this.createdDate = createdDate;
-		this.updatedDate = updatedDate;
-	}
-
-	public long getMemoId() {
-		return memoId;
-	}
-
-	public void setMemoId(long memoId) {
-		this.memoId = memoId;
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public String getContent() {
-		return content;
-	}
-
-	public void setContent(String content) {
-		this.content = content;
-	}
-
-	public String getCategory() {
-		return category;
-	}
-
-	public void setCategory(String category) {
-		this.category = category;
-	}
-
-	public String getBookName() {
-		return bookName;
-	}
-
-	public void setBookName(String bookName) {
-		this.bookName = bookName;
-	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-
-	public String getCreatedDate() {
-		return createdDate;
-	}
-
-	public void setCreatedDate(String createdDate) {
-		this.createdDate = createdDate;
-	}
-
-	public String getUpdatedDate() {
-		return updatedDate;
-	}
-
-	public void setUpdatedDate(String updatedDate) {
-		this.updatedDate = updatedDate;
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + (bookName == null ? 0 : bookName.hashCode());
-		result = prime * result + (category == null ? 0 : category.hashCode());
-		result = prime * result + (content == null ? 0 : content.hashCode());
-		result = prime * result + (createdDate == null ? 0 : createdDate.hashCode());
-		result = prime * result + (int) (memoId ^ memoId >>> 32);
-		result = prime * result + (title == null ? 0 : title.hashCode());
-		result = prime * result + (updatedDate == null ? 0 : updatedDate.hashCode());
-		result = prime * result + (user == null ? 0 : user.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (obj == null) {
-			return false;
-		}
-		if (getClass() != obj.getClass()) {
-			return false;
-		}
-		Memo other = (Memo) obj;
-		if (bookName == null) {
-			if (other.bookName != null) {
-				return false;
-			}
-		} else if (!bookName.equals(other.bookName)) {
-			return false;
-		}
-		if (category == null) {
-			if (other.category != null) {
-				return false;
-			}
-		} else if (!category.equals(other.category)) {
-			return false;
-		}
-		if (content == null) {
-			if (other.content != null) {
-				return false;
-			}
-		} else if (!content.equals(other.content)) {
-			return false;
-		}
-		if (createdDate == null) {
-			if (other.createdDate != null) {
-				return false;
-			}
-		} else if (!createdDate.equals(other.createdDate)) {
-			return false;
-		}
-		if (memoId != other.memoId) {
-			return false;
-		}
-		if (title == null) {
-			if (other.title != null) {
-				return false;
-			}
-		} else if (!title.equals(other.title)) {
-			return false;
-		}
-		if (updatedDate == null) {
-			if (other.updatedDate != null) {
-				return false;
-			}
-		} else if (!updatedDate.equals(other.updatedDate)) {
-			return false;
-		}
-		if (user == null) {
-			if (other.user != null) {
-				return false;
-			}
-		} else if (!user.equals(other.user)) {
-			return false;
-		}
-		return true;
-	}
-
-	@Override
-	public String toString() {
-		return "Memo [memoId=" + memoId + ", title=" + title + ", content=" + content + ", category=" + category
-				+ ", bookName=" + bookName + ", user=" + user + ", createdDate=" + createdDate + ", updatedDate="
-				+ updatedDate + "]";
-	}
-
 }

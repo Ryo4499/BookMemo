@@ -1,35 +1,28 @@
 package com.herokuapp.bookmemo4444.repository;
 
-import java.util.HashMap;
 import java.util.List;
 
-import org.springframework.stereotype.Repository;
-
+import com.herokuapp.bookmemo4444.entity.Account;
 import com.herokuapp.bookmemo4444.entity.Memo;
 
-@Repository
 public interface MemoDao {
-	int insertMemo(Memo memo);
 
-	int updateMemo(Memo memo);
+	List<String> findDistinctCategoryByAccount(Account account);
 
-	int deleteMemo(long id);
+	Long countMemoIdByAccount(Account account);
 
-	List<Memo> getAll();
+	Long countCategoryByContainingCategoryAndAccount(String category, Account account);
 
-	Memo findById(long id);
+	Long countTitleByContainingTitleAndAccount(String title, Account account);
 
-	List<Memo> getAllCategory();
+	Long countBookNameByContainingBookNameAndAccount(String bookName, Account account);
 
-	List<Memo> searchByCategory(HashMap<String, String> search, String category);
+	List<Memo> noConditionSearch(Account account, int page, int limit);
 
-	List<Memo> searchByTitle(HashMap<String, String> search, String title);
+	List<Memo> searchTitle(String selectTitle, Account account, int page, int limit);
 
-	int getMemoCount();
+	List<Memo> searchCategory(String selectCategory, Account account, int page, int limit);
 
-	int getCategoryCount(String category);
+	List<Memo> searchBookName(String selectBookName, Account account, int page, int limit);
 
-	int getTitleCount(String title);
-
-	List<Memo> getMemoList(HashMap<String, String> search);
 }
