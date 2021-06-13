@@ -19,8 +19,8 @@ INSERT INTO memos(title,content,category,book_name,account_id) VALUES ('チャ�
 INSERT INTO memos(title,content,category,book_name,account_id) VALUES ('ルビー','gem','ruby','Effective Ruby',3);
 INSERT INTO memos(title,content,category,book_name,account_id) VALUES ('title8','hello world','python','Effective Python',4);
 INSERT INTO memos(title,content,category,book_name,account_id) VALUES ('java','sysout','java','Effective Java',1);
-INSERT INTO memos(title,content,category,book_name,account_id) VALUES ('C++','print','C++','Effective C++',2);
-INSERT INTO memos(title,content,category,book_name,account_id) VALUES ('C#','wpf','C#','Effective C#',3);
+INSERT INTO memos(title,content,category,book_name,account_id) VALUES ('Cプラプラ','print','Cプラプラ','Effective Cプラプラ',2);
+INSERT INTO memos(title,content,category,book_name,account_id) VALUES ('C Sharp','wpf','C Sharp','Effective C Sharp',3);
 INSERT INTO memos(title,content,category,book_name,account_id) VALUES ('TCP','1270001','TCPIP','詳解TCPIP',4);
 INSERT INTO memos(title,content,category,book_name,account_id) VALUES ('若葉ちゃんGit','git pull origin main','Git','若葉ちゃんGit',1);
 INSERT INTO memos(title,content,category,book_name,account_id) VALUES ('Bootstrap便利','内容14','Bootstrap','Bootstrap入門',2);
