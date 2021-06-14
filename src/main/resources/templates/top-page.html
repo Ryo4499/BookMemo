@@ -1,88 +1,71 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-	<head>
-		<meta charset="utf-8" />
-		<meta
-			name="viewport"
-			content="width=device-width, initial-scale=1, shrink-to-fit=no"
-		/>
-		<meta name="description" content="book memo!!!" />
-		<meta name="author" content="ar44" />
-		<title>BookMemo</title>
-		<link rel="shortcut icon" th:href="@{/favicon.ico}" />
-		<link
-			href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
-			rel="stylesheet"
-			integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
-			crossorigin="anonymous"
-		/>
-		<link rel="stylesheet" th:href="@{/css/top.css}" />
-		<script
-			src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
-			integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
-			crossorigin="anonymous"
-		></script>
-	</head>
 
-	<body>
-		<!-- Navigation-->
-		<div class="container">
-			<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-				<div class="container">
-					<a class="navbar-brand" href="#">BookMemo</a>
-					<button
-						class="navbar-toggler"
-						type="button"
-						data-toggle="collapse"
-						data-target="#navbarResponsive"
-						aria-controls="navbarResponsive"
-						aria-expanded="false"
-						aria-label="Toggle navigation"
-					>
-						<span class="navbar-toggler-icon"></span>
-					</button>
-					<div class="collapse navbar-collapse" id="navbarResponsive">
-						<ul class="navbar-nav ml-auto">
-							<li class="nav-item active">
-								<a class="nav-link" href="#">
-									Home
-									<span class="sr-only">(current)</span>
-								</a>
-							</li>
-							<li class="nav-item">
-								<a th:href="@{/signup}" class="nav-link">Signup</a>
-							</li>
-							<li class="nav-item">
-								<a th:href="@{/login}" class="nav-link">Login</a>
-							</li>
-						</ul>
-					</div>
-				</div>
-			</nav>
-		</div>
-		<!-- Page Content-->
-		<section>
-			<div class="container my-5">
-				<div class="row">
-					<div class="col-lg-6">
-						<h1 class="mt-5">BookMemo</h1>
-						<br />
-						<h1>時々改良中</h1>
-						<br />
-						<p>日々の読書を記録します｡</p>
-						<p>
-							Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-							Deleniti, quasi quam? Unde facilis rerum hic blanditiis tenetur
-							odio sequi, iste maxime, aperiam repellendus corrupti sit aliquid
-							illum. At quisquam quas temporibus ut, vero deserunt placeat,
-							reiciendis fugit commodi quia repudiandae repellat. Exercitationem
-							aut nesciunt expedita illo porro doloribus asperiores
-							reprehenderit?
-						</p>
-					</div>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+	<meta name="description" content="book memo!!!" />
+	<meta name="author" content="ar44" />
+	<title>BookMemo</title>
+	<link rel="shortcut icon" th:href="@{/favicon.ico}" />
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous" />
+	<link rel="stylesheet" th:href="@{/css/top.css}" />
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+		crossorigin="anonymous"></script>
+</head>
+
+<body>
+	<!-- Navigation-->
+	<div class="container">
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+			<div class="container">
+				<a class="navbar-brand" href="#">BookMemo</a>
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+					aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarResponsive">
+					<ul class="navbar-nav ml-auto">
+						<li class="nav-item active">
+							<a class="nav-link" href="#">
+								Home
+								<span class="sr-only">(current)</span>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a th:href="@{/signup}" class="nav-link">Signup</a>
+						</li>
+						<li class="nav-item">
+							<a th:href="@{/login}" class="nav-link">Login</a>
+						</li>
+					</ul>
 				</div>
 			</div>
-		</section>
-		<footer class="py-3 bg-dark" th:include="common/footer"></footer>
-	</body>
+		</nav>
+	</div>
+	<!-- Page Content-->
+	<section>
+		<div class="container my-5">
+			<div class="row">
+				<div class="col-lg-6">
+					<h1 class="mt-5">BookMemo</h1>
+					<br />
+					<br />
+					<p>日々の読書を記録します｡</p>
+					<p>
+						スペースとコストの削減
+						データベースに保存するため、紙媒体で管理しなくても良い｡資料の費用や置き場を考える必要がなくなる｡
+					</p>
+					<p>Webを用いることによる可用性
+						Web環境で動作するためインターネットに接続できる機器があれば、いつでもどこでもサービスを利用できる｡
+					</p>
+				</div>
+			</div>
+		</div>
+	</section>
+	<footer class="py-3 bg-dark" th:include="common/footer"></footer>
+</body>
+
 </html>
