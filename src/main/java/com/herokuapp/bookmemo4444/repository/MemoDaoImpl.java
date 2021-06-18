@@ -1,16 +1,13 @@
 package com.herokuapp.bookmemo4444.repository;
 
 import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
 import com.herokuapp.bookmemo4444.entity.Account;
 import com.herokuapp.bookmemo4444.entity.Account_;
 import com.herokuapp.bookmemo4444.entity.Memo;
@@ -19,137 +16,141 @@ import com.herokuapp.bookmemo4444.entity.Memo_;
 @Repository
 public class MemoDaoImpl implements MemoDao {
 
-	private final EntityManager entityManager;
+  private final EntityManager entityManager;
 
-	@Autowired
-	public MemoDaoImpl(EntityManager entityManager) {
-		this.entityManager = entityManager;
-	}
+  @Autowired
+  public MemoDaoImpl(EntityManager entityManager) {
+    this.entityManager = entityManager;
+  }
 
-	@Override
-	public List<String> findDistinctCategoryByAccount(Account account) {
-		CriteriaBuilder builder = entityManager.getCriteriaBuilder();
-		CriteriaQuery<String> query = builder.createQuery(String.class);
-		Root<Memo> root = query.from(Memo.class);
-		query.select(root.get(Memo_.category))
-				.where(builder.equal(root.get(Memo_.account).get(Account_.id), account.getId())).distinct(true);
+  @Override
+  public List<String> findDistinctCategoryByAccount(Account account) {
+    final CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+    final CriteriaQuery<String> query = builder.createQuery(String.class);
+    final Root<Memo> root = query.from(Memo.class);
+    query.select(root.get(Memo_.category))
+        .where(builder.equal(root.get(Memo_.account).get(Account_.id), account.getId()))
+        .distinct(true);
 
-		TypedQuery<String> typedQuery = entityManager.createQuery(query);
-		List<String> categorys = typedQuery.getResultList();
+    final TypedQuery<String> typedQuery = entityManager.createQuery(query);
+    final List<String> categorys = typedQuery.getResultList();
 
-		return categorys;
-	}
+    return categorys;
+  }
 
-	@Override
-	public Long countMemoIdByAccount(Account account) {
-		CriteriaBuilder builder = entityManager.getCriteriaBuilder();
-		CriteriaQuery<Long> query = builder.createQuery(Long.class);
-		Root<Memo> root = query.from(Memo.class);
-		query.select(builder.count(root))
-				.where(builder.equal(root.get(Memo_.account).get(Account_.id), account.getId()));
+  @Override
+  public Long countMemoIdByAccount(Account account) {
+    final CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+    final CriteriaQuery<Long> query = builder.createQuery(Long.class);
+    final Root<Memo> root = query.from(Memo.class);
+    query.select(builder.count(root))
+        .where(builder.equal(root.get(Memo_.account).get(Account_.id), account.getId()));
 
-		final Long count = entityManager.createQuery(query).getSingleResult().longValue();
+    final Long count = entityManager.createQuery(query).getSingleResult().longValue();
 
-		return count;
-	}
+    return count;
+  }
 
-	@Override
-	public Long countCategoryByContainingCategoryAndAccount(String category, Account account) {
-		CriteriaBuilder builder = entityManager.getCriteriaBuilder();
-		CriteriaQuery<Long> query = builder.createQuery(Long.class);
-		Root<Memo> root = query.from(Memo.class);
-		query.select(builder.count(root)).where(
-				builder.equal(root.get(Memo_.account).get(Account_.id), account.getId()),
-				builder.like(root.get(Memo_.category), category));
+  @Override
+  public Long countCategoryByContainingCategoryAndAccount(String category, Account account) {
+    final CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+    final CriteriaQuery<Long> query = builder.createQuery(Long.class);
+    final Root<Memo> root = query.from(Memo.class);
+    query.select(builder.count(root)).where(
+        builder.equal(root.get(Memo_.account).get(Account_.id), account.getId()),
+        builder.like(builder.upper(root.get(Memo_.category)), category.toUpperCase()));
 
-		final Long count = entityManager.createQuery(query).getSingleResult().longValue();
+    final Long count = entityManager.createQuery(query).getSingleResult().longValue();
 
-		return count;
-	}
+    return count;
+  }
 
-	@Override
-	public Long countTitleByContainingTitleAndAccount(String title, Account account) {
-		CriteriaBuilder builder = entityManager.getCriteriaBuilder();
-		CriteriaQuery<Long> query = builder.createQuery(Long.class);
-		Root<Memo> root = query.from(Memo.class);
-		query.select(builder.count(root)).where(
-				builder.equal(root.get(Memo_.account).get(Account_.id), account.getId()),
-				builder.like(root.get(Memo_.title), "%" + title + "%"));
+  @Override
+  public Long countTitleByContainingTitleAndAccount(String title, Account account) {
+    final CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+    final CriteriaQuery<Long> query = builder.createQuery(Long.class);
+    final Root<Memo> root = query.from(Memo.class);
+    query.select(builder.count(root)).where(
+        builder.equal(root.get(Memo_.account).get(Account_.id), account.getId()),
+        builder.like(builder.upper(root.get(Memo_.title)), "%" + title.toUpperCase() + "%"));
 
-		final Long count = entityManager.createQuery(query).getSingleResult().longValue();
+    final Long count = entityManager.createQuery(query).getSingleResult().longValue();
 
-		return count;
-	}
+    return count;
+  }
 
-	@Override
-	public Long countBookNameByContainingBookNameAndAccount(String bookName, Account account) {
-		CriteriaBuilder builder = entityManager.getCriteriaBuilder();
-		CriteriaQuery<Long> query = builder.createQuery(Long.class);
-		Root<Memo> root = query.from(Memo.class);
-		query.select(builder.count(root)).where(
-				builder.equal(root.get(Memo_.account).get(Account_.id), account.getId()),
-				builder.like(root.get(Memo_.bookName), "%" + bookName + "%"));
+  @Override
+  public Long countBookNameByContainingBookNameAndAccount(String bookName, Account account) {
+    final CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+    final CriteriaQuery<Long> query = builder.createQuery(Long.class);
+    final Root<Memo> root = query.from(Memo.class);
+    query.select(builder.count(root)).where(
+        builder.equal(root.get(Memo_.account).get(Account_.id), account.getId()),
+        builder.like(builder.upper(root.get(Memo_.bookName)), "%" + bookName.toUpperCase() + "%"));
 
-		final Long count = entityManager.createQuery(query).getSingleResult().longValue();
+    final Long count = entityManager.createQuery(query).getSingleResult().longValue();
 
-		return count;
-	}
+    return count;
+  }
 
-	@Override
-	public List<Memo> noConditionSearch(Account account, int page, int limit) {
-		CriteriaBuilder builder = entityManager.getCriteriaBuilder();
-		CriteriaQuery<Memo> query = builder.createQuery(Memo.class);
-		Root<Memo> root = query.from(Memo.class);
-		query.select(root).where(builder.equal(root.get(Memo_.account).get(Account_.id), account.getId()))
-				.orderBy(builder.desc(root.get(Memo_.updatedDate)), builder.desc(root.get(Memo_.memoId)));
+  @Override
+  public List<Memo> noConditionSearch(Account account, int page, int limit) {
+    final CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+    final CriteriaQuery<Memo> query = builder.createQuery(Memo.class);
+    final Root<Memo> root = query.from(Memo.class);
+    query.select(root)
+        .where(builder.equal(root.get(Memo_.account).get(Account_.id), account.getId()))
+        .orderBy(builder.desc(root.get(Memo_.updatedDate)), builder.desc(root.get(Memo_.memoId)));
 
-		TypedQuery<Memo> typedQuery = entityManager.createQuery(query);
-		List<Memo> memos = typedQuery.setFirstResult(page).setMaxResults(limit).getResultList();
+    final TypedQuery<Memo> typedQuery = entityManager.createQuery(query);
+    final List<Memo> memos = typedQuery.setFirstResult(page).setMaxResults(limit).getResultList();
 
-		return memos;
-	}
+    return memos;
+  }
 
-	@Override
-	public List<Memo> searchTitle(String selectTitle, Account account, int page, int limit) {
-		CriteriaBuilder builder = entityManager.getCriteriaBuilder();
-		CriteriaQuery<Memo> query = builder.createQuery(Memo.class);
-		Root<Memo> root = query.from(Memo.class);
-		query.select(root)
-				.where(builder.equal(root.get(Memo_.account).get(Account_.id), account.getId()),
-						builder.like(root.get(Memo_.title), "%" + selectTitle + "%"))
-				.orderBy(builder.desc(root.get(Memo_.updatedDate)), builder.desc(root.get(Memo_.memoId)));
-		TypedQuery<Memo> typedQuery = entityManager.createQuery(query);
-		List<Memo> memos = typedQuery.setFirstResult(page).setMaxResults(limit).getResultList();
-		return memos;
-	}
+  @Override
+  public List<Memo> searchTitle(String selectTitle, Account account, int page, int limit) {
+    final CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+    final CriteriaQuery<Memo> query = builder.createQuery(Memo.class);
+    final Root<Memo> root = query.from(Memo.class);
+    query.select(root)
+        .where(builder.equal(root.get(Memo_.account).get(Account_.id), account.getId()),
+            builder.like(builder.upper(root.get(Memo_.title)),
+                "%" + selectTitle.toUpperCase() + "%"))
+        .orderBy(builder.desc(root.get(Memo_.updatedDate)), builder.desc(root.get(Memo_.memoId)));
+    final TypedQuery<Memo> typedQuery = entityManager.createQuery(query);
+    final List<Memo> memos = typedQuery.setFirstResult(page).setMaxResults(limit).getResultList();
+    return memos;
+  }
 
-	@Override
-	public List<Memo> searchCategory(String selectCategory, Account account, int page, int limit) {
-		CriteriaBuilder builder = entityManager.getCriteriaBuilder();
-		CriteriaQuery<Memo> query = builder.createQuery(Memo.class);
-		Root<Memo> root = query.from(Memo.class);
-		query.select(root)
-				.where(builder.equal(root.get(Memo_.account).get(Account_.id), account.getId()),
-						builder.equal(root.get(Memo_.category),  selectCategory))
-				.orderBy(builder.desc(root.get(Memo_.updatedDate)), builder.desc(root.get(Memo_.memoId)));
+  @Override
+  public List<Memo> searchCategory(String selectCategory, Account account, int page, int limit) {
+    final CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+    final CriteriaQuery<Memo> query = builder.createQuery(Memo.class);
+    final Root<Memo> root = query.from(Memo.class);
+    query.select(root)
+        .where(builder.equal(root.get(Memo_.account).get(Account_.id), account.getId()),
+            builder.equal(builder.upper(root.get(Memo_.category)), selectCategory.toUpperCase()))
+        .orderBy(builder.desc(root.get(Memo_.updatedDate)), builder.desc(root.get(Memo_.memoId)));
 
-		TypedQuery<Memo> typedQuery = entityManager.createQuery(query);
-		List<Memo> memos = typedQuery.setFirstResult(page).setMaxResults(limit).getResultList();
-		return memos;
-	}
+    final TypedQuery<Memo> typedQuery = entityManager.createQuery(query);
+    final List<Memo> memos = typedQuery.setFirstResult(page).setMaxResults(limit).getResultList();
+    return memos;
+  }
 
-	@Override
-	public List<Memo> searchBookName(String selectBookName, Account account, int page, int limit) {
-		CriteriaBuilder builder = entityManager.getCriteriaBuilder();
-		CriteriaQuery<Memo> query = builder.createQuery(Memo.class);
-		Root<Memo> root = query.from(Memo.class);
-		query.select(root)
-				.where(builder.equal(root.get(Memo_.account).get(Account_.id), account.getId()),
-						builder.like(root.get(Memo_.bookName), "%" + selectBookName + "%"))
-				.orderBy(builder.desc(root.get(Memo_.updatedDate)), builder.desc(root.get(Memo_.memoId)));
+  @Override
+  public List<Memo> searchBookName(String selectBookName, Account account, int page, int limit) {
+    final CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+    final CriteriaQuery<Memo> query = builder.createQuery(Memo.class);
+    final Root<Memo> root = query.from(Memo.class);
+    query.select(root)
+        .where(builder.equal(root.get(Memo_.account).get(Account_.id), account.getId()),
+            builder.like(builder.upper(root.get(Memo_.bookName)),
+                "%" + selectBookName.toUpperCase() + "%"))
+        .orderBy(builder.desc(root.get(Memo_.updatedDate)), builder.desc(root.get(Memo_.memoId)));
 
-		TypedQuery<Memo> typedQuery = entityManager.createQuery(query);
-		List<Memo> memos = typedQuery.setFirstResult(page).setMaxResults(limit).getResultList();
-		return memos;
-	}
+    final TypedQuery<Memo> typedQuery = entityManager.createQuery(query);
+    final List<Memo> memos = typedQuery.setFirstResult(page).setMaxResults(limit).getResultList();
+    return memos;
+  }
 }
