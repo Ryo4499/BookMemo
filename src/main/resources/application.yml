@@ -27,8 +27,15 @@ spring:
       enabled: false
   thymeleaf:
     cache: true
-
   devtools:
     restart:
       enabled: false
+  management:
+    server:
+      port: 80
+    endpoints:
+      web:
+        exposure:
+        include: "*"
+        exclude: "env,beans,info,health,shutdown"
     
