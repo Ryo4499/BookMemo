@@ -9,6 +9,7 @@ services:
     volumes:
       - .:/srv:cached
     working_dir: /srv
+    command: bash -c "./gradlew build && ./gradlew bootRun"
     depends_on:
       - db
 
