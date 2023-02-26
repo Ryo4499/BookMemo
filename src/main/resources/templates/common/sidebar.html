@@ -1,38 +1,22 @@
-<!-- TODO Sidebar-->
 <div class="card mb-4">
 	<div class="card-header">メモ新規作成</div>
-	<div class="card-body row text-center">
-		<a href="/memo/create" class="btn btn-flat col-4 align-middle ml-4 mr-4"
-			><span>Let's Create!!</span></a
-		>
-		<a
-			href="/admin"
-			th:if="${admin}!=null"
-			class="btn btn-danger ml-4 col-4 align-middle pt-2"
-			><span th:text="${admin}"></span
-		></a>
+	<div class="card-body row justify-content-evenly">
+		<a href="/memo/create" class="btn btn-flat align-middle align-center my-2">
+			<span>新規作成</span>
+		</a>
+		<a href="/admin" th:if="${admin}!=null" class="btn btn-flat btn-danger align-middle align-center my-2">
+			<span th:text="${admin}">
+			</span>
+		</a>
 	</div>
 </div>
-<!-- Search widget-->
-<!-- TODO ここに書籍名検索-->
 <div class="card mb-4">
-	<div class="card-header">書籍名検索</div>
 	<div class="card-body">
-		<form
-			th:action="@{'/memo/book?page=1&selectBook='+${selectBook_value}}"
-			method="GET"
-		>
+		<form th:action="@{'/memo/book?page=1&selectBook='+${selectBook_value}}" method="GET">
 			<div class="input-group">
-				<input
-					class="form-control"
-					type="text"
-					name="selectBook"
-					id="selectBook"
-					th:value="${selectBook_value}"
-					placeholder="Enter search book name..."
-					aria-label="Enter search book name..."
-					aria-describedby="button-search"
-				/>
+				<input class="form-control" type="text" name="selectBook" id="selectBook" th:value="${selectBook_value}"
+					placeholder="書籍名検索" aria-label="Enter search book name..."
+					aria-describedby="button-search" />
 				<button class="btn btn-dark button-search" id="" type="submit">
 					Go!
 				</button>
@@ -40,21 +24,15 @@
 		</form>
 	</div>
 </div>
-
-<!-- Categories widget-->
-<!-- ここにカテゴリ連続-->
 <div class="card mb-4">
 	<div class="card-header">カテゴリ一覧</div>
 	<div class="card-body">
 		<div class="row">
-			<div class="col-sm-6">
+			<div class="col-sm-12">
 				<ul class="list-unstyled mb-0" th:each="category:${categoryList}">
 					<li>
-						<a
-							class="list-group-item"
-							th:text="${category}"
-							th:href="@{'/memo/category?page=1&selectCategory='+${category}}"
-						>
+						<a class="list-group-item" th:text="${category}"
+							th:href="@{'/memo/category?page=1&selectCategory='+${category}}">
 							Category 1
 						</a>
 					</li>
@@ -63,39 +41,17 @@
 		</div>
 	</div>
 </div>
-<!-- Search widget-->
-<!-- TODO ここにタイトル検索-->
 <div class="card mb-4">
-	<div class="card-header">タイトル検索</div>
 	<div class="card-body">
-		<form
-			th:action="@{'/memo/title?page=1&selectTitle='+${selectTitle_value}}"
-			method="GET"
-		>
+		<form th:action="@{'/memo/title?page=1&selectTitle='+${selectTitle_value}}" method="GET">
 			<div class="input-group">
-				<input
-					class="form-control"
-					type="text"
-					name="selectTitle"
-					id="selectTitle"
-					th:value="${selectTitle_value}"
-					placeholder="Enter search title..."
-					aria-label="Enter search title..."
-					aria-describedby="button-search"
-				/>
+				<input class="form-control" type="text" name="selectTitle" id="selectTitle"
+					th:value="${selectTitle_value}" placeholder="タイトル検索"
+					aria-label="Enter search title..." aria-describedby="button-search" />
 				<button class="btn btn-dark button-search" id="" type="submit">
 					Go!
 				</button>
 			</div>
 		</form>
-	</div>
-</div>
-
-<!-- Side widget-->
-<div class="card mb-4">
-	<div class="card-header">Side Widget</div>
-	<div class="card-body">
-		You can put anything you want inside of these side widgets. They are easy to
-		use, and feature the Bootstrap 5 card component!
 	</div>
 </div>

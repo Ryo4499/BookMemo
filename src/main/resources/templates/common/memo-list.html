@@ -1,45 +1,37 @@
 <div class="mb-4">
-	<a
-		th:href="@{'/memo/details?memoId='+${memo.memoId}}"
-		class="overflow-hidden"
-		maxlength="10"
-	>
-		<div class="card h-100 row">
-			<div class="container">
-				<div class="row my-2">
-				<h3 class="pl-2 fs-3 col-6" th:text="'書籍名: '+${memo.bookName}"></h3>
-				<small
-					class="text-muted ml-auto mr-0 col-6 text-right mb-2"
-					th:text="'updated: '+${#dates.format(memo.updatedDate, 'yyyy/MM/dd HH:mm')}"
-				></small>
-				</div>
+	<div class="card h-100 row">
+		<div class="card-header">
+			<div class="row">
+				<small class="text-muted text-right"
+					th:text="'updated: '+${#dates.format(memo.updatedDate, 'yyyy/MM/dd HH:mm')}"></small>
 			</div>
-			<div class="container">
+			<div class="row">
+				<small class="text-muted text-right"
+					th:text="'created: '+${#dates.format(memo.createdDate, 'yyyy/MM/dd HH:mm')}"></small>
+			</div>
+		</div>
+		<div class="contaienr pl-2 my-2">
+			<h3 class="" th:text="'書籍名: '+${memo.bookName}"></h3>
+		</div>
+		<div class="container align-middle text-right">
+			<a th:href="@{'/memo/category?page=1&selectCategory='+${memo.category}}" class="overflow-hidden"
+				maxlength="20" th:text="'カテゴリ: '+${memo.category}">
+			</a>
+		</div>
+		<div class="container">
+			<a th:href="@{'/memo/details?memoId='+${memo.memoId}}" class="overflow-hidden" maxlength="10">
 				<div class="card-body row">
 					<h4 class="card-title col-12" th:text="${memo.title}"></h4>
 				</div>
+			</a>
+			<a th:href="@{'/memo/details?memoId='+${memo.memoId}}" class="overflow-hidden" maxlength="10">
 				<div class="row my-2">
-					<p
-						class="card-text,overflow-hidden col-12 w-75 ml-5"
-						th:text="${memo.content}"
-						maxlength="100"
-					>
+					<p class="card-text,overflow-hidden col-12 w-75 ml-5" th:text="${memo.content}" maxlength="100">
 						Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet
 						numquam aspernatur!
 					</p>
-					<p
-						class="text-muted col-12 align-middle text-right"
-						th:text="${memo.category}"
-						maxlength="10"
-					></p>
 				</div>
-			</div>
-			<div class="card-footer text-right">
-				<small
-					class="text-muted text-right"
-					th:text="'created: '+${#dates.format(memo.createdDate, 'yyyy/MM/dd HH:mm')}"
-				></small>
-			</div>
+			</a>
 		</div>
-	</a>
+	</div>
 </div>
