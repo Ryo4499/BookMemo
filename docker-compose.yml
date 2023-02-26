@@ -1,29 +1,31 @@
-version: '3.6'
+version: "3.9"
+
 services:
   app:
-    build: .
-    container_name: app
+    build: 
+      context: .
     ports:
-      - 8080:8080
+      - "8080:8080"
     tty: true
     volumes:
-      - .:/srv:cached
+      - type: bind
+        source: .
+        target: /srv:cached
     working_dir: /srv
-    command: bash -c "./gradlew build && ./gradlew bootRun"
+    command: bash -c "./gradlew bootRun"
+    env_file:
+      - .env
     depends_on:
       - db
 
   db:
-    image: postgres:13.1
-    container_name: db
-    environment:
-      POSTGRES_USER: "postgres"
-      POSTGRES_PASSWORD: "p4w0rd"
-      POSTGRES_DB: "bookmemo"
-    ports:
-      - "5432:5432"
+    image: postgres:14
+    env_file:
+      - .env
     volumes:
-      - dbvol:/var/lib/postgresql/data
+      - type: volume
+        source: dbvol
+        target: /var/lib/postgresql/data
 
 volumes:
   dbvol:

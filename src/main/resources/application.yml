@@ -4,13 +4,8 @@ spring:
   datasource:
     driver-class-name: org.postgresql.Driver
     username: ${POSTGRES_USER}
-    password: ${POSTGRES_PASS}
-    url: ${DATABASE_URL}
-  #datasource:
-  #  driver-class-name: org.postgresql.Driver
-  #  url: jdbc:postgresql://db:5432/bookmemo
-  #  username: postgres
-  #  password: p4w0rd
+    password: ${POSTGRES_PASSWORD}
+    url: ${DB_URL}
   session:
     store-type: jdbc
     jdbc:
