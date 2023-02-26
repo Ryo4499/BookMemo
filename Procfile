@@ -1,1 +1,1 @@
-web: java -jar $JAVA_OPTS -Dserver.port=$PORT build/libs/BookMemo4444-0.0.1-SNAPSHOT.jar -javaagent:/app/sqreen.jar
+web: java -jar $JAVA_OPTS -Dserver.port=$PORT build/libs/BookMemo4444-0.0.1-SNAPSHOT.jar
