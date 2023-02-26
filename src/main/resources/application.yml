@@ -1,21 +1,22 @@
 #デプロイ時に変更
 spring:
-#本番
+  #本番
+  #datasource:
+  #  driver-class-name: org.postgresql.Driver
+  #  username: ${POSTGRES_USER}
+  #  password: ${POSTGRES_PASS}
+  #  url: ${DATABASE_URL}
   datasource:
     driver-class-name: org.postgresql.Driver
-    username: ${POSTGRES_USER}
-    password: ${POSTGRES_PASS}
-    url: ${DATABASE_URL}
-#  datasource:
-#    driver-class-name: org.postgresql.Driver
-#    url: jdbc:postgresql://localhost:5432/bookmemo4444
-#    username: postgres
-#    password: p4w0rd
+    url: jdbc:postgresql://db:5432/bookmemo
+    username: postgres
+    password: p4w0rd
   session:
     store-type: jdbc
     jdbc:
       initialize-schema: embedded
       schema: classpath:org/springframework/session/jdbc/schema-postgresql.sql
+      table-name: SPRING_SESSION
     timeout: 1800    
   jpa:
     database: POSTGRESQL
@@ -29,9 +30,10 @@ spring:
   h2:
     console:
       enabled: false
-      
   thymeleaf:
-    cache: false
-    
+    cache: true
 
+  devtools:
+    restart:
+      enabled: false
     

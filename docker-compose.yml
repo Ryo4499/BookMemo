@@ -26,7 +26,7 @@ services:
     environment:
       POSTGRES_USER: "postgres"
       POSTGRES_PASSWORD: "p4w0rd"
-      POSTGRES_DB: "bookmemo4444"
+      POSTGRES_DB: "bookmemo"
     ports:
       - "5432:5432"
     volumes:
