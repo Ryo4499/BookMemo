@@ -1,4 +1,9 @@
 # BookMemo4444
-デプロイ出来た
 
-Procfileへの理解不足とDynoのConfigの入れ忘れ
+## Usage
+
+```sh
+# change db connection settings
+vi src/main/resources/application.yml
+./gradlew bootRun
+```
