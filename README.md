@@ -15,3 +15,11 @@ docker-compose exec -it app bash
 # run
 ./gradlew bootRun
 ```
+
+## Deploy
+
+```sh
+./gradlew appengineStage
+./gradlew appengineDeploy
+gcloud app logs tail -s default
+```

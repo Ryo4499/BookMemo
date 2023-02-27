@@ -1,0 +1,17 @@
+runtime: java11
+entrypoint: java -Xmx64m -jar build/staged-app/BookMemo-0.0.1-SNAPSHOT-plain.jar
+env: standard
+instance_class: F1
+automatic_scaling:
+  min_idle_instances: automatic
+  max_idle_instances: 1
+  min_pending_latency: 3000ms
+  max_pending_latency: automatic
+  max_instances: 1
+env_variables:
+  POSTGRES_USER: 
+  POSTGRES_PASSWORD: 
+  POSTGRES_DB: 
+  DB_URL: 
+  PORT: "8080"
+  TZ: "Asia/Tokyo"
