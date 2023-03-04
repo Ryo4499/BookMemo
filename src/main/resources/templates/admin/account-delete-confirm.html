@@ -2,26 +2,20 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="utf-8" />
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="description" content="" />
-<meta name="author" content="" />
+<meta name="author" content="ar44" />
 <title>BookMemo削除確認</title>
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
-	crossorigin="anonymous" />
-<link rel="stylesheet" th:href="@{/css/memo.css}" />
-<link rel="stylesheet" href="../../static/css/memo.css" />
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
-	integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
-	crossorigin="anonymous"></script>
+    <link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon" />
+ <link rel="stylesheet" th:href="@{/css/global.css}" type="text/css" />
+    
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<link rel="stylesheet" th:href="@{/css/memo.css}" type="text/css" />
+
 </head>
 
 <body>
-	<header th:include="common/header"></header>
+	<header th:replace="common/header"></header>
 	<div class="container w-75 my-5">
 		<div class="container w-75 mx-auto">
 			<h1 class="mt-4" th:text="${account.accountName}+'さんのProfile'"></h1>
@@ -31,18 +25,18 @@
 						th:value="${_csrf.token}" /> <input type="hidden" name="id"
 						id="id" th:value="*{id}" />
 					<div class="form-group row mt-3">
-						<label for="" class="col-form-label fs-5">Account Name</label>
+						<label for="" class="col-form-label fs-5">アカウント名</label>
 						<p name="accountName" id="accountName" th:text="*{accountName}"
 							class="col-auto"></p>
 					</div>
 
 					<div class="form-group row mt-2">
-						<label for="" class="col-form-label fs-5">Email</label>
+						<label for="" class="col-form-label fs-5">Eメール</label>
 						<p id="email" class="col-auto" name="email" th:text="*{email}"></p>
 					</div>
 
 					<div class="form-group row mt-2">
-						<label for="" class="col-form-label fs-5">Current Password</label>
+						<label for="" class="col-form-label fs-5">現在のパスワード</label>
 						<p name="password" id="password" class="col-auto"
 							th:text="*{password}"></p>
 					</div>
@@ -60,6 +54,7 @@
 			<div class="col-5"></div>
 		</div>
 	</div>
-	<footer th:include="common/footer"></footer>
+	<footer th:replace="common/footer"></footer>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
 </html>

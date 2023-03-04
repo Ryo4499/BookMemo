@@ -1,57 +1,87 @@
-<div class="card mb-4">
-	<div class="card-header">メモ新規作成</div>
-	<div class="card-body row justify-content-evenly">
-		<a href="/memo/create" class="btn btn-flat align-middle align-center my-2">
-			<span>新規作成</span>
-		</a>
-		<a href="/admin" th:if="${admin}!=null" class="btn btn-flat btn-danger align-middle align-center my-2">
-			<span th:text="${admin}">
-			</span>
-		</a>
-	</div>
-</div>
-<div class="card mb-4">
-	<div class="card-body">
-		<form th:action="@{'/memo/book?page=1&selectBook='+${selectBook_value}}" method="GET">
-			<div class="input-group">
-				<input class="form-control" type="text" name="selectBook" id="selectBook" th:value="${selectBook_value}"
-					placeholder="書籍名検索" aria-label="Enter search book name..."
-					aria-describedby="button-search" />
-				<button class="btn btn-dark button-search" id="" type="submit">
-					Go!
-				</button>
-			</div>
-		</form>
-	</div>
-</div>
-<div class="card mb-4">
-	<div class="card-header">カテゴリ一覧</div>
-	<div class="card-body">
-		<div class="row">
-			<div class="col-sm-12">
-				<ul class="list-unstyled mb-0" th:each="category:${categoryList}">
-					<li>
-						<a class="list-group-item" th:text="${category}"
-							th:href="@{'/memo/category?page=1&selectCategory='+${category}}">
-							Category 1
-						</a>
-					</li>
-				</ul>
-			</div>
-		</div>
-	</div>
-</div>
-<div class="card mb-4">
-	<div class="card-body">
-		<form th:action="@{'/memo/title?page=1&selectTitle='+${selectTitle_value}}" method="GET">
-			<div class="input-group">
-				<input class="form-control" type="text" name="selectTitle" id="selectTitle"
-					th:value="${selectTitle_value}" placeholder="タイトル検索"
-					aria-label="Enter search title..." aria-describedby="button-search" />
-				<button class="btn btn-dark button-search" id="" type="submit">
-					Go!
-				</button>
-			</div>
-		</form>
-	</div>
-</div>
+<section class="d-flex flex-row">
+  <div class="card mb-4">
+    <div class="card-header">メモ新規作成</div>
+    <div class="card-body row justify-content-evenly">
+      <a
+        href="/memo/create"
+        class="btn btn-flat align-middle align-center my-2"
+      >
+        <span>新規作成</span>
+      </a>
+      <a
+        href="/admin"
+        th:if="${admin}!=null"
+        class="btn btn-flat btn-danger align-middle align-center my-2"
+      >
+        <span th:text="${admin}"> </span>
+      </a>
+    </div>
+  </div>
+  <div class="card mb-4">
+    <div class="card-body">
+      <form
+        th:action="@{'/memo/book?page=1&selectBook='+${selectBook_value}}"
+        method="GET"
+      >
+        <div class="input-group">
+          <input
+            class="form-control"
+            type="text"
+            name="selectBook"
+            id="selectBook"
+            th:value="${selectBook_value}"
+            placeholder="書籍名検索"
+            aria-label="Enter search book name..."
+            aria-describedby="button-search"
+          />
+          <button class="btn btn-dark button-search" id="" type="submit">
+            検索
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="card mb-4">
+    <div class="card-header">カテゴリ一覧</div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-sm-12">
+          <ul class="list-unstyled mb-0" th:each="category:${categoryList}">
+            <li>
+              <a
+                class="list-group-item"
+                th:text="${category}"
+                th:href="@{'/memo/category?page=1&selectCategory='+${category}}"
+              >
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card mb-4">
+    <div class="card-body">
+      <form
+        th:action="@{'/memo/title?page=1&selectTitle='+${selectTitle_value}}"
+        method="GET"
+      >
+        <div class="input-group">
+          <input
+            class="form-control"
+            type="text"
+            name="selectTitle"
+            id="selectTitle"
+            th:value="${selectTitle_value}"
+            placeholder="タイトル検索"
+            aria-label="Enter search title..."
+            aria-describedby="button-search"
+          />
+          <button class="btn btn-dark button-search" id="" type="submit">
+            検索
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
