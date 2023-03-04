@@ -26,10 +26,14 @@ spring:
     console:
       enabled: false
   thymeleaf:
-    cache: true
+    cache: false
   devtools:
-    restart:
-      enabled: false
+    add-properties: true
+    livereload:
+      enabled: true
+    remote:
+      restart:
+        enabled: true
 server:
   address: 0.0.0.0
   port: ${PORT}
