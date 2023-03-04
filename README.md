@@ -14,6 +14,8 @@ docker-compose exec -it app bash
 ./gradlew build
 # run
 ./gradlew bootRun
+# run jar file
+java -jar $JAVA_OPTS -Dserver.port=$PORT build/libs/BookMemo-0.0.1-SNAPSHOT.jar
 ```
 
 ## How to Deploy
