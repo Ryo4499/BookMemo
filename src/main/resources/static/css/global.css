@@ -15,9 +15,9 @@ body {
 body {
   display: grid;
   grid-template:
-    "header header header" 10%
-    "main main right" auto
-    "footer footer footer" 10%;
+    "header header header header header" 10%
+    "main main main main sidebar" auto
+    "footer footer footer footer footer" 10%;
 }
 
 a {
@@ -28,6 +28,7 @@ a {
 button {
   white-space: nowrap;
 }
+
 header {
   grid-area: header;
 }
@@ -36,7 +37,7 @@ main {
   grid-area: main;
 }
 
-.sidebar {
+section {
   grid-area: sidebar;
 }
 

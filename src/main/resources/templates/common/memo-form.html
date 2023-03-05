@@ -1,68 +1,75 @@
-<!-- Post header-->
-<header class="mb-2">
-  <!-- Post title-->
-  <label class="fs-4">タイトル:</label>
-  <div
-    class="text-danger"
-    th:if="${#fields.hasErrors('title')}"
-    th:errors="*{title}"
-  ></div>
-  <input
-    type="text"
-    id="title"
-    name="title"
-    class="form-control memo-input text-break mt-2"
-    th:value="*{title}"
-    maxlength="30"
-    placeholder="タイトル"
-  />
-  <!-- Post meta content-->
-  <label class="fs-4">書籍名:</label>
-  <div
-    class="text-danger"
-    th:if="${#fields.hasErrors('bookName')}"
-    th:errors="*{bookName}"
-  ></div>
-  <input
-    type="text"
-    id="bookName"
-    name="bookName"
-    class="form-control memo-input text-break mt-2"
-    th:value="*{bookName}"
-    maxlength="50"
-    placeholder="書籍名"
-  />
-  <!-- Post categories-->
-  <label class="fs-4">カテゴリ:</label>
-  <div
-    class="text-danger"
-    th:if="${#fields.hasErrors('category')}"
-    th:errors="*{category}"
-  ></div>
-  <input
-    type="text"
-    class="form-control memo-input text-break mt-2"
-    id="category"
-    name="category"
-    th:value="*{category}"
-    maxlength="30"
-    placeholder="カテゴリ名"
-  />
-  <label class="fs-4">コンテンツ:</label>
-</header>
-<!-- Post content-->
-<div
-  class="text-danger"
-  th:if="${#fields.hasErrors('content')}"
-  th:errors="*{content}"
-></div>
-<textarea
-  class="mb-3 memo-content text-break"
-  id="content"
-  name="content"
-  rows="100"
-  cols="100"
-  th:field="*{content}"
-  maxlength="3000"
-  placeholder="内容をここに入力"
-></textarea>
+<div class="container">
+  <div class="row">
+    <!-- Post title-->
+    <label class="fs-4">タイトル:</label>
+    <div
+      class="text-danger"
+      th:if="${#fields.hasErrors('title')}"
+      th:errors="*{title}"
+    ></div>
+    <input
+      type="text"
+      id="title"
+      name="title"
+      class="form-control memo-input text-break mt-2"
+      th:value="*{title}"
+      maxlength="30"
+      placeholder="タイトル"
+    />
+  </div>
+  <div class="row">
+    <!-- Post meta content-->
+    <label class="fs-4">書籍名:</label>
+    <div
+      class="text-danger"
+      th:if="${#fields.hasErrors('bookName')}"
+      th:errors="*{bookName}"
+    ></div>
+    <input
+      type="text"
+      id="bookName"
+      name="bookName"
+      class="form-control memo-input text-break my-2"
+      th:value="*{bookName}"
+      maxlength="50"
+      placeholder="書籍名"
+    />
+  </div>
+  <div class="row">
+    <!-- Post categories-->
+    <label class="fs-4">カテゴリ:</label>
+    <div
+      class="text-danger"
+      th:if="${#fields.hasErrors('category')}"
+      th:errors="*{category}"
+    ></div>
+    <input
+      type="text"
+      class="form-control memo-input text-break my-2"
+      id="category"
+      name="category"
+      th:value="*{category}"
+      maxlength="30"
+      placeholder="カテゴリ名"
+    />
+  </div>
+  <div class="row">
+    <label class="fs-4">コンテンツ:</label>
+    <!-- Post content-->
+    <div
+      class="text-danger"
+      th:if="${#fields.hasErrors('content')}"
+      th:errors="*{content}"
+    ></div>
+    <textarea
+      class="memo-content text-break"
+      id="content"
+      name="content"
+      rows="100"
+      cols="100"
+      th:field="*{content}"
+      maxlength="3000"
+      placeholder="内容をここに入力"
+    ></textarea>
+  </div>
+</div>

@@ -19,51 +19,65 @@
   </head>
 
   <body>
-    <div class="wrapper fadeInDown">
-      <div id="formContent" class="container">
-        <form action="" method="post">
-          <input
-            type="hidden"
-            th:name="${_csrf.parameterName}"
-            th:value="${_csrf.token}"
-          />
-          <legend class="mb-3">ログインしてください</legend>
-          <!-- use param.error assuming FormLoginConfigurer#failureUrl contains the query parameter error -->
-          <div class="error" th:if="${param.error != null}">
-            ログインに失敗しました
-            <div th:if="${SPRING_SECURITY_LAST_EXCEPTION != null}">
-              Reason:
-              <span th:text="${SPRING_SECURITY_LAST_EXCEPTION.message}"></span>
+    <main class="container">
+      <form class="d-flex flex-column" action="" method="post">
+        <input
+          type="hidden"
+          th:name="${_csrf.parameterName}"
+          th:value="${_csrf.token}"
+        />
+        <div class="d-flex flex-column justify-content-center">
+          <div class="my-2 text-center justify-content-center">
+            <legend class="">ログインしてください</legend>
+            <!-- use param.error assuming FormLoginConfigurer#failureUrl contains the query parameter error -->
+            <div class="error" th:if="${param.error != null}">
+              ログインに失敗しました
+              <div th:if="${SPRING_SECURITY_LAST_EXCEPTION != null}">
+                <span
+                  th:text="Reason: ${SPRING_SECURITY_LAST_EXCEPTION.message}"
+                ></span>
+              </div>
             </div>
+            <div th:if="${param.logout != null}">ログアウトしています</div>
           </div>
-          <div th:if="${param.logout != null}">
-            <div>ログアウトしています</div>
-          </div>
-          <label for="email">Eメール</label>
-          <input
-            type="email"
-            id="email"
-            class="form-control form-text w-75 mx-auto mt-2 mb-2"
-            name="email"
-            placeholder="Your email"
-          />
-          <label for="password">パスワード</label>
-          <input
-            type="password"
-            id="password"
-            class="form-control form-text w-75 mx-auto mt-2 mb-2"
-            name="password"
-            placeholder="Your password"
-          />
-          <label class="mt-2 mb-2" for="remember-me">ログイン情報の保持</label>
-          <input type="checkbox" id="remember-me" name="remember-me" /><br />
-          <input type="submit" class="fadeIn fourth mx-auto" value="Login" />
-        </form>
-        <div>
-          <a th:href="@{/}" class="btn btn-dark mb-3 fadeIn fourth">Top Page</a>
+          <div
+            class="row justify-content-center"
+          >
+              <div class="row align-items-center justify-content-center my-3">
+              <label  for="email" class="col-1">Eメール</label>
+              <input
+                type="email"
+                id="email"
+                class="form-text col-4"
+                name="email"
+                placeholder="Your email"
+              />
+              </div>
+              <div class="row align-items-center justify-content-center my-3">
+              <label for="password" class="col-1">パスワード</label>
+              <input
+                type="password"
+                id="password"
+                class="form-text col-4"
+                name="password"
+                placeholder="Your password"
+              />
+            </div>
         </div>
-      </div>
-    </div>
+        <div class="text-center my-4">
+          <label for="remember-me">ログイン情報の保持</label>
+          <input type="checkbox" id="remember-me" name="remember-me" /><br />
+        </div>
+        <div class="row justify-content-center">
+          <div class="row justify-content-center my-2">
+          <input class="col-2 btn btn-success" type="submit" value="Login" />
+          </div>
+          <div class="row justify-content-center my-2">
+          <a href="/" class="col-2 btn btn-dark">Top Page</a>
+          </div>
+        </div>
+      </form>
+    </main>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"

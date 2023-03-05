@@ -22,36 +22,28 @@
   <body>
     <header th:replace="common/header"></header>
     <!-- Page content-->
-    <div class="container my-5">
-      <div class="row">
-        <div class="col-lg-8">
-          <form action="" method="POST" th:object="${memoForm}">
-            <input
-              type="hidden"
-              th:name="${_csrf.parameterName}"
-              th:value="${_csrf.token}"
-            />
-            <!-- Post content-->
-            <article th:include="common/memo-form"></article>
-            <div class="container row">
-              <div class="col-lg-9"></div>
-              <div class="mb-3 col-lg-3 text-center">
-                <button class="btn btn-dark">更新</button>
-              </div>
-              <div class="col-lg-9"></div>
-              <div class="mb-3 col-lg-3 text-center">
-                <a th:href="@{/memo/delete}" class="ml-1 btn btn-danger">
-                  削除
-                </a>
-              </div>
-            </div>
-          </form>
+    <main class="container">
+      <form action="" method="POST" th:object="${memoForm}">
+        <input
+          type="hidden"
+          th:name="${_csrf.parameterName}"
+          th:value="${_csrf.token}"
+        />
+        <!-- Post content-->
+        <article th:include="common/memo-form"></article>
+        <div class="container row justify-content-center my-5">
+          <div class="row justify-content-center my-2">
+            <button class="col-4 btn btn-dark">更新</button>
+          </div>
+          <div class="row justify-content-center my-2">
+            <a th:href="@{/memo/delete}" class="col-4 btn btn-danger"> 削除 </a>
+          </div>
         </div>
-        <!-- Side widgets-->
-        <div class="col-lg-4" th:include="common/sidebar"></div>
-      </div>
-    </div>
+      </form>
+    </main>
 
+    <!-- Side widgets-->
+    <section th:replace="common/sidebar"></section>
     <!-- Footer-->
     <footer th:replace="common/footer"></footer>
     <script

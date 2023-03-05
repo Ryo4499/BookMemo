@@ -1,23 +1,26 @@
-<section class="d-flex flex-row">
-  <div class="card mb-4">
+<section class="d-flex flex-column mx-4">
+  <div class="card my-2">
     <div class="card-header">メモ新規作成</div>
     <div class="card-body row justify-content-evenly">
-      <a
-        href="/memo/create"
-        class="btn btn-flat align-middle align-center my-2"
-      >
-        <span>新規作成</span>
-      </a>
-      <a
-        href="/admin"
-        th:if="${admin}!=null"
-        class="btn btn-flat btn-danger align-middle align-center my-2"
-      >
-        <span th:text="${admin}"> </span>
-      </a>
+      <div class="row justify-content-center">
+        <a
+          href="/memo/create"
+          class="col-5 btn btn-success align-middle align-center my-2"
+        >
+          新規作成
+        </a>
+      </div>
+      <div class="row justify-content-center" th:if="${admin}!=null">
+        <a
+          href="/admin"
+          class="col-5 btn btn-danger align-middle align-center my-2"
+          th:text="${admin}"
+        >
+        </a>
+      </div>
     </div>
   </div>
-  <div class="card mb-4">
+  <div class="card my-2">
     <div class="card-body">
       <form
         th:action="@{'/memo/book?page=1&selectBook='+${selectBook_value}}"
@@ -41,7 +44,7 @@
       </form>
     </div>
   </div>
-  <div class="card mb-4">
+  <div class="card my-2">
     <div class="card-header">カテゴリ一覧</div>
     <div class="card-body">
       <div class="row">
@@ -60,7 +63,7 @@
       </div>
     </div>
   </div>
-  <div class="card mb-4">
+  <div class="card my-2">
     <div class="card-body">
       <form
         th:action="@{'/memo/title?page=1&selectTitle='+${selectTitle_value}}"
