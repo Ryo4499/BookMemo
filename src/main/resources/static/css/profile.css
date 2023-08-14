@@ -1,0 +1,7 @@
+body {
+    grid-template:
+      "header header header header header" 10%
+      "main main main main main" auto
+      "footer footer footer footer footer" 10%;
+  }
+  

@@ -20,6 +20,17 @@ body {
     "footer footer footer footer footer" 10%;
 }
 
+@media (max-width: 767px) {
+  body {
+    display: grid;
+    grid-template:
+      "header" 10%
+      "main" auto
+      "sidebar" auto
+      "footer" 10%;
+  }
+}
+
 a {
   text-decoration: none;
   white-space: nowrap;

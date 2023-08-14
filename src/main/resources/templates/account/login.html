@@ -5,7 +5,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>BookMemoログイン</title>
-    <link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon" />
     <link rel="stylesheet" th:href="@{/css/global.css}" type="text/css" />
 
     <link
@@ -28,39 +27,41 @@
         />
         <div class="d-flex flex-column justify-content-center">
           <div class="my-2 text-center justify-content-center">
-            <legend class="">ログインしてください</legend>
+            <legend class="fs-4">ログインしてください</legend>
             <!-- use param.error assuming FormLoginConfigurer#failureUrl contains the query parameter error -->
-            <div class="error" th:if="${param.error != null}">
-              ログインに失敗しました
+            <div class="text-danger h6" th:if="${param.error != null}">
+              ログインに失敗しました<br>
               <div th:if="${SPRING_SECURITY_LAST_EXCEPTION != null}">
                 <span
                   th:text="Reason: ${SPRING_SECURITY_LAST_EXCEPTION.message}"
                 ></span>
               </div>
             </div>
-            <div th:if="${param.logout != null}">ログアウトしています</div>
+            <div class="text-danger h6" th:if="${param.logout != null}">ログアウトしています</div>
           </div>
           <div
             class="row justify-content-center"
           >
               <div class="row align-items-center justify-content-center my-3">
-              <label  for="email" class="col-1">Eメール</label>
+              <label  for="email" class="col-md-2 fs-5">Eメール</label>
               <input
                 type="email"
                 id="email"
-                class="form-text col-4"
+                class="form-text col-md-4 fs-5"
                 name="email"
                 placeholder="Your email"
+                autocomplate="email"
               />
               </div>
               <div class="row align-items-center justify-content-center my-3">
-              <label for="password" class="col-1">パスワード</label>
+              <label for="password" class="col-md-2 fs-5">パスワード</label>
               <input
                 type="password"
                 id="password"
-                class="form-text col-4"
+                class="form-text col-md-4 fs-5"
                 name="password"
                 placeholder="Your password"
+                autocomplate="password"
               />
             </div>
         </div>
@@ -70,10 +71,10 @@
         </div>
         <div class="row justify-content-center">
           <div class="row justify-content-center my-2">
-          <input class="col-2 btn btn-success" type="submit" value="Login" />
+          <input class="col-md-2 btn btn-success fs-5" type="submit" value="Login" />
           </div>
           <div class="row justify-content-center my-2">
-          <a href="/" class="col-2 btn btn-dark">Top Page</a>
+          <a href="/" class="col-md-2 btn btn-dark fs-5">Top Page</a>
           </div>
         </div>
       </form>

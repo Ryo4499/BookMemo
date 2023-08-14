@@ -9,11 +9,10 @@ docker compose build
 docker compose up -d
 
 # Trouble shooting
-docker-compose exec -it app bash
-# build
-./gradlew build
-# run
-./gradlew bootRun
+# hardsource run
+./run.sh
+# docker run
+./run.sh docker
 # run jar file
 java -jar $JAVA_OPTS -Dserver.port=$PORT build/libs/BookMemo-0.0.1-SNAPSHOT.jar
 ```
@@ -54,5 +53,8 @@ cd bookmemo
 vim .env
 # run
 docker compose build
-docker compose up -d
+docker compose up 
+# press ctrl + z
+bg 1
+disown %1
 ```
