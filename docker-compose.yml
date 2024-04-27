@@ -1,23 +1,82 @@
-version: "3.9"
-
 services:
+  certbot:
+    build:
+      context: ./certbot
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    volumes:
+      - type: bind
+        source: ./certbot/letsencrypt
+        target: /etc/letsencrypt
+      - type: bind
+        source: ./nginx/html
+        target: /usr/share/nginx/html
+    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 10d & wait $${!}; done; chown -R $(whoami):$(whoami) ~'"
+    tty: true
+    depends_on:
+      proxy:
+        condition: service_started
+    networks:
+      app_net:
+  proxy:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+      args:
+        DOMAIN: $DOMAIN
+        PORT: $PORT
+    ports:
+      - 0.0.0.0:80:80
+      - 0.0.0.0:443:443
+    env_file:
+      - .env
+    tty: true
+    volumes:
+      - type: bind
+        source: ./nginx/modsecurity/
+        target: /etc/modsecurity.d/
+      - type: bind
+        source: ./nginx/log
+        target: /var/log/nginx
+      - type: bind
+        source: ./certbot/letsencrypt
+        target: /etc/letsencrypt
+      - type: bind
+        source: ./nginx/html
+        target: /usr/share/nginx/html
+    depends_on:
+      db:
+        condition: service_healthy
+    command: '/bin/sh -c ''nginx -t && while :; do sleep 20d & wait $${!}; nginx -s reload; done & nginx -g "daemon off;"'''
+    restart: always
+    healthcheck:
+      test: service nginx status || exit 1
+      interval: 5s
+      retries: 10
+      start_period: 5s
+      timeout: 60s
+    networks:
+      nginx_net:
+      app_net:
   app:
-    build: 
+    build:
       context: .
     tty: true
     stdin_open: true
-    ports:
-      - "127.0.0.1:8080:8080"
     volumes:
       - type: bind
         source: .
-        target: /srv:cached
-    working_dir: /srv
+        target: /BookMemo
+    working_dir: /BookMemo
     env_file:
       - .env
     depends_on:
       - db
     restart: always
+    networks:
+      - app_net
+      - db_net
   db:
     image: postgres:14-alpine
     tty: true
@@ -29,6 +88,39 @@ services:
         source: dbvol
         target: /var/lib/postgresql/data
     restart: always
+    networks:
+      - db_net
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: 5s
+      retries: 5
+      start_period: 5s
+      timeout: 30s
 
 volumes:
   dbvol:
+
+networks:
+  default:
+    external: false
+  nginx_net:
+    driver: bridge
+    internal: false
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.30.0.0/24
+  app_net:
+    driver: bridge
+    internal: true
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.30.3.0/24
+  db_net:
+    driver: bridge
+    internal: true
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.30.5.0/24
