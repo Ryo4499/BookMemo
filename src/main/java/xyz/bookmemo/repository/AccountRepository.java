@@ -26,13 +26,12 @@ public interface AccountRepository extends JpaRepository<Account, Long> {
   @Modifying
   @Transactional(readOnly = false)
   @Query(
-    value = "update accounts set account_name=:name, account_email=:email, account_password=:password where account_id=:id",
-    nativeQuery = true
-  )
+      value =
+          "update accounts set account_name=:name, account_email=:email, account_password=:password where account_id=:id",
+      nativeQuery = true)
   void updateAccount(
-    @Param("id") Long id,
-    @Param("name") String name,
-    @Param("email") String email,
-    @Param("password") String password
-  );
+      @Param("id") Long id,
+      @Param("name") String name,
+      @Param("email") String email,
+      @Param("password") String password);
 }

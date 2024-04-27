@@ -22,9 +22,7 @@ import xyz.bookmemo.repository.MemoRepository;
 import xyz.bookmemo.repository.RoleRepository;
 import xyz.bookmemo.security.CustomSecurityAccount;
 
-/**
- * The class is a controller class that handles the user's account information
- */
+/** The class is a controller class that handles the user's account information */
 @Controller
 public class AccountController {
 
@@ -40,12 +38,11 @@ public class AccountController {
 
   @Autowired
   public AccountController(
-    AccountRepository accountRepository,
-    RoleRepository roleRepository,
-    PasswordEncoder passwordEncoder,
-    HttpServletRequest req,
-    MemoRepository memoRepository
-  ) {
+      AccountRepository accountRepository,
+      RoleRepository roleRepository,
+      PasswordEncoder passwordEncoder,
+      HttpServletRequest req,
+      MemoRepository memoRepository) {
     this.accountRepository = accountRepository;
     this.roleRepository = roleRepository;
     this.passwordEncoder = passwordEncoder;
@@ -77,8 +74,8 @@ public class AccountController {
    * The function takes a Model object as a parameter, adds a SignupForm object to the model, and
    * returns the name of the view to be rendered
    *
-   * @param model The model is a Map that is used to store the data that will be displayed on the view
-   * page.
+   * @param model The model is a Map that is used to store the data that will be displayed on the
+   *     view page.
    * @return A string that is the name of the view.
    */
   @GetMapping("/signup")
@@ -88,8 +85,7 @@ public class AccountController {
   }
 
   /**
-   * Do signup process.
-   * If the form has errors, reset the password and return the form.
+   * Do signup process. If the form has errors, reset the password and return the form.
    *
    * @param signupForm The object that contains the input values of the form.
    * @param result The result of the validation.
@@ -97,11 +93,7 @@ public class AccountController {
    * @return The signup form is being returned.
    */
   @PostMapping("/signup")
-  public String postSignup(
-    @Validated SignupForm signupForm,
-    BindingResult result,
-    Model model
-  ) {
+  public String postSignup(@Validated SignupForm signupForm, BindingResult result, Model model) {
     if (result.hasErrors()) {
       signupForm.resetPassword();
       model.addAttribute("signupForm", signupForm);
@@ -110,12 +102,7 @@ public class AccountController {
 
     signupForm.setPassword(passwordEncoder.encode(signupForm.getPassword()));
 
-    if (
-      !passwordEncoder.matches(
-        signupForm.getRePassword(),
-        signupForm.getPassword()
-      )
-    ) {
+    if (!passwordEncoder.matches(signupForm.getRePassword(), signupForm.getPassword())) {
       signupForm.resetPassword();
       model.addAttribute("errorPass", "パスワードが一致しません");
       model.addAttribute("signupForm", signupForm);
@@ -156,9 +143,7 @@ public class AccountController {
    */
   @GetMapping("/profile")
   public String getProfile(
-    @AuthenticationPrincipal CustomSecurityAccount customSecurityAccount,
-    Model model
-  ) {
+      @AuthenticationPrincipal CustomSecurityAccount customSecurityAccount, Model model) {
     final UpdateForm updateForm = new UpdateForm();
     updateForm.setAccountName(customSecurityAccount.getAccountName());
     updateForm.setEmail(customSecurityAccount.getEmail());
@@ -173,31 +158,20 @@ public class AccountController {
    */
   @PostMapping("/profile")
   public String postProfile(
-    @Validated UpdateForm updateForm,
-    BindingResult result,
-    @AuthenticationPrincipal CustomSecurityAccount customSecurityAccount,
-    Model model,
-    RedirectAttributes redirectAttributes
-  ) {
+      @Validated UpdateForm updateForm,
+      BindingResult result,
+      @AuthenticationPrincipal CustomSecurityAccount customSecurityAccount,
+      Model model,
+      RedirectAttributes redirectAttributes) {
     if (result.hasErrors()) {
       updateForm.resetPassword();
       model.addAttribute("updateForm", updateForm);
       return "account/profile";
     }
 
-    updateForm.setNewPassword(
-      passwordEncoder.encode(updateForm.getNewPassword())
-    );
-    if (
-      !passwordEncoder.matches(
-        updateForm.getOldPassword(),
-        customSecurityAccount.getPassword()
-      ) ||
-      !passwordEncoder.matches(
-        updateForm.getRePassword(),
-        updateForm.getNewPassword()
-      )
-    ) {
+    updateForm.setNewPassword(passwordEncoder.encode(updateForm.getNewPassword()));
+    if (!passwordEncoder.matches(updateForm.getOldPassword(), customSecurityAccount.getPassword())
+        || !passwordEncoder.matches(updateForm.getRePassword(), updateForm.getNewPassword())) {
       updateForm.resetPassword();
       model.addAttribute("errorPass", "パスワードが一致しません");
       model.addAttribute("updateForm", updateForm);
@@ -207,20 +181,17 @@ public class AccountController {
     account.setMemos(customSecurityAccount.getMemos());
     account.setRoles(customSecurityAccount.getRoles());
     accountRepository.updateAccount(
-      customSecurityAccount.getId(),
-      account.getAccountName(),
-      account.getEmail(),
-      account.getPassword()
-    );
+        customSecurityAccount.getId(),
+        account.getAccountName(),
+        account.getEmail(),
+        account.getPassword());
     redirectAttributes.addFlashAttribute("success", "更新が完了しました");
     return "redirect:/profile";
   }
 
   @GetMapping("/delete")
   public String getDeletePage(
-    @AuthenticationPrincipal CustomSecurityAccount customSecurityAccount,
-    Model model
-  ) {
+      @AuthenticationPrincipal CustomSecurityAccount customSecurityAccount, Model model) {
     model.addAttribute("accountName", customSecurityAccount.getAccountName());
     model.addAttribute("email", customSecurityAccount.getEmail());
     return "account/account-delete-confirm";
@@ -228,8 +199,7 @@ public class AccountController {
 
   @PostMapping("/delete")
   public String postdeleteAccount(
-    @AuthenticationPrincipal CustomSecurityAccount customSecurityAccount
-  ) {
+      @AuthenticationPrincipal CustomSecurityAccount customSecurityAccount) {
     final Account account = new Account();
     account.setId(customSecurityAccount.getId());
     account.setEmail(customSecurityAccount.getEmail());

@@ -23,9 +23,9 @@ import xyz.bookmemo.service.UserDetailsServiceImpl;
 /**
  * "This class configures the security of the application."
  *
- * The @EnableWebSecurity annotation enables Spring Security's web security support and provides the
- * Spring MVC integration. It also extends the WebSecurityConfigurerAdapter class and overrides a
- * couple of its methods to set some specifics of the web security configuration
+ * <p>The @EnableWebSecurity annotation enables Spring Security's web security support and provides
+ * the Spring MVC integration. It also extends the WebSecurityConfigurerAdapter class and overrides
+ * a couple of its methods to set some specifics of the web security configuration
  */
 @EnableWebSecurity(debug = false)
 @EnableGlobalMethodSecurity(securedEnabled = true)
@@ -35,10 +35,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
   private final DataSource dataSource;
 
   @Autowired
-  SecurityConfiguration(
-    AccountRepository accountRepository,
-    DataSource dataSource
-  ) {
+  SecurityConfiguration(AccountRepository accountRepository, DataSource dataSource) {
     this.accountRepository = accountRepository;
     this.dataSource = dataSource;
   }
@@ -70,8 +67,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
   }
 
   /**
-   * This function creates a new DaoAuthenticationProvider object, sets the userDetailsService to the
-   * userDetailsService() function, and sets the passwordEncoder to the getPasswordEncoder() function
+   * This function creates a new DaoAuthenticationProvider object, sets the userDetailsService to
+   * the userDetailsService() function, and sets the passwordEncoder to the getPasswordEncoder()
+   * function
    *
    * @return A DaoAuthenticationProvider object.
    */
@@ -86,10 +84,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
   /**
    * "This function returns a UserDetailsService object that is used to authenticate users."
    *
-   * The UserDetailsService interface is a Spring Security interface that is used to retrieve
-   * user-related data. It has one method, loadUserByUsername(), which finds a user entity based on the
-   * username and returns a UserDetails object that Spring Security can use for authentication and
-   * authorization
+   * <p>The UserDetailsService interface is a Spring Security interface that is used to retrieve
+   * user-related data. It has one method, loadUserByUsername(), which finds a user entity based on
+   * the username and returns a UserDetails object that Spring Security can use for authentication
+   * and authorization
    *
    * @return A UserDetailsService object.
    */
@@ -101,16 +99,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
   /**
    * "Configure the AuthenticationManagerBuilder with a UserDetailsService and a PasswordEncoder."
    *
-   * The AuthenticationManagerBuilder is a helper class that allows easy creation of an
+   * <p>The AuthenticationManagerBuilder is a helper class that allows easy creation of an
    * AuthenticationManager
    *
    * @param auth This is the authentication manager builder.
    */
   @Override
   protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-    auth
-      .userDetailsService(userDetailsServiceBean())
-      .passwordEncoder(getPasswordEncoder());
+    auth.userDetailsService(userDetailsServiceBean()).passwordEncoder(getPasswordEncoder());
   }
 
   /**
@@ -120,9 +116,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
    */
   @Override
   public void configure(WebSecurity web) throws Exception {
-    web
-      .ignoring()
-      .antMatchers("/images/**", "/js/**", "/css/**", "/favicon.ico");
+    web.ignoring().antMatchers("/images/**", "/js/**", "/css/**", "/favicon.ico");
   }
 
   /**
@@ -132,43 +126,39 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
    */
   @Override
   protected void configure(HttpSecurity http) throws Exception {
-    http
-      .authorizeRequests()
-      .antMatchers("/", "/signup", "/signupsuccess", "/thanks")
-      .permitAll()
-      .antMatchers("/admin**/**")
-      .hasRole("ADMIN")
-      .antMatchers("/memo**/**")
-      .hasAnyRole("ADMIN", "USER")
-      .anyRequest()
-      .authenticated();
-    http
-      .formLogin()
-      .loginPage("/login")
-      .defaultSuccessUrl("/memo", true)
-      .usernameParameter("email")
-      .passwordParameter("password")
-      .permitAll()
-      .and()
-      .rememberMe()
-      .tokenRepository(createTokenRepository())
-      .useSecureCookie(true)
-      .key("uniqueAndSecret")
-      .userDetailsService(userDetailsServiceBean());
-    http
-      .logout()
-      .logoutUrl("/logout")
-      .invalidateHttpSession(true)
-      .deleteCookies("JSESSIONID", "SESSION", "remember-me")
-      .logoutSuccessUrl("/")
-      .permitAll();
-    http
-      .sessionManagement()
-      .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
-      .sessionFixation()
-      .changeSessionId()
-      .maximumSessions(1)
-      .maxSessionsPreventsLogin(false);
+    http.authorizeRequests()
+        .antMatchers("/", "/signup", "/signupsuccess", "/thanks")
+        .permitAll()
+        .antMatchers("/admin**/**")
+        .hasRole("ADMIN")
+        .antMatchers("/memo**/**")
+        .hasAnyRole("ADMIN", "USER")
+        .anyRequest()
+        .authenticated();
+    http.formLogin()
+        .loginPage("/login")
+        .defaultSuccessUrl("/memo", true)
+        .usernameParameter("email")
+        .passwordParameter("password")
+        .permitAll()
+        .and()
+        .rememberMe()
+        .tokenRepository(createTokenRepository())
+        .useSecureCookie(true)
+        .key("uniqueAndSecret")
+        .userDetailsService(userDetailsServiceBean());
+    http.logout()
+        .logoutUrl("/logout")
+        .invalidateHttpSession(true)
+        .deleteCookies("JSESSIONID", "SESSION", "remember-me")
+        .logoutSuccessUrl("/")
+        .permitAll();
+    http.sessionManagement()
+        .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
+        .sessionFixation()
+        .changeSessionId()
+        .maximumSessions(1)
+        .maxSessionsPreventsLogin(false);
 
     http.headers().frameOptions().disable();
   }

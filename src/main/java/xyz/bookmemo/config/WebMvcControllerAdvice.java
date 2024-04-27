@@ -10,23 +10,22 @@ import xyz.bookmemo.service.MemoNotFoundException;
 import xyz.bookmemo.service.UserNotFoundException;
 
 /**
- * This class is used to trim all incoming strings, and if the string is empty, it will set it to null
+ * This class is used to trim all incoming strings, and if the string is empty, it will set it to
+ * null
  */
 @ControllerAdvice
 public class WebMvcControllerAdvice {
 
   /**
-   * > This function will trim all incoming strings, and if the string is empty, it will set it to null
+   * > This function will trim all incoming strings, and if the string is empty, it will set it to
+   * null
    *
-   * @param dataBinder The WebDataBinder object that is used to bind the request parameters to the form
-   * object.
+   * @param dataBinder The WebDataBinder object that is used to bind the request parameters to the
+   *     form object.
    */
   @InitBinder
   public void initBinder(WebDataBinder dataBinder) {
-    dataBinder.registerCustomEditor(
-      String.class,
-      new StringTrimmerEditor(true)
-    );
+    dataBinder.registerCustomEditor(String.class, new StringTrimmerEditor(true));
   }
 
   /**
@@ -43,8 +42,8 @@ public class WebMvcControllerAdvice {
   }
 
   /**
-   * > When a MemoNotFoundException is thrown, the handleMemoException function will be called, and the
-   * exception will be added to the model
+   * > When a MemoNotFoundException is thrown, the handleMemoException function will be called, and
+   * the exception will be added to the model
    *
    * @param e The exception object
    * @param model The model object that will be passed to the view.

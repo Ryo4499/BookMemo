@@ -52,20 +52,14 @@ public class MemoServiceImpl implements MemoService {
    * @return A Long
    */
   @Override
-  public Long countCategoryByCategoryAndAccount(
-    String category,
-    Account account
-  ) {
-    return memoDao.countCategoryByContainingCategoryAndAccount(
-      category,
-      account
-    );
+  public Long countCategoryByCategoryAndAccount(String category, Account account) {
+    return memoDao.countCategoryByContainingCategoryAndAccount(category, account);
   }
 
   /**
    * "Count the number of memos with the given title and account."
    *
-   * The first line of the function is the JavaDoc comment. It's a good idea to include a JavaDoc
+   * <p>The first line of the function is the JavaDoc comment. It's a good idea to include a JavaDoc
    * comment for every function
    *
    * @param title The title of the memo.
@@ -78,22 +72,16 @@ public class MemoServiceImpl implements MemoService {
   }
 
   /**
-   * > Count the number of Memo objects that have a bookName that contains the given bookName and that
-   * belong to the given account
+   * > Count the number of Memo objects that have a bookName that contains the given bookName and
+   * that belong to the given account
    *
    * @param bookName The name of the book to search for.
    * @param account The account that the memo belongs to.
    * @return A Long
    */
   @Override
-  public Long countBookNameByBookNameAndAccount(
-    String bookName,
-    Account account
-  ) {
-    return memoDao.countBookNameByContainingBookNameAndAccount(
-      bookName,
-      account
-    );
+  public Long countBookNameByBookNameAndAccount(String bookName, Account account) {
+    return memoDao.countBookNameByContainingBookNameAndAccount(bookName, account);
   }
 
   /**
@@ -105,16 +93,10 @@ public class MemoServiceImpl implements MemoService {
    */
   @Override
   public List<Memo> noConditionSearch(
-    CustomSecurityAccount customSecurityAccount,
-    HashMap<String, String> search
-  ) {
+      CustomSecurityAccount customSecurityAccount, HashMap<String, String> search) {
     final int limit = Integer.parseInt(search.get("limit"));
     final int page = Integer.valueOf(search.get("page")) - 1;
-    return memoDao.noConditionSearch(
-      customSecurityAccount,
-      limit * page,
-      limit
-    );
+    return memoDao.noConditionSearch(customSecurityAccount, limit * page, limit);
   }
 
   /**
@@ -127,18 +109,12 @@ public class MemoServiceImpl implements MemoService {
    */
   @Override
   public List<Memo> searchTitle(
-    String selectTitle,
-    CustomSecurityAccount customSecurityAccount,
-    HashMap<String, String> search
-  ) {
+      String selectTitle,
+      CustomSecurityAccount customSecurityAccount,
+      HashMap<String, String> search) {
     final int limit = Integer.parseInt(search.get("limit"));
     final int page = Integer.valueOf(search.get("page")) - 1;
-    return memoDao.searchTitle(
-      selectTitle,
-      customSecurityAccount,
-      limit * page,
-      limit
-    );
+    return memoDao.searchTitle(selectTitle, customSecurityAccount, limit * page, limit);
   }
 
   /**
@@ -151,18 +127,12 @@ public class MemoServiceImpl implements MemoService {
    */
   @Override
   public List<Memo> searchCategory(
-    String selectCategory,
-    CustomSecurityAccount customSecurityAccount,
-    HashMap<String, String> search
-  ) {
+      String selectCategory,
+      CustomSecurityAccount customSecurityAccount,
+      HashMap<String, String> search) {
     final int limit = Integer.parseInt(search.get("limit"));
     final int page = Integer.valueOf(search.get("page")) - 1;
-    return memoDao.searchCategory(
-      selectCategory,
-      customSecurityAccount,
-      limit * page,
-      limit
-    );
+    return memoDao.searchCategory(selectCategory, customSecurityAccount, limit * page, limit);
   }
 
   /**
@@ -175,17 +145,11 @@ public class MemoServiceImpl implements MemoService {
    */
   @Override
   public List<Memo> searchBookName(
-    String selectBook,
-    CustomSecurityAccount customSecurityAccount,
-    HashMap<String, String> search
-  ) {
+      String selectBook,
+      CustomSecurityAccount customSecurityAccount,
+      HashMap<String, String> search) {
     final int limit = Integer.parseInt(search.get("limit"));
     final int page = Integer.valueOf(search.get("page")) - 1;
-    return memoDao.searchBookName(
-      selectBook,
-      customSecurityAccount,
-      page,
-      limit
-    );
+    return memoDao.searchBookName(selectBook, customSecurityAccount, page, limit);
   }
 }

@@ -43,10 +43,7 @@ public class MemoController {
 
   @Autowired
   public MemoController(
-    MemoService memoService,
-    MemoRepository memoRepository,
-    HttpServletRequest req
-  ) {
+      MemoService memoService, MemoRepository memoRepository, HttpServletRequest req) {
     this.memoService = memoService;
     this.memoRepository = memoRepository;
     this.req = req;
@@ -54,21 +51,16 @@ public class MemoController {
 
   @GetMapping("")
   public String getMemoListPage(
-    Model model,
-    @RequestParam HashMap<String, String> params,
-    @AuthenticationPrincipal CustomSecurityAccount customSecurityAccount,
-    RedirectAttributes redirectAttributes
-  ) {
+      Model model,
+      @RequestParam HashMap<String, String> params,
+      @AuthenticationPrincipal CustomSecurityAccount customSecurityAccount,
+      RedirectAttributes redirectAttributes) {
     req.getSession().removeAttribute("memoId");
 
-    if (isAdmin(customSecurityAccount)) model.addAttribute(
-      "admin",
-      "管理者画面へ"
-    );
+    if (isAdmin(customSecurityAccount)) model.addAttribute("admin", "管理者画面へ");
 
-    final List<String> categoryList = memoService.findDistinctCategoryByAccount(
-      customSecurityAccount
-    );
+    final List<String> categoryList =
+        memoService.findDistinctCategoryByAccount(customSecurityAccount);
     // パラメータを設定し、現在のページを取得する
     String currentPage = params.get("page");
     // 初期表示ではパラメータを取得できないので、1ページに設定
@@ -92,16 +84,14 @@ public class MemoController {
 
     // pagination処理
     // "総数/1ページの表示数"から総ページ数を割り出す
-    final long totalPage =
-      (total + Integer.valueOf(limit) - 1) / Integer.valueOf(limit);
+    final long totalPage = (total + Integer.valueOf(limit) - 1) / Integer.valueOf(limit);
     final int page = Integer.parseInt(currentPage);
     // 表示する最初のページ番号を算出（今回は3ページ表示する設定）
     // (例)1,2,3ページのstartPageは1。4,5,6ページのstartPageは4
     final int startPage = page - (page - 1) % showPageSize;
     // 表示する最後のページ番号を算出
-    final long endPage = startPage + showPageSize - 1 > totalPage
-      ? totalPage
-      : startPage + showPageSize - 1;
+    final long endPage =
+        startPage + showPageSize - 1 > totalPage ? totalPage : startPage + showPageSize - 1;
 
     model.addAttribute("categoryList", categoryList);
     model.addAttribute("memoList", memoList);
@@ -115,20 +105,15 @@ public class MemoController {
 
   @GetMapping("/title")
   public String getTitleMemoListPage(
-    @RequestParam HashMap<String, String> params,
-    @AuthenticationPrincipal CustomSecurityAccount customSecurityAccount,
-    Model model
-  ) {
+      @RequestParam HashMap<String, String> params,
+      @AuthenticationPrincipal CustomSecurityAccount customSecurityAccount,
+      Model model) {
     req.getSession().removeAttribute("memoId");
 
-    if (isAdmin(customSecurityAccount)) model.addAttribute(
-      "admin",
-      "管理者画面へ"
-    );
+    if (isAdmin(customSecurityAccount)) model.addAttribute("admin", "管理者画面へ");
 
-    final List<String> categoryList = memoService.findDistinctCategoryByAccount(
-      customSecurityAccount
-    );
+    final List<String> categoryList =
+        memoService.findDistinctCategoryByAccount(customSecurityAccount);
     final String selectTitle = params.get("selectTitle");
     String currentPage = params.get("page");
     if (currentPage == null) currentPage = "1";
@@ -140,25 +125,18 @@ public class MemoController {
     Long total = 0L;
     List<Memo> memoList = null;
     try {
-      total =
-        memoService.countTitleByTitleAndAccount(
-          selectTitle,
-          customSecurityAccount
-        );
-      memoList =
-        memoService.searchTitle(selectTitle, customSecurityAccount, search);
+      total = memoService.countTitleByTitleAndAccount(selectTitle, customSecurityAccount);
+      memoList = memoService.searchTitle(selectTitle, customSecurityAccount, search);
     } catch (final Exception e) {
       e.printStackTrace();
       return "error/faital";
     }
 
-    final long totalPage =
-      (total + Integer.valueOf(limit) - 1) / Integer.valueOf(limit);
+    final long totalPage = (total + Integer.valueOf(limit) - 1) / Integer.valueOf(limit);
     final int page = Integer.parseInt(currentPage);
     final int startPage = page - (page - 1) % showPageSize;
-    final long endPage = startPage + showPageSize - 1 > totalPage
-      ? totalPage
-      : startPage + showPageSize - 1;
+    final long endPage =
+        startPage + showPageSize - 1 > totalPage ? totalPage : startPage + showPageSize - 1;
 
     model.addAttribute("selectTitle", selectTitle);
     model.addAttribute("categoryList", categoryList);
@@ -173,20 +151,15 @@ public class MemoController {
 
   @GetMapping("/category")
   public String getCategoryMemoListPage(
-    @RequestParam HashMap<String, String> params,
-    @AuthenticationPrincipal CustomSecurityAccount customSecurityAccount,
-    Model model
-  ) {
+      @RequestParam HashMap<String, String> params,
+      @AuthenticationPrincipal CustomSecurityAccount customSecurityAccount,
+      Model model) {
     req.getSession().removeAttribute("memoId");
 
-    if (isAdmin(customSecurityAccount)) model.addAttribute(
-      "admin",
-      "管理者画面へ"
-    );
+    if (isAdmin(customSecurityAccount)) model.addAttribute("admin", "管理者画面へ");
 
-    final List<String> categoryList = memoService.findDistinctCategoryByAccount(
-      customSecurityAccount
-    );
+    final List<String> categoryList =
+        memoService.findDistinctCategoryByAccount(customSecurityAccount);
     String currentPage = params.get("page");
     final String selectCategory = params.get("selectCategory");
 
@@ -199,28 +172,17 @@ public class MemoController {
     Long total = 0L;
     List<Memo> memoList = null;
     try {
-      total =
-        memoService.countCategoryByCategoryAndAccount(
-          selectCategory,
-          customSecurityAccount
-        );
-      memoList =
-        memoService.searchCategory(
-          selectCategory,
-          customSecurityAccount,
-          search
-        );
+      total = memoService.countCategoryByCategoryAndAccount(selectCategory, customSecurityAccount);
+      memoList = memoService.searchCategory(selectCategory, customSecurityAccount, search);
     } catch (final Exception e) {
       e.printStackTrace();
     }
 
-    final long totalPage =
-      (total + Integer.valueOf(limit) - 1) / Integer.valueOf(limit);
+    final long totalPage = (total + Integer.valueOf(limit) - 1) / Integer.valueOf(limit);
     final int page = Integer.parseInt(currentPage);
     final int startPage = page - (page - 1) % showPageSize;
-    final long endPage = startPage + showPageSize - 1 > totalPage
-      ? totalPage
-      : startPage + showPageSize - 1;
+    final long endPage =
+        startPage + showPageSize - 1 > totalPage ? totalPage : startPage + showPageSize - 1;
 
     model.addAttribute("selectCategory", selectCategory);
     model.addAttribute("categoryList", categoryList);
@@ -235,17 +197,12 @@ public class MemoController {
 
   @GetMapping("/book")
   public String getBookMemoListPage(
-    @RequestParam HashMap<String, String> params,
-    @AuthenticationPrincipal CustomSecurityAccount customSecurityAccount,
-    Model model
-  ) {
-    if (isAdmin(customSecurityAccount)) model.addAttribute(
-      "admin",
-      "管理者画面へ"
-    );
-    final List<String> categoryList = memoService.findDistinctCategoryByAccount(
-      customSecurityAccount
-    );
+      @RequestParam HashMap<String, String> params,
+      @AuthenticationPrincipal CustomSecurityAccount customSecurityAccount,
+      Model model) {
+    if (isAdmin(customSecurityAccount)) model.addAttribute("admin", "管理者画面へ");
+    final List<String> categoryList =
+        memoService.findDistinctCategoryByAccount(customSecurityAccount);
     String currentPage = params.get("page");
     final String selectBook = params.get("selectBook");
 
@@ -258,24 +215,17 @@ public class MemoController {
     Long total = 0L;
     List<Memo> memoList = null;
     try {
-      total =
-        memoService.countBookNameByBookNameAndAccount(
-          selectBook,
-          customSecurityAccount
-        );
-      memoList =
-        memoService.searchBookName(selectBook, customSecurityAccount, search);
+      total = memoService.countBookNameByBookNameAndAccount(selectBook, customSecurityAccount);
+      memoList = memoService.searchBookName(selectBook, customSecurityAccount, search);
     } catch (final Exception e) {
       e.printStackTrace();
     }
 
-    final long totalPage =
-      (total + Integer.valueOf(limit) - 1) / Integer.valueOf(limit);
+    final long totalPage = (total + Integer.valueOf(limit) - 1) / Integer.valueOf(limit);
     final int page = Integer.parseInt(currentPage);
     final int startPage = page - (page - 1) % showPageSize;
-    final long endPage = startPage + showPageSize - 1 > totalPage
-      ? totalPage
-      : startPage + showPageSize - 1;
+    final long endPage =
+        startPage + showPageSize - 1 > totalPage ? totalPage : startPage + showPageSize - 1;
 
     model.addAttribute("selectBook", selectBook);
     model.addAttribute("categoryList", categoryList);
@@ -290,16 +240,10 @@ public class MemoController {
 
   @GetMapping("/create")
   public String getMemoCreatePage(
-    @AuthenticationPrincipal CustomSecurityAccount customSecurityAccount,
-    Model model
-  ) {
-    final List<String> categoryList = memoService.findDistinctCategoryByAccount(
-      customSecurityAccount
-    );
-    if (isAdmin(customSecurityAccount)) model.addAttribute(
-      "admin",
-      "管理者画面へ"
-    );
+      @AuthenticationPrincipal CustomSecurityAccount customSecurityAccount, Model model) {
+    final List<String> categoryList =
+        memoService.findDistinctCategoryByAccount(customSecurityAccount);
+    if (isAdmin(customSecurityAccount)) model.addAttribute("admin", "管理者画面へ");
 
     model.addAttribute("memoForm", new MemoForm());
     model.addAttribute("categoryList", categoryList);
@@ -308,12 +252,11 @@ public class MemoController {
 
   @PostMapping("/create")
   public String postMemoCreatePage(
-    @Validated MemoForm memoForm,
-    BindingResult result,
-    Model model,
-    @AuthenticationPrincipal CustomSecurityAccount customSecurityAccount,
-    RedirectAttributes redirectAttributes
-  ) {
+      @Validated MemoForm memoForm,
+      BindingResult result,
+      Model model,
+      @AuthenticationPrincipal CustomSecurityAccount customSecurityAccount,
+      RedirectAttributes redirectAttributes) {
     if (result.hasErrors()) {
       model.addAttribute("memoForm", memoForm);
       return "memo/memo-create";
@@ -328,21 +271,16 @@ public class MemoController {
 
   @GetMapping("/details")
   public String getMemoDetailsPage(
-    @RequestParam HashMap<String, String> params,
-    @AuthenticationPrincipal CustomSecurityAccount customSecurityAccount,
-    Model model,
-    HttpServletRequest req
-  ) {
+      @RequestParam HashMap<String, String> params,
+      @AuthenticationPrincipal CustomSecurityAccount customSecurityAccount,
+      Model model,
+      HttpServletRequest req) {
     final long memoId = Long.parseLong(params.get("memoId"));
     req.getSession().setAttribute("memoId", memoId);
-    if (isAdmin(customSecurityAccount)) model.addAttribute(
-      "admin",
-      "管理者画面へ"
-    );
+    if (isAdmin(customSecurityAccount)) model.addAttribute("admin", "管理者画面へ");
 
-    final List<String> categoryList = memoService.findDistinctCategoryByAccount(
-      customSecurityAccount
-    );
+    final List<String> categoryList =
+        memoService.findDistinctCategoryByAccount(customSecurityAccount);
     final Optional<Memo> optionalMemo = memoRepository.findById(memoId);
     if (optionalMemo.isPresent()) {
       final Memo memo = optionalMemo.get();
@@ -356,12 +294,11 @@ public class MemoController {
 
   @PostMapping("/details")
   public String putMemoUpdatePage(
-    @Validated MemoForm memoForm,
-    BindingResult result,
-    Model model,
-    @AuthenticationPrincipal CustomSecurityAccount customSecurityAccount,
-    RedirectAttributes redirectAttributes
-  ) {
+      @Validated MemoForm memoForm,
+      BindingResult result,
+      Model model,
+      @AuthenticationPrincipal CustomSecurityAccount customSecurityAccount,
+      RedirectAttributes redirectAttributes) {
     final long memoId = (long) req.getSession().getAttribute("memoId");
     if (result.hasErrors()) {
       model.addAttribute("memoForm", memoForm);
@@ -378,15 +315,13 @@ public class MemoController {
 
   @GetMapping("/delete")
   public String deleteConfirmPage(
-    MemoForm memoForm,
-    @AuthenticationPrincipal CustomSecurityAccount customSecurityAccount,
-    Model model
-  ) {
+      MemoForm memoForm,
+      @AuthenticationPrincipal CustomSecurityAccount customSecurityAccount,
+      Model model) {
     final long memoId = (long) req.getSession().getAttribute("memoId");
 
-    final List<String> categoryList = memoService.findDistinctCategoryByAccount(
-      customSecurityAccount
-    );
+    final List<String> categoryList =
+        memoService.findDistinctCategoryByAccount(customSecurityAccount);
     final Optional<Memo> optional = memoRepository.findById(memoId);
     if (optional.isPresent()) {
       final Memo memo = optional.get();
@@ -416,10 +351,7 @@ public class MemoController {
     return memoForm;
   }
 
-  private Memo makeMemo(
-    MemoForm memoForm,
-    CustomSecurityAccount customSecurityAccount
-  ) {
+  private Memo makeMemo(MemoForm memoForm, CustomSecurityAccount customSecurityAccount) {
     final Memo memo = new Memo();
     memo.setMemoId(memoForm.getMemoId());
     memo.setTitle(memoForm.getTitle());

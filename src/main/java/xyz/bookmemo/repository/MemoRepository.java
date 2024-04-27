@@ -26,9 +26,8 @@ public interface MemoRepository extends JpaRepository<Memo, Long> {
   /**
    * "Find all memos that belong to the account with the given accountId."
    *
-   * The @Secured annotation is a Spring Security annotation that restricts access
-   * to this function to
-   * users with the ROLE_ADMIN role
+   * <p>The @Secured annotation is a Spring Security annotation that restricts access to this
+   * function to users with the ROLE_ADMIN role
    *
    * @param accountId The ID of the account to search for.
    */
@@ -40,18 +39,15 @@ public interface MemoRepository extends JpaRepository<Memo, Long> {
   /**
    * "Find all memos that belong to the account with the given accountId."
    *
-   * The @Secured annotation is a Spring Security annotation that restricts access to this function to
-   * users with the ROLE_ADMIN role
+   * <p>The @Secured annotation is a Spring Security annotation that restricts access to this
+   * function to users with the ROLE_ADMIN role
    *
    * @param accountId The ID of the account to search for.
    * @return A list of memos
    */
   @Secured("ROLE_ADMIN")
   @Transactional(readOnly = true)
-  @Query(
-    value = "select * from memos where account_id = ?1",
-    nativeQuery = true
-  )
+  @Query(value = "select * from memos where account_id = ?1", nativeQuery = true)
   List<Memo> findByAccountId(Long accountId);
 
   /**
@@ -62,9 +58,6 @@ public interface MemoRepository extends JpaRepository<Memo, Long> {
   @Secured("ROLE_ADMIN")
   @Modifying(clearAutomatically = true, flushAutomatically = false)
   @Transactional(readOnly = false)
-  @Query(
-    value = "DELETE FROM memos WHERE memo_id = :memoId",
-    nativeQuery = true
-  )
+  @Query(value = "DELETE FROM memos WHERE memo_id = :memoId", nativeQuery = true)
   void deleteByMemoId(@Param("memoId") Long memoId);
 }

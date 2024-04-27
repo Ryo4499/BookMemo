@@ -12,9 +12,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import lombok.Data;
 
-/**
- * A role is a set of permissions that can be assigned to an account
- */
+/** A role is a set of permissions that can be assigned to an account */
 @Data
 @Entity
 @Table(name = "roles")

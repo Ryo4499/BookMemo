@@ -25,10 +25,7 @@ public class AdminController {
   private final MemoRepository memoRepository;
 
   @Autowired
-  public AdminController(
-    AccountRepository accountRepository,
-    MemoRepository memoRepository
-  ) {
+  public AdminController(AccountRepository accountRepository, MemoRepository memoRepository) {
     this.accountRepository = accountRepository;
     this.memoRepository = memoRepository;
   }
@@ -43,10 +40,9 @@ public class AdminController {
 
   @GetMapping("/delete")
   public String getDeleteAccountConfirmPage(
-    @RequestParam HashMap<String, String> params,
-    Model model,
-    RedirectAttributes redirectAttributes
-  ) {
+      @RequestParam HashMap<String, String> params,
+      Model model,
+      RedirectAttributes redirectAttributes) {
     final Long accountId = Long.parseLong(params.get("accountId"));
     final Optional<Account> optional = accountRepository.findById(accountId);
     if (optional.isPresent()) {
@@ -55,19 +51,15 @@ public class AdminController {
       model.addAttribute("account", account);
       return "admin/account-delete-confirm";
     }
-    redirectAttributes.addFlashAttribute(
-      "message",
-      "アカウントが見つかりません"
-    );
+    redirectAttributes.addFlashAttribute("message", "アカウントが見つかりません");
     return "redirect:/admin";
   }
 
   @PostMapping("/delete")
   public String postDeleteAccount(
-    @RequestParam HashMap<String, String> params,
-    RedirectAttributes redirectAttributes,
-    SessionStatus sessionStatus
-  ) {
+      @RequestParam HashMap<String, String> params,
+      RedirectAttributes redirectAttributes,
+      SessionStatus sessionStatus) {
     accountRepository.deleteById(Long.parseLong(params.get("id")));
     redirectAttributes.addFlashAttribute("message", "アカウントを削除しました");
     sessionStatus.setComplete();
@@ -75,10 +67,7 @@ public class AdminController {
   }
 
   @GetMapping("/show")
-  public String getAllMemoByAccountPage(
-    @RequestParam HashMap<String, String> params,
-    Model model
-  ) {
+  public String getAllMemoByAccountPage(@RequestParam HashMap<String, String> params, Model model) {
     final Long accountId = Long.parseLong(params.get("accountId"));
     final String name = params.get("accountName");
     final List<Memo> memos = memoRepository.findByAccountId(accountId);

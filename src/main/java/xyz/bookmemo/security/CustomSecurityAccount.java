@@ -11,9 +11,7 @@ public class CustomSecurityAccount extends Account implements UserDetails {
 
   private static final long serialVersionUID = 6518052067649649105L;
 
-  @Getter
-  @Setter
-  private Set<GrantedAuthority> authorities;
+  @Getter @Setter private Set<GrantedAuthority> authorities;
 
   public CustomSecurityAccount(Account account, Set<GrantedAuthority> set) {
     setAuthorities(set);
@@ -43,9 +41,7 @@ public class CustomSecurityAccount extends Account implements UserDetails {
     return true;
   }
 
-  /**
-   * > This function returns true if the account is not locked, false otherwise
-   */
+  /** > This function returns true if the account is not locked, false otherwise */
   @Override
   public boolean isAccountNonLocked() {
     return true;

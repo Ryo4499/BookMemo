@@ -1,7 +1,7 @@
-FROM openjdk:11
+#FROM openjdk:11
+FROM gradle:jdk11
 
-WORKDIR /srv
-COPY . .
-RUN ./gradlew build
-EXPOSE 8080
-ENTRYPOINT ["./gradlew","bootRun"]
+WORKDIR /BookMemo
+#COPY . .
+#RUN ./gradlew build
+CMD ["sh"]

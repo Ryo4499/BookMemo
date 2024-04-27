@@ -33,12 +33,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
    * @return A CustomSecurityAccount object.
    */
   @Override
-  public UserDetails loadUserByUsername(String email)
-    throws UsernameNotFoundException {
+  public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
     final Account account = accountRepository.findByEmail(email);
-    if (account == null) throw new UsernameNotFoundException(
-      "Username and or password was incorrect."
-    );
+    if (account == null)
+      throw new UsernameNotFoundException("Username and or password was incorrect.");
     return new CustomSecurityAccount(account, getAuthorities(account));
   }
 
@@ -51,9 +49,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
   private Set<GrantedAuthority> getAuthorities(Account account) {
     final Set<GrantedAuthority> authorities = new HashSet<>();
     for (final Role authrity : account.getRoles()) {
-      final GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(
-        authrity.getAuthority()
-      );
+      final GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(authrity.getAuthority());
       authorities.add(grantedAuthority);
     }
     return authorities;

@@ -4,9 +4,7 @@ import java.util.Date;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
-/**
- * The Account_ class is a metamodel class that represents the Account class
- */
+/** The Account_ class is a metamodel class that represents the Account class */
 @StaticMetamodel(PersistentLogins.class)
 public class PersistentLogins_ {
 

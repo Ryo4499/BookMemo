@@ -13,32 +13,28 @@ public class MemoForm {
   @NotEmpty(message = "Title is empty.")
   @Size(min = 1, max = 30, message = "1文字以上30文字以下で入力して下さい")
   @Pattern(
-    regexp = "[^!\"#$%&'()\\*\\+\\-\\.,\\/:;<=>?@\\[\\\\\\]^_`{|}~]+",
-    message = "特殊記号は使えません"
-  )
+      regexp = "[^!\"#$%&'()\\*\\+\\-\\.,\\/:;<=>?@\\[\\\\\\]^_`{|}~]+",
+      message = "特殊記号は使えません")
   private String title;
 
   @NotEmpty(message = "Content is empty.")
   @Size(min = 1, max = 3000, message = "1文字以上3000文字以下で入力して下さい")
   @Pattern(
-    regexp = "[^!\"#$%&'()\\*\\+\\-\\.,\\/:;<=>?@\\[\\\\\\]^_`{|}~]+",
-    message = "特殊記号は使えません"
-  )
+      regexp = "[^!\"#$%&'()\\*\\+\\-\\.,\\/:;<=>?@\\[\\\\\\]^_`{|}~]+",
+      message = "特殊記号は使えません")
   private String content;
 
   @NotEmpty(message = "Category is empty.")
   @Size(min = 1, max = 30, message = "1文字以上30文字以下で入力して下さい")
   @Pattern(
-    regexp = "[^!\"#$%&'()\\*\\+\\-\\.,\\/:;<=>?@\\[\\\\\\]^_`{|}~]+",
-    message = "特殊記号は使えません"
-  )
+      regexp = "[^!\"#$%&'()\\*\\+\\-\\.,\\/:;<=>?@\\[\\\\\\]^_`{|}~]+",
+      message = "特殊記号は使えません")
   private String category;
 
   @NotEmpty(message = "Book name is empty.")
   @Size(min = 1, max = 30, message = "1文字以上30文字以下で入力して下さい")
   @Pattern(
-    regexp = "[^!\"#$%&'()\\*\\+\\-\\.,\\/:;<=>?@\\[\\\\\\]^_`{|}~]+",
-    message = "特殊記号は使えません"
-  )
+      regexp = "[^!\"#$%&'()\\*\\+\\-\\.,\\/:;<=>?@\\[\\\\\\]^_`{|}~]+",
+      message = "特殊記号は使えません")
   private String bookName;
 }

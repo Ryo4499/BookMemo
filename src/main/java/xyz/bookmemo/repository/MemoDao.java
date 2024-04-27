@@ -14,7 +14,8 @@ public interface MemoDao {
   List<String> findDistinctCategoryByAccount(Account account);
 
   /**
-   * Count the number of Memo objects that have a particular Account object as their account property.
+   * Count the number of Memo objects that have a particular Account object as their account
+   * property.
    *
    * @param account The account to search for.
    * @return Long
@@ -22,19 +23,16 @@ public interface MemoDao {
   Long countMemoIdByAccount(Account account);
 
   /**
-   * "Count the number of categories that contain the given category and are associated with the given
-   * account."
+   * "Count the number of categories that contain the given category and are associated with the
+   * given account."
    *
-   * The first parameter is a String, the second is an Account object
+   * <p>The first parameter is a String, the second is an Account object
    *
    * @param category The category to search for.
    * @param account The account to search for.
    * @return A Long
    */
-  Long countCategoryByContainingCategoryAndAccount(
-    String category,
-    Account account
-  );
+  Long countCategoryByContainingCategoryAndAccount(String category, Account account);
 
   /**
    * Count the number of titles that contain the given title and belong to the given account.
@@ -48,17 +46,14 @@ public interface MemoDao {
   /**
    * "Count the number of books with the given name that are owned by the given account."
    *
-   * The first thing to notice is that the function name is very descriptive. It tells us exactly what
-   * the function does
+   * <p>The first thing to notice is that the function name is very descriptive. It tells us exactly
+   * what the function does
    *
    * @param bookName The book name to search for.
    * @param account The account that the book belongs to.
    * @return A Long
    */
-  Long countBookNameByContainingBookNameAndAccount(
-    String bookName,
-    Account account
-  );
+  Long countBookNameByContainingBookNameAndAccount(String bookName, Account account);
 
   /**
    * Search for memos that are not associated with any condition.
@@ -73,8 +68,9 @@ public interface MemoDao {
   /**
    * "Search for memos with a title that contains the given string, and return the results."
    *
-   * The first parameter is the string to search for. The second parameter is the account to search in.
-   * The third and fourth parameters are the page number and the number of results to return
+   * <p>The first parameter is the string to search for. The second parameter is the account to
+   * search in. The third and fourth parameters are the page number and the number of results to
+   * return
    *
    * @param selectTitle The title you want to search for.
    * @param account The account that the memos are associated with.
@@ -82,19 +78,14 @@ public interface MemoDao {
    * @param limit The number of memos to be displayed per page.
    * @return A list of memos that match the search criteria.
    */
-  List<Memo> searchTitle(
-    String selectTitle,
-    Account account,
-    int page,
-    int limit
-  );
+  List<Memo> searchTitle(String selectTitle, Account account, int page, int limit);
 
   /**
    * "Search for memos in a category."
    *
-   * The first parameter is the category to search for. The second parameter is the account to search
-   * in. The third parameter is the page number to return. The fourth parameter is the number of
-   * results to return per page
+   * <p>The first parameter is the category to search for. The second parameter is the account to
+   * search in. The third parameter is the page number to return. The fourth parameter is the number
+   * of results to return per page
    *
    * @param selectCategory The category you want to search for.
    * @param account The account that the memos are associated with.
@@ -102,19 +93,14 @@ public interface MemoDao {
    * @param limit The number of memos to be returned.
    * @return A list of memos that match the search criteria.
    */
-  List<Memo> searchCategory(
-    String selectCategory,
-    Account account,
-    int page,
-    int limit
-  );
+  List<Memo> searchCategory(String selectCategory, Account account, int page, int limit);
 
   /**
    * "Search for memos with the given book name, and return the results."
    *
-   * The first parameter is the book name to search for. The second parameter is the account that is
-   * doing the search. The third and fourth parameters are the page number and the number of results to
-   * return
+   * <p>The first parameter is the book name to search for. The second parameter is the account that
+   * is doing the search. The third and fourth parameters are the page number and the number of
+   * results to return
    *
    * @param selectBookName The name of the book you want to search for.
    * @param account The account that is currently logged in.
@@ -122,10 +108,5 @@ public interface MemoDao {
    * @param limit The number of records to be displayed per page.
    * @return A list of Memo objects.
    */
-  List<Memo> searchBookName(
-    String selectBookName,
-    Account account,
-    int page,
-    int limit
-  );
+  List<Memo> searchBookName(String selectBookName, Account account, int page, int limit);
 }

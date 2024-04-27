@@ -6,9 +6,7 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.session.jdbc.config.annotation.web.http.EnableJdbcHttpSession;
 import org.springframework.transaction.PlatformTransactionManager;
 
-/**
- * The function creates a transaction manager for the data source
- */
+/** The function creates a transaction manager for the data source */
 @EnableJdbcHttpSession
 public class JdbcSessionConfig {
 

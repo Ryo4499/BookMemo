@@ -20,7 +20,8 @@ public interface MemoService {
   List<String> findDistinctCategoryByAccount(Account account);
 
   /**
-   * Count the number of Memo objects that have a particular Account object as their account property.
+   * Count the number of Memo objects that have a particular Account object as their account
+   * property.
    *
    * @param account The account to search for.
    * @return Long
@@ -57,18 +58,16 @@ public interface MemoService {
   /**
    * "Search for memos with no conditions."
    *
-   * The first parameter is a custom security account. The second parameter is a hash map of search
-   * conditions
+   * <p>The first parameter is a custom security account. The second parameter is a hash map of
+   * search conditions
    *
    * @param customSecurityAccount The account of the user who is currently logged in.
    * @param search A HashMap of search parameters. The key is the column name, and the value is the
-   * search term.
+   *     search term.
    * @return A list of memos that match the search criteria.
    */
   List<Memo> noConditionSearch(
-    CustomSecurityAccount customSecurityAccount,
-    HashMap<String, String> search
-  );
+      CustomSecurityAccount customSecurityAccount, HashMap<String, String> search);
 
   /**
    * It searches for a memo with a title that matches the selectTitle parameter.
@@ -79,10 +78,9 @@ public interface MemoService {
    * @return A list of memos that match the search criteria.
    */
   List<Memo> searchTitle(
-    String selectTitle,
-    CustomSecurityAccount customSecurityAccount,
-    HashMap<String, String> search
-  );
+      String selectTitle,
+      CustomSecurityAccount customSecurityAccount,
+      HashMap<String, String> search);
 
   /**
    * It searches for a memo in a category.
@@ -93,10 +91,9 @@ public interface MemoService {
    * @return A list of memos that match the search criteria.
    */
   List<Memo> searchCategory(
-    String selectCategory,
-    CustomSecurityAccount customSecurityAccount,
-    HashMap<String, String> search
-  );
+      String selectCategory,
+      CustomSecurityAccount customSecurityAccount,
+      HashMap<String, String> search);
 
   /**
    * It searches for a memo in a category.
@@ -107,8 +104,7 @@ public interface MemoService {
    * @return A list of memos that match the search criteria.
    */
   List<Memo> searchBookName(
-    String selectBook,
-    CustomSecurityAccount customSecurityAccount,
-    HashMap<String, String> search
-  );
+      String selectBook,
+      CustomSecurityAccount customSecurityAccount,
+      HashMap<String, String> search);
 }

@@ -4,9 +4,7 @@ import java.util.Date;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
-/**
- * The above class is a metamodel class that represents the entity class Memo
- */
+/** The above class is a metamodel class that represents the entity class Memo */
 @StaticMetamodel(Memo.class)
 public class Memo_ {
 

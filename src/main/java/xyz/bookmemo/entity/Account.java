@@ -15,13 +15,10 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-/**
- * It's a class that represents an account
- */
+/** It's a class that represents an account */
 @Getter
 @Setter
 @Entity
@@ -45,24 +42,16 @@ public class Account implements Serializable {
   private String password;
 
   @OneToMany(
-    fetch = FetchType.LAZY,
-    cascade = CascadeType.ALL,
-    orphanRemoval = true,
-    mappedBy = "account"
-  )
+      fetch = FetchType.LAZY,
+      cascade = CascadeType.ALL,
+      orphanRemoval = true,
+      mappedBy = "account")
   private List<Memo> memos;
 
   @ManyToMany(fetch = FetchType.EAGER)
   @JoinTable(
-    name = "account_role",
-    joinColumns = @JoinColumn(
-      name = "account_id",
-      referencedColumnName = "account_id"
-    ),
-    inverseJoinColumns = @JoinColumn(
-      name = "role_id",
-      referencedColumnName = "id"
-    )
-  )
+      name = "account_role",
+      joinColumns = @JoinColumn(name = "account_id", referencedColumnName = "account_id"),
+      inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
   private Set<Role> roles;
 }

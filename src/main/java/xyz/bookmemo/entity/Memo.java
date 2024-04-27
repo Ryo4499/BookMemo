@@ -15,9 +15,7 @@ import javax.persistence.TemporalType;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
-/**
- * It's a class that represents a memo
- */
+/** It's a class that represents a memo */
 @Data
 @Entity
 @Table(name = "memos")
@@ -48,19 +46,17 @@ public class Memo implements Serializable {
 
   @Temporal(TemporalType.TIMESTAMP)
   @Column(
-    name = "created_date",
-    nullable = false,
-    columnDefinition = "TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP"
-  )
+      name = "created_date",
+      nullable = false,
+      columnDefinition = "TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP")
   @DateTimeFormat(pattern = "yyyy-MM-dd")
   private Date createdDate;
 
   @Temporal(TemporalType.TIMESTAMP)
   @Column(
-    name = "updated_date",
-    nullable = false,
-    columnDefinition = "TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP"
-  )
+      name = "updated_date",
+      nullable = false,
+      columnDefinition = "TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP")
   @DateTimeFormat(pattern = "yyyy-MM-dd")
   private Date updatedDate;
 
