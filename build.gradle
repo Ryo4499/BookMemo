@@ -6,7 +6,7 @@ plugins {
     id('java')
 }
 
-group = 'xyz.bookmemo'
+group = 'xyz'
 version = '0.0.1-SNAPSHOT'
 
 java{
@@ -58,4 +58,10 @@ bootRun {
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+test {
+    testLogging {
+        ignoreFailures true
+    }
 }

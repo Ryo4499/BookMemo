@@ -66,10 +66,10 @@ server {
         add_header Strict-Transport-Security "max-age=2592000" always;
 
         # DEV CONFIG
-        #ssl_certificate /etc/letsencrypt/localhost.crt;
-        #ssl_certificate_key /etc/letsencrypt/localhost.key;
-        ssl_certificate /etc/letsencrypt/live/datsujinkai.com/fullchain.pem;
-        ssl_certificate_key /etc/letsencrypt/live/datsujinkai.com/privkey.pem;
+        ssl_certificate /etc/letsencrypt/localhost.crt;
+        ssl_certificate_key /etc/letsencrypt/localhost.key;
+        #ssl_certificate /etc/letsencrypt/live/${DOMAIN}/fullchain.pem;
+        #ssl_certificate_key /etc/letsencrypt/live/${DOMAIN}/privkey.pem;
 
         proxy_set_header X-Forwarded-Host $host;
         proxy_set_header X-Forwarded-Server $host;
